@@ -26,6 +26,9 @@ namespace InssiParty
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth  = 800;
+            graphics.PreferredBackBufferHeight = 600;
         }
 
        
@@ -65,7 +68,7 @@ namespace InssiParty
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            helloWorld.Update();
+            helloWorld.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -81,7 +84,7 @@ namespace InssiParty
 
             spriteBatch.Begin();
 
-            helloWorld.Render(spriteBatch);
+            helloWorld.Render(spriteBatch,gameTime);
 
             spriteBatch.End();
 

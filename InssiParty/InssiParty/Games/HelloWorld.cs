@@ -15,7 +15,7 @@ namespace InssiParty.Games
 
         private Texture2D spriteBox;
 
-        public void Load(ContentManager Content, GameTime gameTime)
+        public void Load(ContentManager Content)
         {
             spriteBox = Content.Load<Texture2D>("propelli");
         }
@@ -32,7 +32,7 @@ namespace InssiParty.Games
             Console.WriteLine("Closing hello world");
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             value++;
         }
