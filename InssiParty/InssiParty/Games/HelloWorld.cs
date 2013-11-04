@@ -15,7 +15,7 @@ namespace InssiParty.Games
 
         private Texture2D spriteBox;
 
-        public void Load(ContentManager Content)
+        public void Load(ContentManager Content, GameTime gameTime)
         {
             spriteBox = Content.Load<Texture2D>("propelli");
         }
@@ -37,7 +37,7 @@ namespace InssiParty.Games
             value++;
         }
 
-        public void Render(SpriteBatch spriteBatch)
+        public void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
 

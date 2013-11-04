@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace InssiParty.Engine
 {
@@ -12,10 +13,15 @@ namespace InssiParty.Engine
      */
     interface IGameBase
     {
+        // Load all the content that the game needs before starting
         void Load(ContentManager Content);
+
+        // Start/stop the game from running
         void Start();
         void Stop();
-        void Render(SpriteBatch spriteBatch);
-        void Update();
+
+        //These functions handle the actual gameplay and rendering
+        void Render(SpriteBatch spriteBatch, GameTime gameTime);
+        void Update(GameTime gameTime);
     }
 }

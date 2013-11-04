@@ -64,8 +64,10 @@ namespace InssiParty.Games
         /**
          * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
          * törmäys chekkaukset, pisteen laskut, yms.
+         * 
+         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             value++;
         }
@@ -74,8 +76,10 @@ namespace InssiParty.Games
          * Pelkkä piirtäminen
          * 
          * ELÄ sijoita pelilogiikkaa tänne.
+         *
+         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Render(SpriteBatch spriteBatch)
+        public void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
 
