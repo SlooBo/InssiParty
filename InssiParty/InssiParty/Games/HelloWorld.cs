@@ -16,37 +16,35 @@ namespace InssiParty.Games
      * 
      * By: Lauri Mäkinen
      */
-    class HelloWorld : IGameBase
+    class HelloWorld : GameBase
     {
-        public bool IsRunning { get; set; }
-
         private int value;
 
         private Texture2D spriteBox;
 
-        public void Load(ContentManager Content)
+        public override void Load(ContentManager Content)
         {
             spriteBox = Content.Load<Texture2D>("propelli");
         }
 
-        public void Start()
+        public override void Start()
         {
             Console.WriteLine("Starting hello world");
             
             value = 0;
         }
 
-        public void Stop()
+        public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             value++;
         }
 
-        public void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
 

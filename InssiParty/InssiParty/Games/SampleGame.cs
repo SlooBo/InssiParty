@@ -30,10 +30,8 @@ namespace InssiParty.Games
      * 
      * By: Tekijän Nimi
      */
-    class SampleGame : IGameBase
+    class SampleGame : GameBase
     {
-        public bool IsRunning { get; set; }
-
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
 
@@ -45,7 +43,7 @@ namespace InssiParty.Games
          * 
          * Ajetaan kun koko ohjelma käynnistyy.
          */
-        public void Load(ContentManager Content)
+        public override void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             spriteBox = Content.Load<Texture2D>("propelli");
@@ -56,7 +54,7 @@ namespace InssiParty.Games
          * 
          * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
          */
-        public void Start()
+        public override void Start()
         {
             Console.WriteLine("Starting hello world");
             
@@ -66,7 +64,7 @@ namespace InssiParty.Games
         /**
          * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
          */
-        public void Stop()
+        public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
@@ -77,7 +75,7 @@ namespace InssiParty.Games
          * 
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             value--;
 
@@ -96,7 +94,7 @@ namespace InssiParty.Games
          *
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
 

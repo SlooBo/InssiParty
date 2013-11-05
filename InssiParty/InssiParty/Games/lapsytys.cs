@@ -26,10 +26,8 @@ namespace InssiParty.Games
      * 
      * By: Henri Tiihonen
      */
-    class lapsytys : IGameBase
+    class lapsytys : GameBase
     {
-        public bool IsRunning { get; set; }
-
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         Rectangle background = new Rectangle(0, 0, 800, 600);
@@ -49,7 +47,7 @@ namespace InssiParty.Games
          * 
          * Ajetaan kun koko ohjelma käynnistyy.
          */
-        public void Load(ContentManager Content)
+        public override void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backgroundTexture = Content.Load<Texture2D>("tausta_temp");
@@ -62,7 +60,7 @@ namespace InssiParty.Games
          * 
          * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
          */
-        public void Start()
+        public override void Start()
         {
             Console.WriteLine("start game");
 
@@ -78,7 +76,7 @@ namespace InssiParty.Games
         /**
          * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
          */
-        public void Stop()
+        public override void Stop()
         {
             Console.WriteLine("close game");
         }
@@ -89,7 +87,7 @@ namespace InssiParty.Games
          * 
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             var mouseState = Mouse.GetState();
 
@@ -137,7 +135,7 @@ namespace InssiParty.Games
          *
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
-        public void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
             spriteBatch.Draw(cursorTexture, cursorPos, Color.White);

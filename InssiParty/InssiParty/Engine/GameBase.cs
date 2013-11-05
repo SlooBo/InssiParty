@@ -11,24 +11,20 @@ namespace InssiParty.Engine
     /**
      * GameBase is a base class for all the games that are build.
      */
-    interface IGameBase
+    abstract class GameBase
     {
         //Is the game running or not? The game can close itself with this.
-        bool IsRunning
-        {
-            get;
-            set;
-        }
+        public bool IsRunning { get; set; }
 
         // Load all the content that the game needs before starting
-        void Load(ContentManager Content);
+        public abstract void Load(ContentManager Content);
 
         // Start/stop the game from running
-        void Start();
-        void Stop();
+        public abstract void Start();
+        public abstract void Stop();
 
         //These functions handle the actual gameplay and rendering
-        void Render(SpriteBatch spriteBatch, GameTime gameTime);
-        void Update(GameTime gameTime);
+        public abstract void Render(SpriteBatch spriteBatch, GameTime gameTime);
+        public abstract void Update(GameTime gameTime);
     }
 }

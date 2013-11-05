@@ -17,15 +17,16 @@ namespace InssiParty
     //TODO:
     // -> forcing specific game start
     // -> transition screens
+    // -> Choosing a game
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        IGameBase currentGame;
+        GameBase currentGame;
 
-        List<IGameBase> games;
+        List<GameBase> games;
 
         public InssiGame()
         {
@@ -46,7 +47,7 @@ namespace InssiParty
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            games = new List<IGameBase>();
+            games = new List<GameBase>();
 
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
@@ -55,7 +56,7 @@ namespace InssiParty
             addGame(new lapsytys());
             /* ############ */
 
-            startGame(games[2]);
+            startGame(games[0]);
         }
 
         protected override void UnloadContent()
@@ -107,7 +108,7 @@ namespace InssiParty
         /**
          * Add a new game and load it!
          */
-        private void addGame(IGameBase game)
+        private void addGame(GameBase game)
         {
             games.Add(game);
             game.Load(Content);
@@ -116,7 +117,7 @@ namespace InssiParty
         /**
          * Switch game that is running
          */
-        private void startGame(IGameBase game)
+        private void startGame(GameBase game)
         {
             game.IsRunning = false;
             currentGame = game;
