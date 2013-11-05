@@ -6,6 +6,7 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
@@ -28,9 +29,17 @@ namespace InssiParty.Games
 
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
+        Rectangle background = new Rectangle(0, 0, 800, 600);
+        private Vector2 cursorPos;
+        private Vector2 objPos;
+        int i;
 
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D spriteBox;
+        private Texture2D backgroundTexture;
+        private Texture2D cursorTexture;
+        private Texture2D objectTexture;
+        Rectangle objectRect = new Rectangle(0, 0, 64, 64);
+        Rectangle cursorRect = new Rectangle(0, 0, 64, 64);
 
         /**
          * Lataa tekstuureihin itse data.
@@ -40,7 +49,9 @@ namespace InssiParty.Games
         public void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
-            spriteBox = Content.Load<Texture2D>("propelli");
+            backgroundTexture = Content.Load<Texture2D>("tausta_temp");
+            cursorTexture = Content.Load<Texture2D>("cursor");
+            objectTexture = Content.Load<Texture2D>("obj");
         }
 
         /**
@@ -50,9 +61,15 @@ namespace InssiParty.Games
          */
         public void Start()
         {
-            Console.WriteLine("Starting hello world");
+            Console.WriteLine("start game");
 
-            value = 500;
+            objPos = new Vector2(100, 100);
+
+            i = 1;
+
+            Mouse.SetPosition(600, 300);
+            
+            value = 0;
         }
 
         /**
@@ -60,7 +77,7 @@ namespace InssiParty.Games
          */
         public void Stop()
         {
-            Console.WriteLine("Closing hello world");
+            Console.WriteLine("close game");
         }
 
         /**
@@ -71,9 +88,38 @@ namespace InssiParty.Games
          */
         public void Update(GameTime gameTime)
         {
-            value--;
+            var mouseState = Mouse.GetState();
 
-            if (value < 0)
+            cursorPos = new Vector2(mouseState.X, mouseState.Y);
+            cursorRect.X = mouseState.X;
+            cursorRect.Y = mouseState.Y;
+
+
+            objectRect.X = (int)objPos.X;
+            objectRect.Y = (int)objPos.Y;
+
+            if (objectRect.Intersects(cursorRect))
+            {
+                objPos.X = 700;
+                objPos.Y = 300;
+                objectRect.X = (int)objPos.X;
+                objectRect.Y = (int)objPos.Y;
+                value++;
+                i = 2;
+            }
+
+            if (objectRect.Intersects(cursorRect))
+            {
+                objPos.X = 100;
+                objPos.Y = 100;
+                objectRect.X = (int)objPos.X;
+                objectRect.Y = (int)objPos.Y;
+                value++;
+                i = 1;
+            }
+
+
+            if (value==10)
             {
                 //Sammuta peli kun value o pienempi kuin 0
                 //Moottori lukee IsRunning muuttujan ja sammuttaa pelin.
@@ -90,11 +136,9 @@ namespace InssiParty.Games
          */
         public void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
-
-            //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(spriteBox, new Vector2(50, value), Color.White);
+            spriteBatch.Draw(backgroundTexture, background, Color.White);
+            spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
+            spriteBatch.Draw(objectTexture, objPos, Color.White);
         }
 
     }
