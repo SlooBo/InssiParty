@@ -9,6 +9,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace InssiParty.Games
 {
+    /**
+     * HelloWorld
+     * 
+     * Nopea selitys pelistä.
+     * 
+     * By: Lauri Mäkinen
+     */
     class HelloWorld : IGameBase
     {
         public bool IsRunning { get; set; }

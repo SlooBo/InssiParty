@@ -55,7 +55,7 @@ namespace InssiParty
             addGame(new lapsytys());
             /* ############ */
 
-            startGame(games[0]);
+            startGame(games[2]);
         }
 
         protected override void UnloadContent()

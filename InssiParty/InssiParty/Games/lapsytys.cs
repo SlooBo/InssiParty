@@ -20,8 +20,11 @@ namespace InssiParty.Games
      */
 
     /**
-     * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
-     * IGameBase pitää jättää semmoiseksi
+     * Läpsytys
+     * 
+     * TODO: lisää selitys
+     * 
+     * By: Henri Tiihonen
      */
     class lapsytys : IGameBase
     {
