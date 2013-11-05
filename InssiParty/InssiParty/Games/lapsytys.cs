@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,137 +12,112 @@ using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
-
-    /**
-     * Uuden pelin luominen
-     * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostossa
-     * 
-     */
-
-    /**
-     * Läpsytys
-     * 
-     * TODO: lisää selitys
-     * 
-     * By: Henri Tiihonen
-     */
     class lapsytys : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
+        //Variaabelit
         private int value;
         Rectangle background = new Rectangle(0, 0, 800, 600);
         private Vector2 cursorPos;
-        private Vector2 objPos;
-        int i;
+        private int i, k;
 
-        //Tekstuurit pitää myös listata tässä kohdassa.
+        //Tekstuurit
         private Texture2D backgroundTexture;
         private Texture2D cursorTexture;
         private Texture2D objectTexture;
-        Rectangle objectRect = new Rectangle(0, 0, 64, 64);
-        Rectangle cursorRect = new Rectangle(0, 0, 64, 64);
 
-        /**
-         * Lataa tekstuureihin itse data.
-         * 
-         * Ajetaan kun koko ohjelma käynnistyy.
-         */
+        //parit rectanglet
+        Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
+        Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
+
+        //tekstuurien loadaus
         public override void Load(ContentManager Content)
         {
-            //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backgroundTexture = Content.Load<Texture2D>("tausta_temp");
             cursorTexture = Content.Load<Texture2D>("cursor");
-            objectTexture = Content.Load<Texture2D>("obj");
         }
 
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
+        //peli alku
         public override void Start()
         {
             Console.WriteLine("start game");
 
-            objPos = new Vector2(100, 100);
-
-            i = 1;
-
-            Mouse.SetPosition(600, 300);
-            
+            //alustus laskureille
+            i = 0;
+            k = 1;
             value = 0;
+
+            //sijainteja
+            Mouse.SetPosition(700, 300);
+            objectRect.Y = 0;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
+        //pelin loppu
         public override void Stop()
         {
             Console.WriteLine("close game");
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
+        //Update
         public override void Update(GameTime gameTime)
         {
+            //hiiri
             var mouseState = Mouse.GetState();
-
             cursorPos = new Vector2(mouseState.X, mouseState.Y);
             cursorRect.X = mouseState.X;
             cursorRect.Y = mouseState.Y;
 
-
-            objectRect.X = (int)objPos.X;
-            objectRect.Y = (int)objPos.Y;
-
-            if (objectRect.Intersects(cursorRect))
+            //LL
+            if (objectRect.Intersects(cursorRect) && k == 1)
             {
-                objPos.X = 700;
-                objPos.Y = 300;
-                objectRect.X = (int)objPos.X;
-                objectRect.Y = (int)objPos.Y;
+                objectRect.X = 0;
                 value++;
-                i = 2;
+                i++;
+                Console.WriteLine("osuma: " + i);
+                k = 2;
+            }
+            //M1
+            if (objectRect.Intersects(cursorRect) && k == 2)
+            {
+                objectRect.X = 400 - objectRect.Width / 2;
+                value++;
+                i++;
+                Console.WriteLine("osuma: " + i);
+                k = 3;
+            }
+            //RR
+            if (objectRect.Intersects(cursorRect) && k == 3)
+            {
+                objectRect.X = 800 - objectRect.Width;
+                value++;
+                i++;
+                Console.WriteLine("osuma: " + i);
+                k = 4;
+            }
+            //M2
+            if (objectRect.Intersects(cursorRect) && k == 4)
+            {
+                objectRect.X = 400 - objectRect.Width / 2;
+                value++;
+                i++;
+                Console.WriteLine("osuma: " + i);
+                k = 1;
             }
 
-            if (objectRect.Intersects(cursorRect))
+            //Loppucheck
+            if (value == 200)
             {
-                objPos.X = 100;
-                objPos.Y = 100;
-                objectRect.X = (int)objPos.X;
-                objectRect.Y = (int)objPos.Y;
-                value++;
-                i = 1;
-            }
-
-
-            if (value==10)
-            {
-                //Sammuta peli kun value o pienempi kuin 0
-                //Moottori lukee IsRunning muuttujan ja sammuttaa pelin.
                 IsRunning = false;
             }
+
         }
 
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
+        //Piirtäminen
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
             spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
-            spriteBatch.Draw(objectTexture, objPos, Color.White);
         }
 
     }
 }
+
