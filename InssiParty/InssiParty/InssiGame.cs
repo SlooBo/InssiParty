@@ -15,7 +15,6 @@ namespace InssiParty
 {
 
     //TODO:
-    // -> Starting/closing games
     // -> forcing specific game start
     // -> transition screens
 
