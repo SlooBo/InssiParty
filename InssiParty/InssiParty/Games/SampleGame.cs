@@ -22,6 +22,14 @@ namespace InssiParty.Games
      * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
      * IGameBase pitää jättää semmoiseksi
      */
+
+    /**
+     * PelinNimi
+     * 
+     * Selitys pelistä
+     * 
+     * By: Tekijän Nimi
+     */
     class SampleGame : IGameBase
     {
         public bool IsRunning { get; set; }
