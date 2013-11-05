@@ -14,6 +14,11 @@ using InssiParty.Engine;
 namespace InssiParty
 {
 
+    //TODO:
+    // -> Starting/closing games
+    // -> forcing specific game start
+    // -> transition screens
+
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -80,7 +85,6 @@ namespace InssiParty
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
 
             spriteBatch.Begin();
 
