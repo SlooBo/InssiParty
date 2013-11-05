@@ -52,6 +52,7 @@ namespace InssiParty
             /* ############ */
             addGame(new SampleGame());
             addGame(new HelloWorld());
+            addGame(new lapsytys();
             /* ############ */
 
             startGame(games[0]);

@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\IGameBase.cs" />
+    <Compile Include="Games\lapsytys.cs" />
     <Compile Include="Games\SampleGame.cs" />
     <Compile Include="Games\HelloWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
