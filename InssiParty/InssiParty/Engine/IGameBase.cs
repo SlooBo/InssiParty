@@ -13,6 +13,13 @@ namespace InssiParty.Engine
      */
     interface IGameBase
     {
+        //Is the game running or not? The game can close itself with this.
+        bool IsRunning
+        {
+            get;
+            set;
+        }
+
         // Load all the content that the game needs before starting
         void Load(ContentManager Content);
 

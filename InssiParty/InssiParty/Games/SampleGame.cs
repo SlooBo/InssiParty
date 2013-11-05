@@ -24,6 +24,8 @@ namespace InssiParty.Games
      */
     class SampleGame : IGameBase
     {
+        public bool IsRunning { get; set; }
+
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
 
@@ -50,7 +52,7 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Starting hello world");
             
-            value = 0;
+            value = 500;
         }
 
         /**
@@ -69,7 +71,14 @@ namespace InssiParty.Games
          */
         public void Update(GameTime gameTime)
         {
-            value++;
+            value--;
+
+            if (value < 0)
+            {
+                //Sammuta peli kun value o pienempi kuin 0
+                //Moottori lukee IsRunning muuttujan ja sammuttaa pelin.
+                IsRunning = false;
+            }
         }
 
         /**
@@ -84,7 +93,8 @@ namespace InssiParty.Games
             Console.WriteLine("Draw " + value);
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            spriteBatch.Draw(spriteBox, new Vector2(50,50), Color.White);
+            //Palikka piirretään y akselilla, valuen kohtaan
+            spriteBatch.Draw(spriteBox, new Vector2(50,value), Color.White);
         }
 
     }

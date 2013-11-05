@@ -11,6 +11,8 @@ namespace InssiParty.Games
 {
     class HelloWorld : IGameBase
     {
+        public bool IsRunning { get; set; }
+
         private int value;
 
         private Texture2D spriteBox;
@@ -41,7 +43,7 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Draw " + value);
 
-            spriteBatch.Draw(spriteBox, new Vector2(50,50), Color.White);
+            spriteBatch.Draw(spriteBox, new Vector2(250,250), Color.White);
         }
 
     }

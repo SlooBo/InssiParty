@@ -24,8 +24,11 @@ namespace InssiParty
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        IGameBase currentGame;
+
         /* ALL THE GAMES WILL BE LISTED HERE */
         IGameBase helloWorld;
+        IGameBase sampleGame;
 
         public InssiGame()
         {
@@ -47,11 +50,13 @@ namespace InssiParty
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             helloWorld = new HelloWorld();
+            sampleGame = new SampleGame();
 
             //Preload all game contents
             helloWorld.Load(Content);
+            sampleGame.Load(Content);
 
-
+            startGame(sampleGame);
         }
 
         protected override void UnloadContent()
@@ -73,7 +78,12 @@ namespace InssiParty
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            helloWorld.Update(gameTime);
+            currentGame.Update(gameTime);
+
+            if (currentGame.IsRunning == false)
+            {
+                startGame(helloWorld);
+            }
 
             base.Update(gameTime);
         }
@@ -88,11 +98,22 @@ namespace InssiParty
 
             spriteBatch.Begin();
 
-            helloWorld.Render(spriteBatch,gameTime);
+            currentGame.Render(spriteBatch,gameTime);
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /**
+         * Switch game that is running
+         */
+        private void startGame(IGameBase game)
+        {
+            game.IsRunning = false;
+            currentGame = game;
+            currentGame.IsRunning = true;
+            currentGame.Start();
         }
     }
 }
