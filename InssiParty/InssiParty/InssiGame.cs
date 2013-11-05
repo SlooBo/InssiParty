@@ -26,9 +26,7 @@ namespace InssiParty
 
         IGameBase currentGame;
 
-        /* ALL THE GAMES WILL BE LISTED HERE */
-        IGameBase helloWorld;
-        IGameBase sampleGame;
+        List<IGameBase> games;
 
         public InssiGame()
         {
@@ -49,14 +47,15 @@ namespace InssiParty
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            helloWorld = new HelloWorld();
-            sampleGame = new SampleGame();
+            games = new List<IGameBase>();
 
-            //Preload all game contents
-            helloWorld.Load(Content);
-            sampleGame.Load(Content);
+            //Lis‰‰ pelisi t‰h‰n listaan!
+            /* ############ */
+            addGame(new SampleGame());
+            addGame(new HelloWorld());
+            /* ############ */
 
-            startGame(sampleGame);
+            startGame(games[0]);
         }
 
         protected override void UnloadContent()
@@ -82,7 +81,7 @@ namespace InssiParty
 
             if (currentGame.IsRunning == false)
             {
-                startGame(helloWorld);
+                startGame(games[1]);
             }
 
             base.Update(gameTime);
@@ -103,6 +102,15 @@ namespace InssiParty
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /**
+         * Add a new game and load it!
+         */
+        private void addGame(IGameBase game)
+        {
+            games.Add(game);
+            game.Load(Content);
         }
 
         /**
