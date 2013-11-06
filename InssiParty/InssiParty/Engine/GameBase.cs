@@ -14,6 +14,7 @@ namespace InssiParty.Engine
     abstract class GameBase
     {
         public String Name { get; set; }
+        public ParticleManager particleManager { get; set; }
 
         //Is the game running or not? The game can close itself with this.
         public bool IsRunning { get; set; }
@@ -28,5 +29,26 @@ namespace InssiParty.Engine
         //These functions handle the actual gameplay and rendering
         public abstract void Render(SpriteBatch spriteBatch, GameTime gameTime);
         public abstract void Update(GameTime gameTime);
+
+        /**
+         * Instead of directly calling the update, updateProxy is called!
+         * This handles custom engine stuff like ParticleManager before the game loop
+         */
+        public void UpdateProxy(GameTime gameTime)
+        {
+            particleManager.UpdateParticles();
+
+            Update(gameTime);
+        }
+
+        /**
+         * Draw particles on top of the game stuff!
+         */
+        public void RenderProxy(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            Render(spriteBatch, gameTime);
+
+            particleManager.RenderParticles(spriteBatch);
+        }
     }
 }

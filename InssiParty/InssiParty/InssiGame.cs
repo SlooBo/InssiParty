@@ -22,6 +22,9 @@ namespace InssiParty
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //EngineSystems
+        ParticleManager particleManager;
+
         //Global resources
         SpriteFont font;
 
@@ -35,6 +38,8 @@ namespace InssiParty
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            particleManager = new ParticleManager();
 
             gameActive = false;
             menuSelection = 0;
@@ -63,6 +68,7 @@ namespace InssiParty
             addGame(new SampleGame(), "Sample Game");
             addGame(new HelloWorld(), "Hello World");
             addGame(new lapsytys(), "Lapsytys");
+            addGame(new ParticleExample(), "Particle Example");
             /* ############ */
 
             //startGame(games[2]);
@@ -84,7 +90,7 @@ namespace InssiParty
             if (gameActive == true)
             {
                 //Game
-                currentGame.Update(gameTime);
+                currentGame.UpdateProxy(gameTime);
 
                 if (currentGame.IsRunning == false)
                 {
@@ -119,7 +125,7 @@ namespace InssiParty
 
             if (gameActive == true)
             {
-                currentGame.Render(spriteBatch, gameTime);
+                currentGame.RenderProxy(spriteBatch, gameTime);
             }
             else
             {
@@ -171,6 +177,7 @@ namespace InssiParty
         {
             gameActive            = true;
             game.IsRunning        = false;
+            game.particleManager  = particleManager;
             currentGame           = game;
             currentGame.IsRunning = true;
             currentGame.Start();
