@@ -13,6 +13,8 @@ namespace InssiParty.Engine
      */
     abstract class GameBase
     {
+        public String Name { get; set; }
+
         //Is the game running or not? The game can close itself with this.
         public bool IsRunning { get; set; }
 

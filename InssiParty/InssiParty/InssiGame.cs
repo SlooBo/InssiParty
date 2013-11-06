@@ -15,15 +15,18 @@ namespace InssiParty
 {
 
     //TODO:
-    // -> forcing specific game start
     // -> transition screens
-    // -> Choosing a game
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Global resources
+        SpriteFont font;
+
+        bool gameActive;
+        int menuSelection;
         GameBase currentGame;
 
         List<GameBase> games;
@@ -32,6 +35,9 @@ namespace InssiParty
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            gameActive = false;
+            menuSelection = 0;
 
             graphics.PreferredBackBufferWidth  = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -47,16 +53,19 @@ namespace InssiParty
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Global resources
+            font = Content.Load<SpriteFont>("DefaultFont");
+
             games = new List<GameBase>();
 
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
-            addGame(new SampleGame());
-            addGame(new HelloWorld());
-            addGame(new lapsytys());
+            addGame(new SampleGame(), "Sample Game");
+            addGame(new HelloWorld(), "Hello World");
+            addGame(new lapsytys(), "Lapsytys");
             /* ############ */
 
-            startGame(games[2]);
+            //startGame(games[2]);
         }
 
         protected override void UnloadContent()
@@ -64,41 +73,81 @@ namespace InssiParty
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-            // CHANGE GAME LOGIC GOES HERE
-
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            currentGame.Update(gameTime);
-
-            if (currentGame.IsRunning == false)
             {
-                startGame(games[1]);
+                this.Exit();
+            }
+
+            if (gameActive == true)
+            {
+                //Game
+                currentGame.Update(gameTime);
+
+                if (currentGame.IsRunning == false)
+                {
+                    startGame(games[1]);
+                }
+            }
+            else
+            {
+            
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    var mouseState = Mouse.GetState();
+                    for (int i = 0; i < games.Count(); ++i)
+                    {
+                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                        {
+                            startGame(games[i]);
+                        }
+                    }
+
+                }
             }
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
 
-            currentGame.Render(spriteBatch,gameTime);
+            if (gameActive == true)
+            {
+                currentGame.Render(spriteBatch, gameTime);
+            }
+            else
+            {
+                //Title
+                spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
+
+                //List games
+
+                var mouseState = Mouse.GetState();
+
+                for (int i = 0; i < games.Count; ++i)
+                {
+                    //Check if the mouse is on position:
+                    if (mouseState.X < 400 && mouseState.X > 0)
+                    {
+                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                        {
+                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
+                            continue;
+                        }
+                    }
+
+                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+                }
+
+                //Draw the cursor
+                spriteBatch.DrawString(font, "*", new Vector2(mouseState.X, mouseState.Y) , Color.Black);
+            }
 
             spriteBatch.End();
 
@@ -108,9 +157,10 @@ namespace InssiParty
         /**
          * Add a new game and load it!
          */
-        private void addGame(GameBase game)
+        private void addGame(GameBase game, String name)
         {
             games.Add(game);
+            game.Name = name;
             game.Load(Content);
         }
 
@@ -119,8 +169,9 @@ namespace InssiParty
          */
         private void startGame(GameBase game)
         {
-            game.IsRunning = false;
-            currentGame = game;
+            gameActive            = true;
+            game.IsRunning        = false;
+            currentGame           = game;
             currentGame.IsRunning = true;
             currentGame.Start();
         }
