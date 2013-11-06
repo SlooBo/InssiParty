@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
@@ -20,10 +21,13 @@ namespace InssiParty.Games
         private Vector2 cursorPos;
         private int i, k;
 
+        //äänet
+        SoundEffect lapsy;
+        SoundEffect murahdus;
+
         //Tekstuurit
         private Texture2D backgroundTexture;
         private Texture2D cursorTexture;
-        private Texture2D objectTexture;
 
         //parit rectanglet
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
@@ -34,6 +38,8 @@ namespace InssiParty.Games
         {
             backgroundTexture = Content.Load<Texture2D>("tausta_temp");
             cursorTexture = Content.Load<Texture2D>("cursor");
+            lapsy = Content.Load<SoundEffect>("lapsy1");
+            murahdus = Content.Load<SoundEffect>("murahdus");
         }
 
         //peli alku
@@ -74,6 +80,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 2;
+                lapsy.Play();
             }
             //M1
             if (objectRect.Intersects(cursorRect) && k == 2)
@@ -92,6 +99,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 4;
+                lapsy.Play();
             }
             //M2
             if (objectRect.Intersects(cursorRect) && k == 4)
@@ -103,8 +111,14 @@ namespace InssiParty.Games
                 k = 1;
             }
 
+            //murahtelu
+            if (value == 10)
+            {
+                murahdus.Play();
+            }
+
             //Loppucheck
-            if (value == 200)
+            if (value == 100)
             {
                 IsRunning = false;
             }
@@ -120,4 +134,3 @@ namespace InssiParty.Games
 
     }
 }
-
