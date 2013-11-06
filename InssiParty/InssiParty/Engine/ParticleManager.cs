@@ -46,7 +46,7 @@ namespace InssiParty.Engine
                     --i;
                 }
             }
-            Console.WriteLine("ParticleCount: " + i);
+            //Console.WriteLine("ParticleCount: " + i);
         }
 
         public void AddParticle(Texture2D texture, Vector2 position, Vector2 minSpeed, Vector2 maxSpeed, int ttlMin, int ttlMax,int count)
