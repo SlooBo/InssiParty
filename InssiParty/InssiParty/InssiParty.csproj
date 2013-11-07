@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Engine\GameBase.cs" />
     <Compile Include="Engine\ParticleManager.cs" />
+    <Compile Include="Games\Feedgame.cs" />
     <Compile Include="Games\KoodiRage.cs" />
     <Compile Include="Games\lapsytys.cs" />
     <Compile Include="Games\Olut.cs" />

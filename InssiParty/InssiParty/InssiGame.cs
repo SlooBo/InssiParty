@@ -71,6 +71,7 @@ namespace InssiParty
             addGame(new ParticleExample(), "Particle Example");
             addGame(new SpotLanguage(), "Spot the real coding language");
             addGame(new Koodirage(), "Koodi Rage");
+            addGame(new FeedGame(),"Ruokkimis-peli");
             /* ############ */
 
             //startGame(games[2]);
