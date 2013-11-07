@@ -116,6 +116,7 @@
     <Compile Include="Games\ParticleExample.cs" />
     <Compile Include="Games\SampleGame.cs" />
     <Compile Include="Games\HelloWorld.cs" />
+    <Compile Include="Games\SpotLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InssiGame.cs" />

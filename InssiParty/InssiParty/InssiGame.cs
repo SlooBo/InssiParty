@@ -69,6 +69,7 @@ namespace InssiParty
             addGame(new HelloWorld(), "Hello World");
             addGame(new lapsytys(), "Lapsytys");
             addGame(new ParticleExample(), "Particle Example");
+            addGame(new SpotLanguage(), "Spot the real coding language");
             /* ############ */
 
             //startGame(games[2]);
