@@ -19,31 +19,41 @@ namespace InssiParty.Games
         private int value;
         Rectangle background = new Rectangle(0, 0, 800, 600);
         private Vector2 cursorPos;
-        private int i, k;
+        private int i, k, a, alpha, fadeinc;
 
         //äänet
         SoundEffect lapsy;
         SoundEffect murahdus;
+        SoundEffect musa;
 
         //Tekstuurit
         private Texture2D backgroundTexture;
         private Texture2D jari2;
         private Texture2D jari3;
         private Texture2D cursorTexture;
+        private Texture2D Fade;
+        private Texture2D teksti;
 
         //parit rectanglet
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
         Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
+        Rectangle tekstiRect = new Rectangle(0,0,554,136);
 
-        //tekstuurien loadaus
+        //kontentin loadaus
         public override void Load(ContentManager Content)
         {
+            //tekstuurit
             backgroundTexture = Content.Load<Texture2D>("jari1");
             jari2 = Content.Load<Texture2D>("jari2");
             jari3 = Content.Load<Texture2D>("jari3");
             cursorTexture = Content.Load<Texture2D>("cursor");
+            Fade = Content.Load<Texture2D>("alphalayer");
+            teksti = Content.Load<Texture2D>("lapsijari");
+
+            //äänet
             lapsy = Content.Load<SoundEffect>("lapsy1");
             murahdus = Content.Load<SoundEffect>("murahdus");
+            musa = Content.Load<SoundEffect>("musa1");
         }
 
         //peli alku
@@ -53,12 +63,16 @@ namespace InssiParty.Games
 
             //alustus laskureille
             i = 0;
-            k = 1;
             value = 0;
-
+            alpha = 1;
+            fadeinc = 10;
+           
             //sijainteja
-            Mouse.SetPosition(700, 300);
             objectRect.Y = 0;
+            tekstiRect.Y = 200;
+            tekstiRect.X = 1000;
+
+            musa.Play( 0.2f , 0 , 0 );
         }
 
         //pelin loppu
@@ -70,13 +84,34 @@ namespace InssiParty.Games
         //Update
         public override void Update(GameTime gameTime)
         {
-            //hiiri
+            //Hiiri
             var mouseState = Mouse.GetState();
-            cursorPos = new Vector2(mouseState.X, mouseState.Y);
             cursorRect.X = mouseState.X;
             cursorRect.Y = mouseState.Y;
+            cursorPos = new Vector2(mouseState.X, mouseState.Y);
+            a++;
+            Console.WriteLine(a);
 
-            //LL
+            tekstiRect.X -= 10;
+
+            //Fade
+
+            alpha += fadeinc;
+            
+            if (alpha == 201)
+            {
+                fadeinc = 0;
+            }
+            if (a == 200) 
+            {
+                fadeinc = -10;
+            }
+            if (alpha == 1) 
+            {
+                Mouse.SetPosition(700, 300);
+                k = 1;
+            }
+
             if (objectRect.Intersects(cursorRect) && k == 1)
             {
                 objectRect.X = 0;
@@ -85,7 +120,7 @@ namespace InssiParty.Games
                 Console.WriteLine("osuma: " + i);
                 k = 2;
                 lapsy.Play();
-                backgroundTexture = jari2;
+                backgroundTexture = jari3;
             }
             //M1
             if (objectRect.Intersects(cursorRect) && k == 2)
@@ -105,7 +140,7 @@ namespace InssiParty.Games
                 Console.WriteLine("osuma: " + i);
                 k = 4;
                 lapsy.Play();
-                backgroundTexture = jari3;
+                backgroundTexture = jari2;
             }
             //M2
             if (objectRect.Intersects(cursorRect) && k == 4)
@@ -124,8 +159,9 @@ namespace InssiParty.Games
             }
 
             //Loppucheck
-            if (value == 100)
+            if (value == 100 || a == 900)
             {
+                musa.Dispose();
                 IsRunning = false;
             }
 
@@ -136,6 +172,8 @@ namespace InssiParty.Games
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
             spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
+            spriteBatch.Draw(Fade, background, new Color(255,255,255,(byte)MathHelper.Clamp(alpha,0,255)));
+            spriteBatch.Draw(teksti,tekstiRect, Color.White);
         }
 
     }
