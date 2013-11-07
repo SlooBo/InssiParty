@@ -81,9 +81,8 @@ namespace InssiParty.Games
 
             if (value < 0)
             {
-                //Sammuta peli kun value o pienempi kuin 0
-                //Moottori lukee IsRunning muuttujan ja sammuttaa pelin.
-                IsRunning = false;
+                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                CloseGame(true);
             }
         }
 

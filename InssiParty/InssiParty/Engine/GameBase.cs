@@ -18,6 +18,7 @@ namespace InssiParty.Engine
 
         //Is the game running or not? The game can close itself with this.
         public bool IsRunning { get; set; }
+        public bool IsVictory { get; set; }
 
         // Load all the content that the game needs before starting
         public abstract void Load(ContentManager Content);
@@ -29,6 +30,21 @@ namespace InssiParty.Engine
         //These functions handle the actual gameplay and rendering
         public abstract void Render(SpriteBatch spriteBatch, GameTime gameTime);
         public abstract void Update(GameTime gameTime);
+        
+        /* Following functions are for the game developers */
+
+        /**
+         * Close the game with victoryStatus, true for victory, false for failure
+         */
+        protected void CloseGame(Boolean victoryStatus)
+        {
+            //Closes the game and gives a victory status
+
+            IsRunning = false;
+            IsVictory = victoryStatus;
+        }
+
+        /* Functionality below is used by the engine itself */
 
         /**
          * Proxy for starting the game.
@@ -36,6 +52,7 @@ namespace InssiParty.Engine
          */
         public void StartProxy()
         {
+            IsVictory = false;
             particleManager.Reset();
 
             //GC between games to keep them running smoothly.
