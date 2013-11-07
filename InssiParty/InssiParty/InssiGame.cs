@@ -87,6 +87,12 @@ namespace InssiParty
                 this.Exit();
             }
 
+            // Close the current game if esc is pressed.
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) == true)
+            {
+                stopGame();
+            }
+
             if (gameActive == true)
             {
                 //Game
@@ -181,6 +187,16 @@ namespace InssiParty
             currentGame           = game;
             currentGame.IsRunning = true;
             currentGame.Start();
+        }
+
+        /**
+         * Stop the current game from running, fallback to menu.
+         */
+        private void stopGame()
+        {
+            gameActive = false;
+            currentGame.IsRunning = false;
+            currentGame.Stop();
         }
     }
 }
