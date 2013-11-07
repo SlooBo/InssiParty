@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,17 +17,19 @@ namespace InssiParty.Games
         private int value;
         Rectangle background = new Rectangle(0, 0, 800, 600);
         private Vector2 cursorPos;
-        private int i, k, a, alpha, fadeinc;
+        private int i, k, a, alpha, fadeinc, win;
 
         //äänet
         SoundEffect lapsy;
         SoundEffect murahdus;
         SoundEffect musa;
+        SoundEffect raakasy;
 
         //Tekstuurit
         private Texture2D backgroundTexture;
         private Texture2D jari2;
         private Texture2D jari3;
+        private Texture2D jari4;
         private Texture2D cursorTexture;
         private Texture2D Fade;
         private Texture2D teksti;
@@ -38,7 +38,7 @@ namespace InssiParty.Games
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
         Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
         Rectangle tekstiRect = new Rectangle(0,0,554,136);
-
+        
         //kontentin loadaus
         public override void Load(ContentManager Content)
         {
@@ -46,6 +46,7 @@ namespace InssiParty.Games
             backgroundTexture = Content.Load<Texture2D>("jari1");
             jari2 = Content.Load<Texture2D>("jari2");
             jari3 = Content.Load<Texture2D>("jari3");
+            jari4 = Content.Load<Texture2D>("jari4");
             cursorTexture = Content.Load<Texture2D>("cursor");
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
@@ -54,6 +55,7 @@ namespace InssiParty.Games
             lapsy = Content.Load<SoundEffect>("lapsy1");
             murahdus = Content.Load<SoundEffect>("murahdus");
             musa = Content.Load<SoundEffect>("musa1");
+            raakasy = Content.Load<SoundEffect>("raakasy");
         }
 
         //peli alku
@@ -74,7 +76,7 @@ namespace InssiParty.Games
 
             musa.Play( 0.2f , 0 , 0 );
         }
-
+        
         //pelin loppu
         public override void Stop()
         {
@@ -153,17 +155,36 @@ namespace InssiParty.Games
             }
 
             //murahtelu
-            if (value == 10)
+            if (value == 30 || value == 60)
             {
                 murahdus.Play();
             }
 
             //Loppucheck
-            if (value == 100 || a == 900)
+            if (value == 100)
             {
-                musa.Dispose();
-                IsRunning = false;
+                win = 1;
+                raakasy.Play(1,0,0);
+                value = 101;
+                backgroundTexture = jari4;
+                k = 0;
+                a = 0;
             }
+            else if (a == 200 && value == 101) 
+                {
+                    IsRunning = false;
+                }
+
+            if (a == 900 && win == 0)
+            {
+                value = 102;
+                k = 0;
+                a = 0;
+            }
+            else if (a == 300 && value == 102)
+                {
+                    IsRunning = false;
+                }
 
         }
 
