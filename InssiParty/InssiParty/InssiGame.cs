@@ -69,7 +69,11 @@ namespace InssiParty
             addGame(new HelloWorld(), "Hello World");
             addGame(new lapsytys(), "Lapsytys");
             addGame(new ParticleExample(), "Particle Example");
+<<<<<<< HEAD
             addGame(new SpotLanguage(), "Spot the real coding language");
+=======
+            addGame(new Koodirage(), "Koodi Rage");
+>>>>>>> 412a568cd58ed2b09b3d5eb0069a298ada7486c2
             /* ############ */
 
             //startGame(games[2]);
