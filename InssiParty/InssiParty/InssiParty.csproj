@@ -114,6 +114,7 @@
     <Compile Include="Engine\ParticleManager.cs" />
     <Compile Include="Games\KoodiRage.cs" />
     <Compile Include="Games\lapsytys.cs" />
+    <Compile Include="Games\Olut.cs" />
     <Compile Include="Games\ParticleExample.cs" />
     <Compile Include="Games\SampleGame.cs" />
     <Compile Include="Games\HelloWorld.cs" />
