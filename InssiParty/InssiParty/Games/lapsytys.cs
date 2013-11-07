@@ -27,6 +27,8 @@ namespace InssiParty.Games
 
         //Tekstuurit
         private Texture2D backgroundTexture;
+        private Texture2D jari2;
+        private Texture2D jari3;
         private Texture2D cursorTexture;
 
         //parit rectanglet
@@ -36,7 +38,9 @@ namespace InssiParty.Games
         //tekstuurien loadaus
         public override void Load(ContentManager Content)
         {
-            backgroundTexture = Content.Load<Texture2D>("tausta_temp");
+            backgroundTexture = Content.Load<Texture2D>("jari1");
+            jari2 = Content.Load<Texture2D>("jari2");
+            jari3 = Content.Load<Texture2D>("jari3");
             cursorTexture = Content.Load<Texture2D>("cursor");
             lapsy = Content.Load<SoundEffect>("lapsy1");
             murahdus = Content.Load<SoundEffect>("murahdus");
@@ -81,6 +85,7 @@ namespace InssiParty.Games
                 Console.WriteLine("osuma: " + i);
                 k = 2;
                 lapsy.Play();
+                backgroundTexture = jari2;
             }
             //M1
             if (objectRect.Intersects(cursorRect) && k == 2)
@@ -100,6 +105,7 @@ namespace InssiParty.Games
                 Console.WriteLine("osuma: " + i);
                 k = 4;
                 lapsy.Play();
+                backgroundTexture = jari3;
             }
             //M2
             if (objectRect.Intersects(cursorRect) && k == 4)
