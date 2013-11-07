@@ -31,6 +31,20 @@ namespace InssiParty.Engine
         public abstract void Update(GameTime gameTime);
 
         /**
+         * Proxy for starting the game.
+         * This is used to clear up ParticleManager, etc.
+         */
+        public void StartProxy()
+        {
+            particleManager.Reset();
+
+            //GC between games to keep them running smoothly.
+            GC.Collect();
+
+            Start();
+        }
+
+        /**
          * Instead of directly calling the update, updateProxy is called!
          * This handles custom engine stuff like ParticleManager before the game loop
          */

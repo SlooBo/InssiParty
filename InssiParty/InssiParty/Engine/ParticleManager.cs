@@ -73,5 +73,10 @@ namespace InssiParty.Engine
             }
         }
 
+        public void Reset()
+        {
+            particleList.Clear();
+        }
+
     }
 }

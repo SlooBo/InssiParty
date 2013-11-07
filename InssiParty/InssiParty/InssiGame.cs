@@ -186,7 +186,7 @@ namespace InssiParty
             game.particleManager  = particleManager;
             currentGame           = game;
             currentGame.IsRunning = true;
-            currentGame.Start();
+            currentGame.StartProxy();
         }
 
         /**
