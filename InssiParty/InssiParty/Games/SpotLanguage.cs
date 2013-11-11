@@ -19,6 +19,8 @@ namespace InssiParty.Games
      */
     class SpotLanguage : GameBase
     {
+        Random random;
+
         private const int LANG_CPP_COUNT = 3;
         private const int LANG_PYTHON_COUNT = 3;
 
@@ -38,6 +40,8 @@ namespace InssiParty.Games
 
         public override void Load(ContentManager Content)
         {
+            random = new Random();
+
             //Create the arrays for the images
             pythonImages = new Texture2D[LANG_PYTHON_COUNT];
             cppImages = new Texture2D[LANG_CPP_COUNT];
@@ -58,10 +62,11 @@ namespace InssiParty.Games
             points = 0;
 
             leftOption = false;
-            rightOption = true;
-
+            rightOption = false;
             leftID = 0;
             rightID = 0;
+
+            resetLanguages();
         }
 
         public override void Stop() { }
@@ -96,6 +101,20 @@ namespace InssiParty.Games
          */
         private void resetLanguages()
         {
+            if (random.Next(0, 2) == 1)
+            {
+                leftOption = true;
+                rightOption = false;
+            }
+            else
+            {
+                leftOption = false;
+                rightOption = true;
+            }
+
+            leftID = random.Next(0, 3);
+            rightID = random.Next(0, 3);
+
         }
     }
 }
