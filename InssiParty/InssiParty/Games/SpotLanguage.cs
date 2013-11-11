@@ -19,40 +19,83 @@ namespace InssiParty.Games
      */
     class SpotLanguage : GameBase
     {
-        private Texture2D particleTexture;
+        private const int LANG_CPP_COUNT = 3;
+        private const int LANG_PYTHON_COUNT = 3;
+
+        private Texture2D[] cppImages;
+        private Texture2D[] pythonImages;
+
+        //Player needs 5 points to win
+        private int points;
+
+        /* True for cpp, false for python! */
+        private bool leftOption;
+        private bool rightOption;
+
+        /* What image from the array ? */
+        private int leftID;
+        private int rightID;
 
         public override void Load(ContentManager Content)
         {
-            particleTexture = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
-            particleTexture = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+            //Create the arrays for the images
+            pythonImages = new Texture2D[LANG_PYTHON_COUNT];
+            cppImages = new Texture2D[LANG_CPP_COUNT];
+
+            //Load the images
+            pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
+            pythonImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
+            pythonImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
+
+            cppImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+            cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+            cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+
         }
 
-        public override void Start() { }
+        public override void Start()
+        {
+            points = 0;
+
+            leftOption = false;
+            rightOption = true;
+
+            leftID = 0;
+            rightID = 0;
+        }
 
         public override void Stop() { }
 
         public override void Update(GameTime gameTime)
         {
+        }
 
-            // We have a press happening!
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            if (leftOption == true)
             {
+                spriteBatch.Draw(cppImages[leftID], new Vector2(0, 0), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(pythonImages[leftID], new Vector2(0, 0), Color.White);
+            }
 
-                particleManager.AddParticle(
-                    particleTexture,                                       // Texture
-                    new Vector2(Mouse.GetState().X, Mouse.GetState().Y),   // Position
-                    new Vector2(-20, -20),                                 // Min speed on x / y axis
-                    new Vector2(20, 20),                                   // Max speed on x / y axis
-                    10,                                                    // Min time to live
-                    50,                                                    // Max time to live
-                    10);                                                   // Count of the particles
-
+            if (rightOption == true)
+            {
+                spriteBatch.Draw(cppImages[leftID], new Vector2(400, 0), Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(pythonImages[leftID], new Vector2(400, 0), Color.White);
             }
         }
 
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime) {
-
+        /**
+         * Reset the current choice of languages and randomize the new ones.
+         */
+        private void resetLanguages()
+        {
         }
-
     }
 }
