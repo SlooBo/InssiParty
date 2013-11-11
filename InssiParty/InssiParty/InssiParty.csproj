@@ -121,6 +121,7 @@
     <Compile Include="Games\ParticleExample.cs" />
     <Compile Include="Games\SampleGame.cs" />
     <Compile Include="Games\HelloWorld.cs" />
+    <Compile Include="Games\Shooty.cs" />
     <Compile Include="Games\tentti.cs" />
     <Compile Include="SpotLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
