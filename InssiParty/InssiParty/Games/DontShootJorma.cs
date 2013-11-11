@@ -61,6 +61,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            spriteBatch.Draw(shotgun1Texture, new Vector2(320, 463), Color.WhiteSmoke);
             spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
         }
 
