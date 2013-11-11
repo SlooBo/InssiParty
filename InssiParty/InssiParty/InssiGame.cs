@@ -72,6 +72,7 @@ namespace InssiParty
             addGame(new SpotLanguage(), "Spot the real coding language");
             addGame(new Koodirage(), "Koodi Rage");
             addGame(new FeedGame(),"Ruokkimis-peli");
+            addGame(new Lampunvaihto(),"Lampun Vaihto");
             /* ############ */
 
             //startGame(games[2]);
