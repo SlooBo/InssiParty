@@ -34,15 +34,16 @@ namespace InssiParty.Games
     class Shooty : GameBase
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
-        private int value, health;
+        private int nyancat_pos, health;
 
         Rectangle background = new Rectangle(0, 0, 800, 600);
         Rectangle targetRect = new Rectangle(0, 0, 62, 62); 
 
         private Vector2 targetPos;
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D spriteBox;
+        private Texture2D Nyancat;
         private Texture2D targetTexture;
+        private Texture2D cannonballTexture;
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -51,8 +52,9 @@ namespace InssiParty.Games
         public override void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
-            spriteBox = Content.Load<Texture2D>("propelli");
+            Nyancat = Content.Load<Texture2D>("Nyancat");
             targetTexture = Content.Load<Texture2D>("Target");
+            cannonballTexture = Content.Load<Texture2D>("cannonball");
         }
 
         /**
@@ -64,7 +66,7 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Starting hello world");
 
-            value = 500;
+            nyancat_pos = 0;
         }
 
         /**
@@ -83,15 +85,15 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            value--;
+            nyancat_pos+=2;
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
             targetRect.Y = mouseState.Y;
-            targetPos = new Vector2(mouseState.X, mouseState.Y);
+            targetPos = new Vector2(mouseState.X-32, mouseState.Y-32);
 
 
-            if (value < 0)
+            if (nyancat_pos < 0)
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
@@ -107,11 +109,10 @@ namespace InssiParty.Games
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(spriteBox, new Vector2(50, value), Color.White);
+            spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
         }
 
