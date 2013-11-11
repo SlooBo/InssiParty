@@ -46,6 +46,7 @@ namespace InssiParty.Games
         private Texture2D targetTexture;
         private Texture2D cannonballTexture;
         private Texture2D backgroundTexture;
+        private Texture2D turretTexture;
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -59,6 +60,7 @@ namespace InssiParty.Games
             Nyancat = Content.Load<Texture2D>("Nyancat");
             targetTexture = Content.Load<Texture2D>("Target");
             cannonballTexture = Content.Load<Texture2D>("cannonball");
+            turretTexture = Content.Load<Texture2D>("playerturret");
         }
 
         /**
@@ -68,9 +70,8 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
-
             nyancat_pos = 0;
+            health = 3;
         }
 
         /**
@@ -78,7 +79,7 @@ namespace InssiParty.Games
          */
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+
         }
 
         /**
@@ -122,6 +123,7 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backgroundTexture, background, Color.White);
+            spriteBatch.Draw(turretTexture, new Vector2(50, 400), Color.White);
             spriteBatch.Draw(nyantail, new Vector2(nyancat_pos - 187, 10), Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
