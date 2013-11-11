@@ -35,7 +35,7 @@ namespace InssiParty.Games
             jormaTexture = Content.Load<Texture2D>("dontShoot/jorma");
             shotgun1Texture = Content.Load<Texture2D>("dontShoot/shotgun1");
             shotgun2Texture = Content.Load<Texture2D>("dontShoot/shotgun2");
-            cursorTexture = Content.Load<Texture2D>("Target");
+            cursorTexture = Content.Load<Texture2D>("k00panhiiri");
 
             cursorPosition = new Vector2(0, 0);
         }

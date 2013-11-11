@@ -185,6 +185,8 @@ namespace InssiParty.Games
             errors++;
             resetLanguages();
             Console.WriteLine("Invalid!");
+
+
             particleManager.AddParticle(
                 cursorTexture,                                         // Texture
                 new Vector2(Mouse.GetState().X, Mouse.GetState().Y),   // Position
