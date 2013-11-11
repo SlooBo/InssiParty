@@ -97,7 +97,12 @@ namespace InssiParty.Games
             targetPos = new Vector2(mouseState.X-32, mouseState.Y-32);
 
 
-            if (nyancat_pos < 0)
+            if (nyancat_pos > background.Width)
+            {
+                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                CloseGame(false);
+            }
+            if (health == 0)
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
