@@ -6,6 +6,7 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using InssiParty.Games.FeedGameSrc;
 
 namespace InssiParty.Games
 {
@@ -22,13 +23,7 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
-
-        bool auki = false;
-        bool auki2 = false;
-        bool auki3 = false;
-        bool auki4 = false;
-        bool auki5 = false;
-        bool auki6 = false;
+        private List<Kaappi> kaapit;
         //Rectangle background = new Rectangle(0, 0, 800, 600);
 
         //Tekstuurit pitää myös listata tässä kohdassa.
@@ -52,8 +47,20 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
+            kaapit = new List<Kaappi>();
+            value = 650435;
 
-            value = 500;
+            Kaappi temp = new Kaappi();
+
+            temp.sijainti = new Vector2(700, 500);
+            temp.koko = new Vector2(20,20);
+
+            kaapit.Add(temp);
+
+            /*
+             temp = new Kaappi(); 
+             
+             */
         }
 
         /**
@@ -96,6 +103,11 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
+
+            //for loop the list
+
+            //draw rectangle on kaappi.sijainti + koko
+
         }
 
     }
