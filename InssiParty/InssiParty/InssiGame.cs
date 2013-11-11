@@ -74,6 +74,7 @@ namespace InssiParty
             addGame(new FeedGame(),"Ruokkimis-peli");
             addGame(new Lampunvaihto(),"Lampun Vaihto");
             addGame(new tentti(), "Auta inssia tentissa");
+            addGame(new Shooty(), "Shoot the Nyan-cat!");
             /* ############ */
 
             //startGame(games[2]);
