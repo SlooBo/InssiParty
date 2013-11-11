@@ -25,33 +25,31 @@ namespace InssiParty.Games
      */
 
     /**
-     * PelinNimi
+     * Shoot the Nyan Cat!
      * 
-     * Selitys pelistä
+     * Ammu nyancattia turretilla.
      * 
-     * By: Tekijän Nimi
+     * By: Taneli
      */
     class Shooty : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int nyancat_pos, health;
 
         Rectangle background = new Rectangle(0, 0, 800, 600);
-        Rectangle targetRect = new Rectangle(0, 0, 62, 62); 
-
+        Rectangle targetRect = new Rectangle(0, 0, 62, 62);
+        Rectangle NyancatRect = new Rectangle(0, 0, 62, 37);
+        //Rectangle turretBarrelRect = new Rectangle(0, 0, 62, 62); 
         private Vector2 targetPos;
-        //Tekstuurit pitää myös listata tässä kohdassa.
+        //private Vector2 barrelhp;
+
         private Texture2D Nyancat;
         private Texture2D nyantail;
         private Texture2D targetTexture;
         private Texture2D cannonballTexture;
         private Texture2D backgroundTexture;
         private Texture2D turretTexture;
-        /**
-         * Lataa tekstuureihin itse data.
-         * 
-         * Ajetaan kun koko ohjelma käynnistyy.
-         */
+        //private Texture2D turretBarrelTexture;
+
         public override void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
@@ -61,6 +59,7 @@ namespace InssiParty.Games
             targetTexture = Content.Load<Texture2D>("Target");
             cannonballTexture = Content.Load<Texture2D>("cannonball");
             turretTexture = Content.Load<Texture2D>("playerturret");
+            //turretBarrelTexture = Content.Load<Texture2D>("turretbarrel");
         }
 
         /**
