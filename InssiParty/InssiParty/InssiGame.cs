@@ -70,6 +70,7 @@ namespace InssiParty
             addGame(new SampleGame(), "Sample Game");
             addGame(new HelloWorld(), "Hello World");
             addGame(new lapsytys(), "Lapsytys");
+            addGame(new DontShootJorma(), "Don't shoot Jorma!");
             addGame(new ParticleExample(), "Particle Example");
             addGame(new SpotLanguage(), "Spot the real coding language");
             addGame(new Koodirage(), "Koodi Rage");
