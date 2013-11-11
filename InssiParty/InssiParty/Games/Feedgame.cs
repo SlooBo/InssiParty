@@ -59,19 +59,19 @@ namespace InssiParty.Games
             Kaappi temp = new Kaappi();
 
             temp.sijainti = new Vector2(700, 500);
-            temp.koko = new Vector2(5,5);
+            temp.koko = new Vector2(1,1);
 
             kaapit.Add(temp);
 
             
             temp = new Kaappi();
             temp.sijainti = new Vector2(600, 50);
-            temp.koko = new Vector2(5,5);
+            temp.koko = new Vector2(1,1);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.sijainti = new Vector2(100, 100);
-            temp.koko = new Vector2(5,5);
+            temp.koko = new Vector2(1,1);
             kaapit.Add(temp);
              
              
@@ -120,18 +120,16 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(handu,HandPos,Color.White);
-   
 
             //for loop the list
             for(int i=0; i< kaapit.Count;i++)
             {
-                spriteBatch.Draw(box, kaapit[i].sijainti, Color.Red);
+                //draw rectangle on kaappi.sijainti + koko
+                spriteBatch.Draw(box, kaapit[i].sijainti+kaapit[i].koko, Color.Red);
             
             }
 
-            //draw rectangle on kaappi.sijainti + koko
-
+            spriteBatch.Draw(handu, HandPos, Color.White);
         }
 
     }
