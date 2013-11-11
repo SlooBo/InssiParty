@@ -44,6 +44,7 @@ namespace InssiParty.Games
         private Texture2D Nyancat;
         private Texture2D targetTexture;
         private Texture2D cannonballTexture;
+        private Texture2D backgroundTexture;
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -52,6 +53,7 @@ namespace InssiParty.Games
         public override void Load(ContentManager Content)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
+            backgroundTexture = Content.Load<Texture2D>("nyanbackground");
             Nyancat = Content.Load<Texture2D>("Nyancat");
             targetTexture = Content.Load<Texture2D>("Target");
             cannonballTexture = Content.Load<Texture2D>("cannonball");
@@ -112,6 +114,7 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
+            spriteBatch.Draw(backgroundTexture, background, Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
         }
