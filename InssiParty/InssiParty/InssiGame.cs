@@ -30,9 +30,11 @@ namespace InssiParty
         //Global resources
         SpriteFont font;
 
+        //Menu stuff
+        private Texture2D cursorTexture;
         bool gameActive;
-        int menuSelection;
         GameBase currentGame;
+        private Vector2 cursorPosition;
 
         List<GameBase> games;
 
@@ -44,7 +46,7 @@ namespace InssiParty
             particleManager = new ParticleManager();
 
             gameActive = false;
-            menuSelection = 0;
+            cursorPosition = new Vector2(0, 0);
 
             graphics.PreferredBackBufferWidth  = 800;
             graphics.PreferredBackBufferHeight = 600;
@@ -63,6 +65,9 @@ namespace InssiParty
             // Global resources
             font = Content.Load<SpriteFont>("DefaultFont");
 
+            // Local resources
+            cursorTexture = Content.Load<Texture2D>("palikka");
+
             games = new List<GameBase>();
 
             //Lis‰‰ pelisi t‰h‰n listaan!
@@ -80,6 +85,7 @@ namespace InssiParty
             addGame(new Shooty(), "Shoot the Nyan-cat!");
             /* ############ */
 
+            Console.WriteLine("# Loaded " + games.Count + " games.");
             //startGame(games[2]);
         }
 
@@ -90,6 +96,10 @@ namespace InssiParty
 
         protected override void Update(GameTime gameTime)
         {
+            var mouseState = Mouse.GetState();
+            cursorPosition.X = mouseState.X;
+            cursorPosition.Y = mouseState.Y;
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
@@ -117,10 +127,9 @@ namespace InssiParty
             
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    var mouseState = Mouse.GetState();
                     for (int i = 0; i < games.Count(); ++i)
                     {
-                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
                         {
                             startGame(games[i]);
                         }
@@ -167,7 +176,7 @@ namespace InssiParty
                 }
 
                 //Draw the cursor
-                spriteBatch.DrawString(font, "*", new Vector2(mouseState.X, mouseState.Y) , Color.Black);
+                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
             }
 
             spriteBatch.End();
@@ -180,9 +189,13 @@ namespace InssiParty
          */
         private void addGame(GameBase game, String name)
         {
+            Console.Write("Loading game: " + name + "... ");
+
             games.Add(game);
             game.Name = name;
             game.Load(Content);
+
+            Console.WriteLine("Done!");
         }
 
         /**
@@ -190,6 +203,8 @@ namespace InssiParty
          */
         private void startGame(GameBase game)
         {
+            Console.WriteLine("Starting game: " + game.Name);
+
             gameActive            = true;
             game.IsRunning        = false;
             game.particleManager  = particleManager;
@@ -203,6 +218,8 @@ namespace InssiParty
          */
         private void stopGame()
         {
+            Console.WriteLine("Stopping game: " + currentGame.Name);
+
             gameActive = false;
             currentGame.IsRunning = false;
             currentGame.Stop();
