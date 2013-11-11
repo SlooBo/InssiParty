@@ -14,6 +14,7 @@ namespace InssiParty.Games
     //
     // * add sound
     // * Add timer to loss / win
+    // * create new crosshair
 
     /**
      * Don't shoot jorma, do nothing to win!
@@ -54,7 +55,7 @@ namespace InssiParty.Games
             //TODO: Do a check for the game start so the player wont shoot by starting the game.
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
-                //TODO: Add timer
+                //TODO: Add timer + particles
                 CloseGame(false);
             }
         }

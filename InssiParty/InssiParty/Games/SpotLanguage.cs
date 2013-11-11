@@ -185,6 +185,14 @@ namespace InssiParty.Games
             errors++;
             resetLanguages();
             Console.WriteLine("Invalid!");
+            particleManager.AddParticle(
+                cursorTexture,                                         // Texture
+                new Vector2(Mouse.GetState().X, Mouse.GetState().Y),   // Position
+                new Vector2(-200, -200),                                 // Min speed on x / y axis
+                new Vector2(200, 200),                                   // Max speed on x / y axis
+                10,                                                    // Min time to live
+                70,                                                    // Max time to live
+                500);                                                   // Count of the particles
         }
     }
 }
