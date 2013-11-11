@@ -10,6 +10,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace InssiParty.Games
 {
+
+    //TODO:
+    // * Timers
+    // * Epic sound effects
+    // * Ending triggers
+
+
     /**
      * Spot the real coding language
      * 
@@ -27,8 +34,11 @@ namespace InssiParty.Games
         private Texture2D[] cppImages;
         private Texture2D[] pythonImages;
 
+        private Texture2D cursorTexture;
+
         //Player needs 5 points to win
         private int points;
+        private int errors;
 
         /* True for cpp, false for python! */
         private bool leftOption;
@@ -38,6 +48,9 @@ namespace InssiParty.Games
         private int leftID;
         private int rightID;
 
+        private ButtonState lastMouseState;
+        private Vector2 cursorPos;
+
         public override void Load(ContentManager Content)
         {
             random = new Random();
@@ -45,6 +58,8 @@ namespace InssiParty.Games
             //Create the arrays for the images
             pythonImages = new Texture2D[LANG_PYTHON_COUNT];
             cppImages = new Texture2D[LANG_CPP_COUNT];
+
+            cursorTexture = Content.Load<Texture2D>("palikka");
 
             //Load the images
             pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
@@ -55,12 +70,16 @@ namespace InssiParty.Games
             cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
             cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
 
+            //Create objects
+
+            cursorPos = new Vector2(0, 0);
         }
 
         public override void Start()
         {
             points = 0;
-
+            errors = 0;
+            lastMouseState = ButtonState.Released;
             leftOption = false;
             rightOption = false;
             leftID = 0;
@@ -73,6 +92,41 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
+            //get a button click "event"
+            if (Mouse.GetState().LeftButton != lastMouseState && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                //which side the click was?
+
+                if (Mouse.GetState().X < 400)
+                {
+                    //Click on left side
+                    if (leftOption == true)
+                    {
+                        correctChoice();
+                    }
+                    else
+                    {
+                        invalidChoice();
+                    }
+                }
+                else
+                {
+                    //Click on right side
+                    if (rightOption == true)
+                    {
+                        correctChoice();
+                    }
+                    else
+                    {
+                        invalidChoice();
+                    }
+                }
+            }
+
+            lastMouseState = Mouse.GetState().LeftButton;
+
+            cursorPos.X = Mouse.GetState().X;
+            cursorPos.Y = Mouse.GetState().Y;
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
@@ -94,6 +148,8 @@ namespace InssiParty.Games
             {
                 spriteBatch.Draw(pythonImages[leftID], new Vector2(400, 0), Color.White);
             }
+
+            spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
         }
 
         /**
@@ -115,6 +171,20 @@ namespace InssiParty.Games
             leftID = random.Next(0, 3);
             rightID = random.Next(0, 3);
 
+        }
+
+        private void correctChoice()
+        {
+            points++;
+            resetLanguages();
+            Console.WriteLine("Correct choice!");
+        }
+
+        private void invalidChoice()
+        {
+            errors++;
+            resetLanguages();
+            Console.WriteLine("Invalid!");
         }
     }
 }

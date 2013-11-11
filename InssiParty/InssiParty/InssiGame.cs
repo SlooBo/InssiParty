@@ -16,6 +16,8 @@ namespace InssiParty
 
     //TODO:
     // -> transition screens
+    // -> Better menu screen
+    // -> Point / Life counters for the gameplay.
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
