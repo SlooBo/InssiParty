@@ -73,6 +73,7 @@ namespace InssiParty
             addGame(new Koodirage(), "Koodi Rage");
             addGame(new FeedGame(),"Ruokkimis-peli");
             addGame(new Lampunvaihto(),"Lampun Vaihto");
+            addGame(new tentti(), "Auta inssia tentissa");
             /* ############ */
 
             //startGame(games[2]);
