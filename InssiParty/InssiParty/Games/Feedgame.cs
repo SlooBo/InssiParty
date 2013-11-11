@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using InssiParty.Games.FeedGameSrc;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
@@ -24,11 +25,15 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         private List<Kaappi> kaapit;
-        //Rectangle background = new Rectangle(0, 0, 800, 600);
+        private Vector2 HandPos;
 
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
+        private Texture2D box;
+        private Texture2D handu;
 
+        Rectangle HandRect = new Rectangle(0, 0, 100, 100);
+        Rectangle TestiRect = new Rectangle(0, 0, 100, 800);
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -38,6 +43,9 @@ namespace InssiParty.Games
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
+            box = Content.Load<Texture2D>("tausta_temp");
+            handu = Content.Load<Texture2D>("hand");
+     
         }
 
         /**
@@ -48,19 +56,25 @@ namespace InssiParty.Games
         public override void Start()
         {
             kaapit = new List<Kaappi>();
-            value = 650435;
-
             Kaappi temp = new Kaappi();
 
             temp.sijainti = new Vector2(700, 500);
-            temp.koko = new Vector2(20,20);
+            temp.koko = new Vector2(5,5);
 
             kaapit.Add(temp);
 
-            /*
-             temp = new Kaappi(); 
+            
+            temp = new Kaappi();
+            temp.sijainti = new Vector2(600, 50);
+            temp.koko = new Vector2(5,5);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.sijainti = new Vector2(100, 100);
+            temp.koko = new Vector2(5,5);
+            kaapit.Add(temp);
              
-             */
+             
         }
 
         /**
@@ -79,14 +93,17 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            value--;
+            var mouseState = Mouse.GetState();
+            HandRect.X = mouseState.X;
+            HandRect.Y = mouseState.Y;
+            HandPos = new Vector2(mouseState.X, mouseState.Y);
 
-            if (value < 0)
+
+            if(TestiRect.Intersects(HandRect))
             {
-                //Sammuta peli kun value o pienempi kuin 0
-                //Moottori lukee IsRunning muuttujan ja sammuttaa pelin.
-                IsRunning = false;
+            Console.WriteLine("Hand hits the cupboard");
             }
+
         }
 
         /**
@@ -103,8 +120,15 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(handu,HandPos,Color.White);
+   
 
             //for loop the list
+            for(int i=0; i< kaapit.Count;i++)
+            {
+                spriteBatch.Draw(box, kaapit[i].sijainti, Color.Red);
+            
+            }
 
             //draw rectangle on kaappi.sijainti + koko
 
