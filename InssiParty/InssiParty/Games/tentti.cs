@@ -39,11 +39,12 @@ namespace InssiParty.Games
         KeyboardState k_state_old;
         Rectangle background = new Rectangle(0, 0, 800, 600);
 
-
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D picture1;
-        private Texture2D picture2;
-        private Texture2D picture3;
+        private Texture2D inssi_restart;
+        private Texture2D inssi_start;
+        private Texture2D inssi_mid;
+        private Texture2D inssi_reset_mid;
+        private Texture2D inssi_end;
         // private Texture2D backgroundTexture;
         /**
          * Lataa tekstuureihin itse data.
@@ -52,9 +53,11 @@ namespace InssiParty.Games
          */
         public override void Load(ContentManager Content)
         {
-            picture1 = Content.Load<Texture2D>("inssi_start position");
-            picture2 = Content.Load<Texture2D>("inssi_mid position");
-            picture3 = Content.Load<Texture2D>("inssi_end position");
+            inssi_restart = Content.Load<Texture2D>("inssi_start position_alustus");
+            inssi_start = Content.Load<Texture2D>("inssi_start position");
+            inssi_mid = Content.Load<Texture2D>("inssi_mid position");
+            inssi_reset_mid = Content.Load<Texture2D>("inssi_mid position_alustus");
+            inssi_end = Content.Load<Texture2D>("inssi_end position");
             k_state_old = Keyboard.GetState();
         }
 
@@ -90,14 +93,29 @@ namespace InssiParty.Games
 
             for (int i = 0; i < 10; i++)
             {
+
                 if (k_state.IsKeyDown(Keys.Space))
                 {
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
                         value++;
-
+                        picture++;
+                        if (picture == 1)
+                        {
+                            inssi_start = inssi_mid;
+                        }
+                        if (picture == 2)
+                        {
+                            inssi_mid = inssi_end;
+                        }
+                        if (picture == 3)
+                        {
+                            picture = 0;
+                           inssi_start = inssi_restart;
+                           inssi_mid = inssi_reset_mid;
+                        }
                     }
-                }
+                 }
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
                 }
@@ -105,12 +123,13 @@ namespace InssiParty.Games
                 k_state_old = k_state;
             }
 
-            if (value == 10)
+            if (value == 100)
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
             }
         }
+
 
         /**
          * Pelkkä piirtäminen
@@ -121,11 +140,11 @@ namespace InssiParty.Games
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(picture1, background, new Color(255, 255, 255));
+            spriteBatch.Draw(inssi_start, background, new Color(255, 255, 255));
             Console.WriteLine("Valiluonnin iskut" + value);
+            Console.WriteLine("kuvat" + picture);
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            //Palikka piirretään y akselilla, valuen kohtaan
         }
 
     }
