@@ -35,14 +35,16 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
+        private int picture;
         KeyboardState k_state_old;
-
+        Rectangle background = new Rectangle(0, 0, 800, 600);
 
 
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D inssi_alku;
-        private Texture2D inssi_keski;
-        private Texture2D inssi_loppu;
+        private Texture2D picture1;
+        private Texture2D picture2;
+        private Texture2D picture3;
+        // private Texture2D backgroundTexture;
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -50,9 +52,9 @@ namespace InssiParty.Games
          */
         public override void Load(ContentManager Content)
         {
-            inssi_alku = Content.Load<Texture2D>("inssi_start position");
-            inssi_keski = Content.Load<Texture2D>("inssi_mid position");
-            inssi_loppu = Content.Load<Texture2D>("inssi_end position");
+            picture1 = Content.Load<Texture2D>("inssi_start position");
+            picture2 = Content.Load<Texture2D>("inssi_mid position");
+            picture3 = Content.Load<Texture2D>("inssi_end position");
             k_state_old = Keyboard.GetState();
         }
 
@@ -68,9 +70,8 @@ namespace InssiParty.Games
 
 
             //laskuri
-
-
             value = 0;
+            picture = 0;
         }
 
         /**
@@ -87,20 +88,24 @@ namespace InssiParty.Games
         {
             KeyboardState k_state = Keyboard.GetState();
 
-            if (k_state.IsKeyDown(Keys.Space))
+            for (int i = 0; i < 10; i++)
             {
-                if (!k_state_old.IsKeyDown(Keys.Space))
+                if (k_state.IsKeyDown(Keys.Space))
                 {
-                    value++;
+                    if (!k_state_old.IsKeyDown(Keys.Space))
+                    {
+                        value++;
+
+                    }
                 }
-            }
-            else if (k_state_old.IsKeyDown(Keys.Space))
-            {
+                else if (k_state_old.IsKeyDown(Keys.Space))
+                {
+                }
+
+                k_state_old = k_state;
             }
 
-            k_state_old = k_state;
-
-            if (value > 10)
+            if (value == 10)
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
@@ -116,6 +121,7 @@ namespace InssiParty.Games
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            spriteBatch.Draw(picture1, background, new Color(255, 255, 255));
             Console.WriteLine("Valiluonnin iskut" + value);
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
