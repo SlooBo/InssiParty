@@ -35,7 +35,9 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         private string [] numValues;
-        private int counter;
+        private int fail_counter;
+        private int success_counter;
+        Random rnd = new Random();
 
 
         //Tekstuurit pitää myös listata tässä kohdassa.
@@ -68,6 +70,10 @@ namespace InssiParty.Games
             Console.WriteLine("Starting Olut");
 
             value = 500;
+
+            numValues = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+
+            int painettava = rnd.Next(27);
         }
 
         /**
