@@ -172,7 +172,7 @@ namespace InssiParty.Games
             }
             else if (a == 200 && value == 101) 
                 {
-                    IsRunning = false;
+                    CloseGame(true);
                 }
 
             if (a == 900 && win == 0)
@@ -183,7 +183,7 @@ namespace InssiParty.Games
             }
             else if (a == 300 && value == 102)
                 {
-                    IsRunning = false;
+                    CloseGame(false);
                 }
 
         }
