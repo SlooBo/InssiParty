@@ -23,17 +23,19 @@ namespace InssiParty.Games
     class FeedGame : GameBase
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
-        private int value;
         private List<Kaappi> kaapit;
         private Vector2 HandPos;
 
+        private bool over = false;
+        private bool osuma = false;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
         private Texture2D box;
         private Texture2D handu;
+        private Texture2D win;
 
         Rectangle HandRect = new Rectangle(0, 0, 100, 100);
-        Rectangle TestiRect = new Rectangle(0, 0, 100, 800);
+        Rectangle TestiRect = new Rectangle(0, 600, 500, 300);
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -45,6 +47,7 @@ namespace InssiParty.Games
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
             box = Content.Load<Texture2D>("tausta_temp");
             handu = Content.Load<Texture2D>("hand");
+            win = Content.Load<Texture2D>("You_won");
      
         }
 
@@ -58,20 +61,20 @@ namespace InssiParty.Games
             kaapit = new List<Kaappi>();
             Kaappi temp = new Kaappi();
 
-            temp.sijainti = new Vector2(700, 500);
-            temp.koko = new Vector2(1,1);
+            temp.sijainti = new Vector2(800, 600);
+            temp.koko = new Vector2(50,50);
 
             kaapit.Add(temp);
 
-            
+
             temp = new Kaappi();
-            temp.sijainti = new Vector2(600, 50);
-            temp.koko = new Vector2(1,1);
+            temp.sijainti = new Vector2(600, 0);
+            temp.koko = new Vector2(300,300);
             kaapit.Add(temp);
 
             temp = new Kaappi();
-            temp.sijainti = new Vector2(100, 100);
-            temp.koko = new Vector2(1,1);
+            temp.sijainti = new Vector2(50, 50);
+            temp.koko = new Vector2(0,0);
             kaapit.Add(temp);
              
              
@@ -96,13 +99,25 @@ namespace InssiParty.Games
             var mouseState = Mouse.GetState();
             HandRect.X = mouseState.X;
             HandRect.Y = mouseState.Y;
-            HandPos = new Vector2(mouseState.X, mouseState.Y);
-
+            HandPos = new Vector2(mouseState.X-80, mouseState.Y-100);
+            
 
             if(TestiRect.Intersects(HandRect))
             {
             Console.WriteLine("Hand hits the cupboard");
+            over = true;
             }
+            else
+            {
+                osuma = false;
+            }
+
+
+            if (TestiRect.Intersects(HandRect) && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                osuma = true;
+            }
+
 
         }
 
@@ -115,7 +130,7 @@ namespace InssiParty.Games
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            Console.WriteLine("Perkele");
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
@@ -130,6 +145,13 @@ namespace InssiParty.Games
             }
 
             spriteBatch.Draw(handu, HandPos, Color.White);
+
+            if (osuma == true && over == true)
+            {
+                spriteBatch.Draw(win,new Vector2(0,0), Color.White);
+            }
+
+
         }
 
     }
