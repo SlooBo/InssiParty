@@ -20,17 +20,11 @@ namespace InssiParty.Games
         private int i, k, a, alpha, fadeinc, win;
 
         //äänet
-        SoundEffect lapsy;
-        SoundEffect murahdus;
-        SoundEffect musa;
-        SoundEffect raakasy;
+        SoundEffect lapsy,murahdus, musa, raakasy;
 
         //Tekstuurit
-        private Texture2D backgroundTexture;
+        private Texture2D backgroundTexture, cursorTexture, Fade, teksti;
         private Texture2D jari1, jari2, jari3, jari4;
-        private Texture2D cursorTexture;
-        private Texture2D Fade;
-        private Texture2D teksti;
 
         //parit rectanglet
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
@@ -83,7 +77,6 @@ namespace InssiParty.Games
         public override void Stop()
         {
             Console.WriteLine("close game");
-            musa.Dispose();
         }
 
         //Update
