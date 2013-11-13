@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Engine\GameBase.cs" />
     <Compile Include="Engine\ParticleManager.cs" />
+    <Compile Include="Engine\TipManager.cs" />
     <Compile Include="Games\DontShootJorma.cs" />
     <Compile Include="Games\Lampunvaihto.cs" />
     <Compile Include="Games\Feedgame.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InssiGame.cs" />
+    <Compile Include="TipList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

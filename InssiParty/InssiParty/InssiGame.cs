@@ -26,6 +26,7 @@ namespace InssiParty
 
         //EngineSystems
         ParticleManager particleManager;
+        TipManager tipManager;
 
         //Global resources
         SpriteFont font;
@@ -44,6 +45,7 @@ namespace InssiParty
             Content.RootDirectory = "Content";
 
             particleManager = new ParticleManager();
+            tipManager = new TipManager();
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -87,6 +89,8 @@ namespace InssiParty
 
             Console.WriteLine("# Loaded " + games.Count + " games.");
             //startGame(games[2]);
+
+            TipList.InitTipList(tipManager);
         }
 
         protected override void UnloadContent()
