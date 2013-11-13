@@ -34,7 +34,7 @@ namespace InssiParty.Games
         private Texture2D Lamppuaika;
 
         //Load content
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             Lamppupaalla = Content.Load<Texture2D>("lamppupaalla");

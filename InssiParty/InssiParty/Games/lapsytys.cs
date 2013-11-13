@@ -40,7 +40,7 @@ namespace InssiParty.Games
         Rectangle tekstiRect = new Rectangle(0,0,554,136);
         
         //kontentin loadaus
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //tekstuurit
             backgroundTexture = Content.Load<Texture2D>("jari1");

@@ -21,7 +21,7 @@ namespace InssiParty.Games
     {
         private Texture2D particleTexture;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             particleTexture = Content.Load<Texture2D>("palikka");
         }

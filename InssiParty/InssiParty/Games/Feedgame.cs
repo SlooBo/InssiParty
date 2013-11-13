@@ -41,7 +41,7 @@ namespace InssiParty.Games
          * 
          * Ajetaan kun koko ohjelma käynnistyy.
          */
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backround_texture = Content.Load<Texture2D>("FeedGame_background");

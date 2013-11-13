@@ -21,7 +21,7 @@ namespace InssiParty.Engine
         public bool IsVictory { get; set; }
 
         // Load all the content that the game needs before starting
-        public abstract void Load(ContentManager Content);
+        public abstract void Load(ContentManager Content, GraphicsDevice GraphicsDevice);
 
         // Start/stop the game from running
         public abstract void Start();

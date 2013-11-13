@@ -12,7 +12,7 @@ namespace InssiParty.Games
 {
     //TODO:
     //
-    // * add sound
+    // * Add sound
     // * Add timer to loss / win
     // * create new crosshair
 
@@ -28,6 +28,9 @@ namespace InssiParty.Games
         private Texture2D shotgun1Texture;
         private Texture2D shotgun2Texture;
         private Texture2D cursorTexture;
+        private Texture2D barTexture;
+
+        private Rectangle timerBar;
 
         private SpriteFont font;
 
@@ -37,7 +40,7 @@ namespace InssiParty.Games
         private int timer;
         private bool shotDone;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             jormaTexture = Content.Load<Texture2D>("dontShoot/jorma");
             shotgun1Texture = Content.Load<Texture2D>("dontShoot/shotgun1");
@@ -46,7 +49,12 @@ namespace InssiParty.Games
 
             font = Content.Load<SpriteFont>("DefaultFont");
 
+            barTexture = new Texture2D(GraphicsDevice, 1, 1);
+            barTexture.SetData(new Color[] { Color.White });
+
             cursorPosition = new Vector2(0, 0);
+
+            timerBar = new Rectangle(0, 580, 800, 20);
         }
 
         public override void Start()
@@ -72,6 +80,8 @@ namespace InssiParty.Games
             }
 
             ++timer;
+
+            timerBar.Width = 800 - timer;
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
@@ -92,6 +102,8 @@ namespace InssiParty.Games
                 {
                     spriteBatch.Draw(shotgun2Texture, new Vector2(320, 463), Color.WhiteSmoke);
                 }
+
+                spriteBatch.Draw(barTexture, timerBar, Color.White);
 
                 spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
             }

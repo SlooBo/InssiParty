@@ -50,7 +50,7 @@ namespace InssiParty.Games
         private Texture2D turretTexture;
         //private Texture2D turretBarrelTexture;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backgroundTexture = Content.Load<Texture2D>("nyanbackground");
