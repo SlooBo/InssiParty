@@ -145,11 +145,11 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backgroundTexture, background, Color.White);
-            spriteBatch.Draw(cannonballTexture, cbPos, Color.White);
             spriteBatch.Draw(turretTexture, new Vector2(50, 400), Color.White);
             spriteBatch.Draw(nyantail, new Vector2(nyancat_pos - 187, 10), Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
+            spriteBatch.Draw(cannonballTexture, cbPos, Color.White);
         }
 
     }

@@ -10,7 +10,6 @@ namespace InssiParty.Games
     public class Cannonball
     {
         protected Texture2D _texture;
-
         protected Vector2 _position;
         protected Vector2 _speed;
 
