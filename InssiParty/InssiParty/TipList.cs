@@ -14,6 +14,7 @@ namespace InssiParty
         public static void InitTipList(TipManager tipManager)
         {
             tipManager.addTip("Olut on hyvää");
+            tipManager.addTip("Alienteknologiaa!");
             tipManager.addTip("Vesi on märkää");
             tipManager.addTip("Lisää tippejä tiedostoon TipList.cs!");
             tipManager.addTip("                           D:");
