@@ -109,7 +109,10 @@ namespace InssiParty
             // Close the current game if esc is pressed.
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) == true)
             {
-                stopGame();
+                if (gameActive == true)
+                {
+                    stopGame();
+                }
             }
 
             if (gameActive == true)
