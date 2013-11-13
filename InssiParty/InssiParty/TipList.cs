@@ -17,6 +17,8 @@ namespace InssiParty
             tipManager.addTip("Vesi on märkää");
             tipManager.addTip("Lisää tippejä tiedostoon TipList.cs!");
             tipManager.addTip("                           D:");
+            tipManager.addTip("Inssit > katit");
+            tipManager.addTip("Tontzan hakkaaminen laudalla tuottaa mielihyvää");
 
             Console.WriteLine("[TipList] " + tipManager.getTipCount() + " tips loaded!");
         }
