@@ -5,6 +5,16 @@ using System.Text;
 
 namespace InssiParty.Engine
 {
+
+    //*************************
+    //
+    //
+    //        HUOM
+    //  LISÄÄ TIPIT FILUUN TipList.cs
+    //
+    //*************************
+
+
     class TipManager
     {
         Random random;
