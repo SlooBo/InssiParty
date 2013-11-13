@@ -42,6 +42,8 @@ namespace InssiParty.Engine
 
             IsRunning = false;
             IsVictory = victoryStatus;
+
+            Stop();
         }
 
         /* Functionality below is used by the engine itself */

@@ -28,7 +28,10 @@ namespace InssiParty.Games
 
         public override void Start() { }
 
-        public override void Stop() { }
+        public override void Stop()
+        {
+            Console.WriteLine("Closing ParticleExample!");
+        }
 
         public override void Update(GameTime gameTime) {
             if(Mouse.GetState().LeftButton == ButtonState.Pressed){
