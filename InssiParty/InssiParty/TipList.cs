@@ -18,7 +18,7 @@ namespace InssiParty
             tipManager.addTip("Lisää tippejä tiedostoon TipList.cs!");
             tipManager.addTip("                           D:");
 
-            Console.WriteLine("[TipList]" + tipManager.getTipCount() + " tips loaded!");
+            Console.WriteLine("[TipList] " + tipManager.getTipCount() + " tips loaded!");
         }
     }
 }
