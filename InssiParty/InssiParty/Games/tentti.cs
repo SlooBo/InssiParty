@@ -34,10 +34,11 @@ namespace InssiParty.Games
     class tentti : GameBase
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
-        private int value;
-        private int picture;
+        private int value = 0;
+        private int picture = 0;
         KeyboardState k_state_old;
         Rectangle background = new Rectangle(0, 0, 800, 600);
+        Rectangle render = new Rectangle(0, 0, 800, 600);
 
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi_restart;
@@ -94,46 +95,47 @@ namespace InssiParty.Games
             for (int i = 0; i < 10; i++)
             {
 
-                if (k_state.IsKeyDown(Keys.Space))
+                //    if (k_state.IsKeyDown(Keys.Space))
+                //    {
+                //        if (!k_state_old.IsKeyDown(Keys.Space))
+                //        {
+                //            value++;
+                //            picture++;
+                //            if (picture == 1)
+                //            {
+                //                inssi_start = inssi_mid;
+                //            }
+                //            if (picture == 2)
+                //            {
+                //                inssi_mid = inssi_end;
+                //            }
+                //            if (picture == 3)
+                //            {
+                //                picture = 0;
+                //               inssi_start = inssi_restart;
+                //               inssi_mid = inssi_reset_mid;
+                //            }
+                //        }
+                //     }
+                //    else if (k_state_old.IsKeyDown(Keys.Space))
+                //    {
+                //    }
+
+                //    k_state_old = k_state;
+                //}
+
+                if (value == 100)
                 {
-                    if (!k_state_old.IsKeyDown(Keys.Space))
-                    {
-                        value++;
-                        picture++;
-                        if (picture == 1)
-                        {
-                            inssi_start = inssi_mid;
-                        }
-                        if (picture == 2)
-                        {
-                            inssi_mid = inssi_end;
-                        }
-                        if (picture == 3)
-                        {
-                            picture = 0;
-                           inssi_start = inssi_restart;
-                           inssi_mid = inssi_reset_mid;
-                        }
-                    }
-                 }
-                else if (k_state_old.IsKeyDown(Keys.Space))
-                {
+                    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                    CloseGame(true);
                 }
-
-                k_state_old = k_state;
-            }
-
-            if (value == 100)
-            {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                CloseGame(true);
             }
         }
 
 
         /**
          * Pelkkä piirtäminen
-         * 
+         
          * ELÄ sijoita pelilogiikkaa tänne.
          *
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
@@ -141,6 +143,31 @@ namespace InssiParty.Games
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(inssi_start, background, new Color(255, 255, 255));
+
+            KeyboardState k_state = Keyboard.GetState();
+
+            for (int i = 0; i < 10; i++)
+            {
+
+                if (k_state.IsKeyDown(Keys.Space))
+                {
+                    spriteBatch.Draw(inssi_mid, render, Color.White);
+                    if (!k_state_old.IsKeyDown(Keys.Space))
+                    {
+                        value++;           
+                    }
+                 }
+               
+                else if (k_state_old.IsKeyDown(Keys.Space))
+                {
+                    spriteBatch.Draw(inssi_end, render, new Color (255,255,255));
+                }
+
+                k_state_old = k_state;
+                
+            }
+
+
             Console.WriteLine("Valiluonnin iskut" + value);
             Console.WriteLine("kuvat" + picture);
 
