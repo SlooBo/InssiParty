@@ -55,10 +55,8 @@ namespace InssiParty.Games
          */
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            inssi_restart = Content.Load<Texture2D>("inssi_start position_alustus");
             inssi_start = Content.Load<Texture2D>("inssi_start position");
             inssi_mid = Content.Load<Texture2D>("inssi_mid position");
-            inssi_reset_mid = Content.Load<Texture2D>("inssi_mid position_alustus");
             inssi_end = Content.Load<Texture2D>("inssi_end position");
             k_state_old = Keyboard.GetState();
             blood = Content.Load<Texture2D>("veritippa");

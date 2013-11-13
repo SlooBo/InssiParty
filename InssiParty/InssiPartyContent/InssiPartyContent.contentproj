@@ -303,20 +303,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="inssi_start position_alustus.jpg">
-      <Name>inssi_start position_alustus</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="inssi_mid position_alustus.jpg">
-      <Name>inssi_mid position_alustus</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="kaappi.png">
       <Name>kaappi</Name>
       <Importer>TextureImporter</Importer>
