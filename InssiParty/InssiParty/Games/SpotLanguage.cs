@@ -51,7 +51,7 @@ namespace InssiParty.Games
         private ButtonState lastMouseState;
         private Vector2 cursorPos;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             random = new Random();
 

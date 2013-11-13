@@ -22,7 +22,7 @@ namespace InssiParty.Games
 
         private Texture2D spriteBox;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             spriteBox = Content.Load<Texture2D>("propelli");
         }

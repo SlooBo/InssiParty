@@ -12,7 +12,7 @@ namespace InssiParty.Games
 {
     //TODO:
     //
-    // * add sound
+    // * Add sound
     // * Add timer to loss / win
     // * create new crosshair
 
@@ -23,26 +23,44 @@ namespace InssiParty.Games
      */
     class DontShootJorma : GameBase
     {
+        /* Resources */
         private Texture2D jormaTexture;
         private Texture2D shotgun1Texture;
         private Texture2D shotgun2Texture;
         private Texture2D cursorTexture;
+        private Texture2D barTexture;
 
+        private Rectangle timerBar;
+
+        private SpriteFont font;
+
+        /* Variables */
         private Vector2 cursorPosition;
 
-        public override void Load(ContentManager Content)
+        private int timer;
+        private bool shotDone;
+
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             jormaTexture = Content.Load<Texture2D>("dontShoot/jorma");
             shotgun1Texture = Content.Load<Texture2D>("dontShoot/shotgun1");
             shotgun2Texture = Content.Load<Texture2D>("dontShoot/shotgun2");
             cursorTexture = Content.Load<Texture2D>("k00panhiiri");
 
+            font = Content.Load<SpriteFont>("DefaultFont");
+
+            barTexture = new Texture2D(GraphicsDevice, 1, 1);
+            barTexture.SetData(new Color[] { Color.White });
+
             cursorPosition = new Vector2(0, 0);
+
+            timerBar = new Rectangle(0, 580, 800, 20);
         }
 
         public override void Start()
         {
-            //TODO: reset timers
+            timer = 0;
+            shotDone = false;
         }
 
         public override void Stop() { }
@@ -53,17 +71,42 @@ namespace InssiParty.Games
             cursorPosition.Y = Mouse.GetState().Y;
 
             //TODO: Do a check for the game start so the player wont shoot by starting the game.
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (Mouse.GetState().RightButton == ButtonState.Pressed || Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                //TODO: Add timer + particles
-                CloseGame(false);
+                if (timer > 100)  //Prevent click on the start menu
+                {
+                    shotDone = true;
+                }
             }
+
+            ++timer;
+
+            timerBar.Width = 800 - timer;
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(shotgun1Texture, new Vector2(320, 463), Color.WhiteSmoke);
-            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+            if (timer < 100)
+            {
+                //Show the guide on the start
+                spriteBatch.DrawString(font, "Don't Shoot jorma.", new Vector2(300, 280), Color.Red);
+            }
+            else
+            {
+
+                if (shotDone == false)
+                {
+                    spriteBatch.Draw(shotgun1Texture, new Vector2(320, 463), Color.WhiteSmoke);
+                }
+                else
+                {
+                    spriteBatch.Draw(shotgun2Texture, new Vector2(320, 463), Color.WhiteSmoke);
+                }
+
+                spriteBatch.Draw(barTexture, timerBar, Color.White);
+
+                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+            }
         }
 
     }

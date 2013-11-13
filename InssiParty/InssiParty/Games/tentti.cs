@@ -51,7 +51,7 @@ namespace InssiParty.Games
          * 
          * Ajetaan kun koko ohjelma käynnistyy.
          */
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             inssi_restart = Content.Load<Texture2D>("inssi_start position_alustus");
             inssi_start = Content.Load<Texture2D>("inssi_start position");

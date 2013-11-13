@@ -69,7 +69,7 @@ namespace InssiParty
             cursorTexture = Content.Load<Texture2D>("palikka");
 
             games = new List<GameBase>();
-
+            
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
             addGame(new SampleGame(), "Sample Game");
@@ -109,7 +109,10 @@ namespace InssiParty
             // Close the current game if esc is pressed.
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) == true)
             {
-                stopGame();
+                if (gameActive == true)
+                {
+                    stopGame();
+                }
             }
 
             if (gameActive == true)
@@ -144,7 +147,6 @@ namespace InssiParty
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             spriteBatch.Begin();
 
             if (gameActive == true)
@@ -193,7 +195,7 @@ namespace InssiParty
 
             games.Add(game);
             game.Name = name;
-            game.Load(Content);
+            game.Load(Content,GraphicsDevice);
 
             Console.WriteLine("Done!");
         }

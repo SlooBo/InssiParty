@@ -21,14 +21,17 @@ namespace InssiParty.Games
     {
         private Texture2D particleTexture;
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             particleTexture = Content.Load<Texture2D>("palikka");
         }
 
         public override void Start() { }
 
-        public override void Stop() { }
+        public override void Stop()
+        {
+            Console.WriteLine("Closing ParticleExample!");
+        }
 
         public override void Update(GameTime gameTime) {
             if(Mouse.GetState().LeftButton == ButtonState.Pressed){
