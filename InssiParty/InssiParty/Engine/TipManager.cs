@@ -30,7 +30,7 @@ namespace InssiParty.Engine
 
         public String getRandomTip()
         {
-            return "Vesi on märkää";
+            return tipList[random.Next(0, tipList.Count)];
         }
     }
 }

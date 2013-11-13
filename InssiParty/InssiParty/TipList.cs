@@ -15,6 +15,8 @@ namespace InssiParty
         {
             tipManager.addTip("Olut on hyvää");
             tipManager.addTip("Vesi on märkää");
+            tipManager.addTip("Lisää tippejä tiedostoon TipList.cs!");
+            tipManager.addTip("                           D:");
 
             Console.WriteLine("[TipList]" + tipManager.getTipCount() + " tips loaded!");
         }

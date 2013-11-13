@@ -17,6 +17,7 @@ namespace InssiParty
     //TODO:
     // -> transition screens
     // -> Better menu screen
+    // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
 
     public class InssiGame : Microsoft.Xna.Framework.Game
@@ -36,6 +37,7 @@ namespace InssiParty
         bool gameActive;
         GameBase currentGame;
         private Vector2 cursorPosition;
+        private String currentTip;
 
         List<GameBase> games;
 
@@ -52,6 +54,8 @@ namespace InssiParty
 
             graphics.PreferredBackBufferWidth  = 800;
             graphics.PreferredBackBufferHeight = 600;
+
+            currentTip = "failed to load tips.";
         }
 
        
@@ -91,6 +95,9 @@ namespace InssiParty
             //startGame(games[2]);
 
             TipList.InitTipList(tipManager);
+
+            //Choose random tip for the main menu
+            currentTip = "Protip: " + tipManager.getRandomTip();
         }
 
         protected override void UnloadContent()
@@ -180,6 +187,9 @@ namespace InssiParty
 
                     spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
                 }
+
+                //Draw the tip
+                spriteBatch.DrawString(font, currentTip, new Vector2(5, 570), Color.White);
 
                 //Draw the cursor
                 spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
