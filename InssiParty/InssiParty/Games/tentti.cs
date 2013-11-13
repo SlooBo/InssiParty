@@ -46,6 +46,7 @@ namespace InssiParty.Games
         private Texture2D inssi_mid;
         private Texture2D inssi_reset_mid;
         private Texture2D inssi_end;
+        private Texture2D blood;
         // private Texture2D backgroundTexture;
         /**
          * Lataa tekstuureihin itse data.
@@ -60,6 +61,7 @@ namespace InssiParty.Games
             inssi_reset_mid = Content.Load<Texture2D>("inssi_mid position_alustus");
             inssi_end = Content.Load<Texture2D>("inssi_end position");
             k_state_old = Keyboard.GetState();
+            blood = Content.Load<Texture2D>("veritippa");
         }
 
         /**
@@ -92,44 +94,12 @@ namespace InssiParty.Games
         {
             KeyboardState k_state = Keyboard.GetState();
 
-            for (int i = 0; i < 10; i++)
-            {
-
-                //    if (k_state.IsKeyDown(Keys.Space))
-                //    {
-                //        if (!k_state_old.IsKeyDown(Keys.Space))
-                //        {
-                //            value++;
-                //            picture++;
-                //            if (picture == 1)
-                //            {
-                //                inssi_start = inssi_mid;
-                //            }
-                //            if (picture == 2)
-                //            {
-                //                inssi_mid = inssi_end;
-                //            }
-                //            if (picture == 3)
-                //            {
-                //                picture = 0;
-                //               inssi_start = inssi_restart;
-                //               inssi_mid = inssi_reset_mid;
-                //            }
-                //        }
-                //     }
-                //    else if (k_state_old.IsKeyDown(Keys.Space))
-                //    {
-                //    }
-
-                //    k_state_old = k_state;
-                //}
-
                 if (value == 100)
                 {
                     //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                     CloseGame(true);
                 }
-            }
+            
         }
 
 
@@ -161,6 +131,14 @@ namespace InssiParty.Games
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
                     spriteBatch.Draw(inssi_end, render, new Color (255,255,255));
+                    particleManager.AddParticle(
+                    blood,                                       // Texture
+                    new Vector2(390,275),   // Position
+                    new Vector2(-20, -20),                                 // Min speed on x / y axis
+                    new Vector2(20, 20),                                   // Max speed on x / y axis
+                    10,                                                    // Min time to live
+                    50,                                                    // Max time to live
+                    10);   
                 }
 
                 k_state_old = k_state;
