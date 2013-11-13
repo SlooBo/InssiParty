@@ -27,9 +27,7 @@ namespace InssiParty.Games
 
         //Tekstuurit
         private Texture2D backgroundTexture;
-        private Texture2D jari2;
-        private Texture2D jari3;
-        private Texture2D jari4;
+        private Texture2D jari1, jari2, jari3, jari4;
         private Texture2D cursorTexture;
         private Texture2D Fade;
         private Texture2D teksti;
@@ -44,6 +42,7 @@ namespace InssiParty.Games
         {
             //tekstuurit
             backgroundTexture = Content.Load<Texture2D>("jari1");
+            jari1 = Content.Load<Texture2D>("jari1");
             jari2 = Content.Load<Texture2D>("jari2");
             jari3 = Content.Load<Texture2D>("jari3");
             jari4 = Content.Load<Texture2D>("jari4");
@@ -67,6 +66,7 @@ namespace InssiParty.Games
             i = 0;
             value = 0;
             alpha = 1;
+            a = 0;
             fadeinc = 10;
            
             //sijainteja
@@ -75,12 +75,15 @@ namespace InssiParty.Games
             tekstiRect.X = 1000;
 
             musa.Play( 0.2f , 0 , 0 );
+            backgroundTexture = jari1;
+            
         }
         
         //pelin loppu
         public override void Stop()
         {
             Console.WriteLine("close game");
+            musa.Dispose();
         }
 
         //Update
@@ -113,7 +116,7 @@ namespace InssiParty.Games
                 Mouse.SetPosition(700, 300);
                 k = 1;
             }
-
+            
             if (objectRect.Intersects(cursorRect) && k == 1)
             {
                 objectRect.X = 0;
@@ -170,18 +173,18 @@ namespace InssiParty.Games
                 k = 0;
                 a = 0;
             }
-            else if (a == 200 && value == 101) 
+            else if (a == 100 && value == 101) 
                 {
                     CloseGame(true);
                 }
 
-            if (a == 900 && win == 0)
+            if (a == 1100 && win == 0)
             {
                 value = 102;
                 k = 0;
                 a = 0;
             }
-            else if (a == 300 && value == 102)
+            else if (a == 100 && value == 102)
                 {
                     CloseGame(false);
                 }
