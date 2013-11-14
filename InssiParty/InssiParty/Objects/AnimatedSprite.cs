@@ -13,6 +13,7 @@ namespace InssiParty.Games
         Texture2D spriteTexture;
         float timer = 0f;
         float interval = 200f;
+        int spriteSpeed = 2;
         int currentFrame = 0;
         int spriteWidht = 150;
         int spriteHeight = 388;
@@ -77,10 +78,20 @@ namespace InssiParty.Games
 
         public void HandleSpriteMovement(GameTime gameTime)
         {
-            if (currentFrame < 7)
+            sourceRect = new Rectangle(currentFrame * spriteWidht, 0, spriteWidht, spriteHeight); 
+
+            if (currentFrame > 7)
             {
                 currentFrame = 0;
             }
+
+            Animate(gameTime);
+            if (position.X < 150) 
+            {
+                position.X += spriteSpeed;
+            }
+
+            origin = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
         }
 
         public void Animate(GameTime gameTime)

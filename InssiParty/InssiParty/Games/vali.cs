@@ -26,7 +26,7 @@ namespace InssiParty.Games
             //tekstuurit
             backgroundTexture = Content.Load<Texture2D>("alko");
 
-            sprite = new AnimatedSprite(Content.Load<Texture2D>("pullo_spritesheet"), 2, 150, 388);
+            sprite = new AnimatedSprite(Content.Load<Texture2D>("pullo_spritesheet"), 1, 150, 388);
 
             sprite.Position = new Vector2(400,300);
         }
