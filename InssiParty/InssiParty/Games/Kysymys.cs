@@ -34,6 +34,9 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
+        private SpriteFont font;
+        
+       
 
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D taustak;
@@ -47,6 +50,7 @@ namespace InssiParty.Games
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             taustak = Content.Load<Texture2D>("taustaktesti");
+            font = Content.Load<SpriteFont>("DefaultFont");
         }
 
         /**
@@ -56,7 +60,8 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            
+            
 
             value = 500;
         }
@@ -66,7 +71,7 @@ namespace InssiParty.Games
          */
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+        
         }
 
         /**
@@ -96,10 +101,11 @@ namespace InssiParty.Games
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
+            spriteBatch.DrawString(font, "Perkele", new Vector2(400, 150), Color.Red);
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(taustak, new Vector2(50, value), Color.White);
+            spriteBatch.Draw(taustak, new Vector2(0, value), Color.White);
         }
 
     }
