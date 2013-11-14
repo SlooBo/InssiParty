@@ -124,22 +124,26 @@ namespace InssiParty.Games
             {
                 item.Update();
 
-                foreach (Cannonball c in cannonballs)
-                {
-                    if (item.CollisionRect.Intersects(c.CollisionRect))
-                    {
-                        c.IsDead = true;
-                        item.IsDead = true;
-                    }
-                }
+
 
                 if (item.Position.X > background.Width)
                 {
                     item.IsDead = true;
                 }
-                if (item.Position.Y < background.Height)
+                if (item.Position.Y > background.Height)
                 {
                     item.IsDead = true;
+                }
+            }
+
+            for (int i = 0; i < cannonballs.Count; i++)
+            {
+                Cannonball c = cannonballs[i];
+
+                if (c.IsDead)
+                {
+                    cannonballs.Remove(c);
+                    i--;
                 }
             }
 
