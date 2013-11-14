@@ -15,6 +15,8 @@ namespace InssiParty.Engine
         public Vector2 vel { get; set; }
     }
 
+    //TODO: Particles that stay
+
     /**
      * Provides particle effects.
      */

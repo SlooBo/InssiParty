@@ -87,7 +87,7 @@ namespace InssiParty
             addGame(new SampleGame(), "Sample Game", "Päivitä ohje InssiGame.cs!");
             addGame(new HelloWorld(), "Hello World", "Päivitä ohje InssiGame.cs!");
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!");
-            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Päivitä ohje InssiGame.cs!");
+            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!");
             addGame(new ParticleExample(), "Particle Example", "Päivitä ohje InssiGame.cs!");
             addGame(new SpotLanguage(), "Spot the real coding language", "Päivitä ohje InssiGame.cs!");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!");

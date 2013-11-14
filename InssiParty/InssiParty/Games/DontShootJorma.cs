@@ -73,10 +73,7 @@ namespace InssiParty.Games
             //TODO: Do a check for the game start so the player wont shoot by starting the game.
             if (Mouse.GetState().RightButton == ButtonState.Pressed || Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                if (timer > 100)  //Prevent click on the start menu
-                {
-                    shotDone = true;
-                }
+                shotDone = true;
             }
 
             ++timer;
@@ -97,7 +94,7 @@ namespace InssiParty.Games
 
             spriteBatch.Draw(barTexture, timerBar, Color.White);
 
-            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+            spriteBatch.Draw(cursorTexture, new Vector2(Mouse.GetState().X, Mouse.GetState().Y) , Color.White);
         }
 
     }
