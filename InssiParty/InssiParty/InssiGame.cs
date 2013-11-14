@@ -92,6 +92,7 @@ namespace InssiParty
             addGame(new Shooty(), "Shoot the Nyan-cat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa");
             addGame(new SilitaKissaa(), "Silitä kissaa");
+            addGame(new Kysymys(), "Random kysymyksiä");
 
             /* ############ */
 
