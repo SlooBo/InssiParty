@@ -45,10 +45,17 @@ namespace InssiParty.Games
             teksti = Content.Load<Texture2D>("lapsijari");
 
             //äänet
-            lapsy = Content.Load<SoundEffect>("lapsy1");
-            murahdus = Content.Load<SoundEffect>("murahdus");
-            musa = Content.Load<SoundEffect>("musa1");
-            raakasy = Content.Load<SoundEffect>("raakasy");
+            try
+            {
+                lapsy = Content.Load<SoundEffect>("lapsy1");
+                murahdus = Content.Load<SoundEffect>("murahdus");
+                musa = Content.Load<SoundEffect>("musa1");
+                raakasy = Content.Load<SoundEffect>("raakasy");
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+            }
         }
 
         //peli alku
