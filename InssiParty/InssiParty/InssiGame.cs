@@ -156,13 +156,18 @@ namespace InssiParty
             else
             {
             
-                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
                     for (int i = 0; i < games.Count(); ++i)
                     {
                         if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
                         {
                             startGame(games[i]);
+
+                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                            {
+                                transitionTimer = TRANSITION_TIME + 10;
+                            }
                         }
                     }
 

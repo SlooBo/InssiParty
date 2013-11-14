@@ -20,6 +20,7 @@ namespace InssiParty
             tipManager.addTip("                           D:");
             tipManager.addTip("Inssit > katit");
             tipManager.addTip("Tontzan hakkaaminen laudalla tuottaa mielihyvää");
+            tipManager.addTip("Right click to skip transition!");
         }
 
 
