@@ -22,23 +22,27 @@ namespace InssiParty
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         //EngineSystems
-        ParticleManager particleManager;
-        TipManager tipManager;
+        private ParticleManager particleManager;
+        private TipManager tipManager;
 
         //Global resources
-        SpriteFont font;
+        private SpriteFont font;
 
         //Menu stuff
         private Texture2D cursorTexture;
-        bool gameActive;
-        GameBase currentGame;
+        private bool gameActive;
+        private GameBase currentGame;
         private Vector2 cursorPosition;
         private String currentTip;
 
+        //Transition stuff
+        private int transitionTimer;
+
+        //Game objects
         List<GameBase> games;
 
         public InssiGame()
