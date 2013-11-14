@@ -13,7 +13,6 @@ using InssiParty.Engine;
 
 namespace InssiParty
 {
-
     //TODO:
     // -> transition screens
     // -> Better menu screen
@@ -22,6 +21,8 @@ namespace InssiParty
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
+        const int TRANSITION_TIME = 150;
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -121,6 +122,8 @@ namespace InssiParty
             cursorPosition.X = mouseState.X;
             cursorPosition.Y = mouseState.Y;
 
+            ++transitionTimer;
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
@@ -139,7 +142,11 @@ namespace InssiParty
             if (gameActive == true)
             {
                 //Game
-                currentGame.UpdateProxy(gameTime);
+
+                if (transitionTimer > TRANSITION_TIME)
+                {
+                    currentGame.UpdateProxy(gameTime);
+                }
 
                 if (currentGame.IsRunning == false)
                 {
@@ -173,6 +180,11 @@ namespace InssiParty
             if (gameActive == true)
             {
                 currentGame.RenderProxy(spriteBatch, gameTime);
+
+                if (transitionTimer < TRANSITION_TIME)
+                {
+                    spriteBatch.DrawString(font, "Don't Shoot jorma.", new Vector2(300, 280), Color.Red);
+                }
             }
             else
             {
@@ -237,6 +249,8 @@ namespace InssiParty
             currentGame           = game;
             currentGame.IsRunning = true;
             currentGame.StartProxy();
+
+            transitionTimer = 0;
         }
 
         /**
