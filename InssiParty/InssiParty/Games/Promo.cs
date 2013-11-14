@@ -6,22 +6,11 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
 
-    /**
-     * Uuden pelin luominen
-     * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostossa
-     * 
-     */
-
-    /**
-     * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
-     * IGameBase pitää jättää semmoiseksi
-     */
 
     /**
      * Väistä ATJ-Promoja
@@ -32,21 +21,30 @@ namespace InssiParty.Games
      */
     class Promo : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
+        SpriteBatch spritebatch;
+        
+        //variablesit
         private int value;
+        private int inssi_nopeus = 3;
+        private bool osuma = false;
+        private Vector2 inssi_kohta;
 
-        //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D spriteBox;
+        //Tekstuurit
+        
+        private Texture2D inssi;
 
-        /**
-         * Lataa tekstuureihin itse data.
-         * 
-         * Ajetaan kun koko ohjelma käynnistyy.
-         */
+        private Rectangle inssi_alue = new Rectangle(0, 0, 64, 64);
+        private Rectangle kentta = new Rectangle(0, 0, 800, 600);
+       
+        
+    
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
-            spriteBox = Content.Load<Texture2D>("propelli");
+            spritebatch = new SpriteBatch(GraphicsDevice);
+            inssi = Content.Load<Texture2D>("Nyancat");
+
+            inssi_kohta = Vector2.One * 100;
         }
 
         /**
@@ -56,9 +54,9 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            Console.WriteLine("Starting Vaista ATJ-Promoja");
             
-            value = 500;
+            value = 0;
         }
 
         /**
@@ -66,7 +64,7 @@ namespace InssiParty.Games
          */
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+            Console.WriteLine("Closing Väistä ATJ-Promoja");
         }
 
         /**
@@ -77,12 +75,33 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            value--;
+            //value--;
 
-            if (value < 0)
+            //if (value < 0)
+            //{
+            //    sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+            //    CloseGame(true);
+            //}
+           
+            KeyboardState keyboard = Keyboard.GetState();
+            if (keyboard.IsKeyDown(Keys.D))
             {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                CloseGame(true);
+                inssi_kohta += Vector2.UnitX * inssi_nopeus;
+            }
+
+            if (keyboard.IsKeyDown(Keys.A))
+            {
+                inssi_kohta -= Vector2.UnitX * inssi_nopeus;
+            }
+
+            if (keyboard.IsKeyDown(Keys.S))
+            {
+                inssi_kohta += Vector2.UnitY * inssi_nopeus;
+            }
+
+            if (keyboard.IsKeyDown(Keys.W))
+            {
+                inssi_kohta -= Vector2.UnitY * inssi_nopeus;
             }
         }
 
@@ -99,7 +118,7 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(spriteBox, new Vector2(50,value), Color.White);
+            spriteBatch.Draw(inssi, new Vector2(400,300), Color.White);
         }
 
     }
