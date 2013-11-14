@@ -36,7 +36,9 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         private int forward = 0;
-        private int inssi_movement;
+        private float inssi_movement;
+        private double x;
+        private float y;
         Random random;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi;
@@ -65,6 +67,7 @@ namespace InssiParty.Games
             inssi_movement = 250;
             Console.WriteLine("Starting hello world");
             value = 500;
+            x = 2;
         }
 
         /**
@@ -85,17 +88,19 @@ namespace InssiParty.Games
         {
             forward++;
 
-            inssi_movement = inssi_movement - random.Next(2, 9);
-            inssi_movement = inssi_movement + random.Next(5, 8);
+            x = Math.Sin(200 / 60 * Math.PI);
+            inssi_movement = (float)x;
+
+            //inssi_movement = inssi_movement + random.Next(4, 32);
 
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.W))
             {
-                inssi_movement = inssi_movement - 5;
+                inssi_movement = inssi_movement - 10;
             }
             if (keyboard.IsKeyDown(Keys.S))
             {
-                inssi_movement = inssi_movement + 5;
+                inssi_movement = inssi_movement + 10;
             }
 
             if (value < 0)
