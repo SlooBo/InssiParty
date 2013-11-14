@@ -102,16 +102,27 @@ namespace InssiParty.Games
         {
 
             //nyancat_pos+=2;
-            
+
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
             targetRect.Y = mouseState.Y;
-            targetPos = new Vector2(mouseState.X-32, mouseState.Y-32);
+            //if (targetRect.X < 84)
+            //{
+            //    targetRect.X = 84;
+            //}
+            //if (targetRect.Y > 418)
+            //{
+            //    targetRect.Y = 418;
+            //}
+            targetPos = new Vector2(targetRect.X - 32, targetRect.Y - 32);
+
+
+
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                angle = Math.Atan((barrelhp.Y - mouseState.Y) / (mouseState.X - barrelhp.X)) * 180 / PI;
+                angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X)) * 180 / PI;
                 initX = Math.Sin(angle) * 6;
                 initY = Math.Cos(angle) * 6;
                 cbSpeed = new Vector2((float)initX, (float)initY);
@@ -119,7 +130,7 @@ namespace InssiParty.Games
                 Console.WriteLine(angle);
                 Console.WriteLine(initX);
                 Console.WriteLine(initX);
-                
+
             }
 
             foreach (Cannonball item in cannonballs)
