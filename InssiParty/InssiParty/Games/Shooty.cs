@@ -112,11 +112,13 @@ namespace InssiParty.Games
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 angle = Math.Atan((barrelhp.Y - mouseState.Y) / (mouseState.X - barrelhp.X)) * 180 / PI;
-                initX = Math.Cos(angle) * 6;
-                initY = Math.Sin(angle) * 6;
+                initX = Math.Sin(angle) * 6;
+                initY = Math.Cos(angle) * 6;
                 cbSpeed = new Vector2((float)initX, (float)initY);
                 cannonballs.Add(new Cannonball(cannonballTexture, barrelhp, cbSpeed));
                 Console.WriteLine(angle);
+                Console.WriteLine(initX);
+                Console.WriteLine(initX);
                 
             }
 
