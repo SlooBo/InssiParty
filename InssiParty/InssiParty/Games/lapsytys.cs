@@ -20,7 +20,7 @@ namespace InssiParty.Games
         private int i, k, a, alpha, fadeinc, win;
 
         //äänet
-        SoundEffect lapsy,murahdus, musa, raakasy;
+        //SoundEffect lapsy,murahdus, musa, raakasy;
 
         //Tekstuurit
         private Texture2D backgroundTexture, cursorTexture, Fade, teksti;
@@ -40,11 +40,12 @@ namespace InssiParty.Games
             jari2 = Content.Load<Texture2D>("jari2");
             jari3 = Content.Load<Texture2D>("jari3");
             jari4 = Content.Load<Texture2D>("jari4");
-            cursorTexture = Content.Load<Texture2D>("cursor");
+            cursorTexture = Content.Load<Texture2D>("hand");
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
 
             //äänet
+            /*
             try
             {
                 lapsy = Content.Load<SoundEffect>("lapsy1");
@@ -56,6 +57,7 @@ namespace InssiParty.Games
             {
                 Console.WriteLine(eek.Message);
             }
+             */
         }
 
         //peli alku
@@ -75,7 +77,7 @@ namespace InssiParty.Games
             tekstiRect.Y = 200;
             tekstiRect.X = 1000;
 
-            musa.Play( 0.2f , 0 , 0 );
+            // musa.Play( 0.2f , 0 , 0 );
             backgroundTexture = jari1;
             
         }
@@ -124,7 +126,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 2;
-                lapsy.Play();
+                //lapsy.Play();
                 backgroundTexture = jari3;
             }
             //M1
@@ -144,7 +146,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 4;
-                lapsy.Play();
+                //lapsy.Play();
                 backgroundTexture = jari2;
             }
             //M2
@@ -160,14 +162,14 @@ namespace InssiParty.Games
             //murahtelu
             if (value == 30 || value == 60)
             {
-                murahdus.Play();
+                //murahdus.Play();
             }
 
             //Loppucheck
             if (value == 100)
             {
                 win = 1;
-                raakasy.Play(1,0,0);
+                //raakasy.Play(1,0,0);
                 value = 101;
                 backgroundTexture = jari4;
                 k = 0;
