@@ -27,7 +27,6 @@ namespace InssiParty.Games
         private Vector2 HandPos;
 
         private bool over = false;
-        private bool over2 = false;
         private bool osuma = false;
 
         int item;
@@ -71,7 +70,7 @@ namespace InssiParty.Games
 
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
-            temp.koko = new Vector2(114,236);
+            temp.koko = new Vector2(300,300);
             temp.tavara_id = item;
             kaapit.Add(temp);
 
@@ -79,14 +78,14 @@ namespace InssiParty.Games
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
-            temp.koko = new Vector2(114,236);
+            temp.koko = new Vector2(300,300);
             temp.tavara_id = item; 
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
-            temp.koko = new Vector2(114, 236);
+            temp.koko = new Vector2(300, 300);
             temp.tavara_id = item;
             kaapit.Add(temp);
              
@@ -114,32 +113,30 @@ namespace InssiParty.Games
             HandRect.Y = mouseState.Y;
             HandPos = new Vector2(mouseState.X, mouseState.Y);
 
+            for (int i = 0; i < kaapit.Count; i++)
+            {
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    Console.WriteLine("Hand hits the cupboard");
+                    osuma = true;
 
-            if (HandRect.Intersects(TestiRect))
-            //if (HandRect.Intersects(new Rectangle(Kaappi.sijainti.x,kaappisit.sijainti.y, Kaappi.koko.x , Kaappi.koko.y ))
-            {
-            Console.WriteLine("Hand hits the cupboard");
-            over = true;
-            }
-            else
-            {
-                over = false;
+                }
             }
 
 
-            if (HandRect.Intersects(TestiRect2))
+            if (HandRect.Intersects(new Rectangle((int)kaapit[0].sijainti.X, (int)kaapit[0].sijainti.Y, (int)kaapit[0].koko.X, (int)kaapit[0].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
             {
-                Console.WriteLine("Hand hits the cupboard2");
-                over2 = true;
-            }
-            else
-            {
-                over2 = false;
+                kaapit[0].auki = true;
             }
 
-            if (HandRect.Intersects(TestiRect) && mouseState.LeftButton == ButtonState.Pressed  || HandRect.Intersects(TestiRect2) && mouseState.LeftButton == ButtonState.Pressed)
+            if (HandRect.Intersects(new Rectangle((int)kaapit[1].sijainti.X, (int)kaapit[1].sijainti.Y, (int)kaapit[1].koko.X, (int)kaapit[1].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
             {
-                osuma = true;
+                kaapit[1].auki = true;
+            }
+
+            if (HandRect.Intersects(new Rectangle((int)kaapit[2].sijainti.X, (int)kaapit[2].sijainti.Y, (int)kaapit[2].koko.X, (int)kaapit[2].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                kaapit[2].auki = true;
             }
 
 
@@ -168,24 +165,26 @@ namespace InssiParty.Games
             
             }
 
+
+            if (osuma == true && kaapit[1].auki == true)
+            {
+                spriteBatch.Draw(poison, kaapit[1].sijainti, Color.White);
+            }
+
+            if (osuma == true && kaapit[2].auki == true)
+            {
+                spriteBatch.Draw(poison, kaapit[2].sijainti, Color.White);
+            }
+
+            if (osuma == true && kaapit[0].auki == true)
+            {
+                spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
+            }
+
+
             spriteBatch.Draw(handu, HandPos, Color.White);
 
-            if (osuma == true && over2 == true)
-            {
-                for (int i = 0; i < kaapit.Count; i++)
-                {
-                    spriteBatch.Draw(poison, kaapit[i].sijainti + kaapit[i].koko, Color.White);
-            }
-            }
-
-            if (osuma == true && over == true)
-            {
-                //spriteBatch.Draw(win,new Vector2(0,0), Color.White);
-            }
-
-
             //spriteBatch.Draw(lose, new Vector2(0, 0), Color.White);
-
         }
 
     }
