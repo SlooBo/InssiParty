@@ -93,6 +93,7 @@ namespace InssiParty
             addGame(new rollibyrintti(), "rollaile labyrintissa");
             addGame(new SilitaKissaa(), "Silitä kissaa");
             addGame(new Kysymys(), "Random kysymyksiä");
+            addGame(new Promo(), "Väistä ATJ-Promoja");
 
             /* ############ */
 
