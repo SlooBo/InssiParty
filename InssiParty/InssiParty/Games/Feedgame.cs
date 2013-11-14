@@ -15,10 +15,10 @@ namespace InssiParty.Games
 
     /**
      * PelinNimi
-     * 
+     * Ruokkimi-speli
      * Selitys pelistä
-     * 
-     * By: Tekijän Nimi
+     * Löydä syötävää tai kuolet
+     * By: Hannu
      */
     class FeedGame : GameBase
     {
@@ -29,16 +29,19 @@ namespace InssiParty.Games
         private bool over = false;
         private bool over2 = false;
         private bool osuma = false;
+
+        int item;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
         private Texture2D box;
         private Texture2D handu;
         private Texture2D win;
         private Texture2D lose;
+        private Texture2D poison;
 
         Rectangle HandRect = new Rectangle(0, 0, 100, 100);
-        Rectangle TestiRect = new Rectangle(150, 250, 70, 70);
-        Rectangle TestiRect2 = new Rectangle(800, 600, 100, 100);
+        Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
+        Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -52,6 +55,7 @@ namespace InssiParty.Games
             handu = Content.Load<Texture2D>("hand");
             win = Content.Load<Texture2D>("You_won");
             lose = Content.Load<Texture2D>("hävisit");
+            poison = Content.Load<Texture2D>("Pullo");
         }
 
         /**
@@ -61,23 +65,29 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
+            item = 1;
             kaapit = new List<Kaappi>();
             Kaappi temp = new Kaappi();
 
-            temp.sijainti = new Vector2(800, 600);
-            temp.koko = new Vector2(-250,-600);
-
+            temp.auki = false;
+            temp.sijainti = new Vector2(0, 0);
+            temp.koko = new Vector2(114,236);
+            temp.tavara_id = item;
             kaapit.Add(temp);
 
 
             temp = new Kaappi();
-            temp.sijainti = new Vector2(150, 250);
-            temp.koko = new Vector2(70,70);
+            temp.auki = false;
+            temp.sijainti = new Vector2(200, 300);
+            temp.koko = new Vector2(114,236);
+            temp.tavara_id = item; 
             kaapit.Add(temp);
 
             temp = new Kaappi();
-            temp.sijainti = new Vector2(500, 400);
-            temp.koko = new Vector2(-600,-400);
+            temp.auki = false;
+            temp.sijainti = new Vector2(500, 0);
+            temp.koko = new Vector2(114, 236);
+            temp.tavara_id = item;
             kaapit.Add(temp);
              
              
@@ -102,10 +112,11 @@ namespace InssiParty.Games
             var mouseState = Mouse.GetState();
             HandRect.X = mouseState.X;
             HandRect.Y = mouseState.Y;
-            HandPos = new Vector2(mouseState.X-80, mouseState.Y-100);
-            
+            HandPos = new Vector2(mouseState.X, mouseState.Y);
 
-            if(TestiRect.Intersects(HandRect))
+
+            if (HandRect.Intersects(TestiRect))
+            //if (HandRect.Intersects(new Rectangle(Kaappi.sijainti.x,kaappisit.sijainti.y, Kaappi.koko.x , Kaappi.koko.y ))
             {
             Console.WriteLine("Hand hits the cupboard");
             over = true;
@@ -116,7 +127,7 @@ namespace InssiParty.Games
             }
 
 
-            if (TestiRect2.Intersects(HandRect))
+            if (HandRect.Intersects(TestiRect2))
             {
                 Console.WriteLine("Hand hits the cupboard2");
                 over2 = true;
@@ -126,8 +137,7 @@ namespace InssiParty.Games
                 over2 = false;
             }
 
-
-            if (HandRect.Intersects(TestiRect) && mouseState.LeftButton == ButtonState.Pressed || HandRect.Intersects(TestiRect2) && mouseState.LeftButton == ButtonState.Pressed)
+            if (HandRect.Intersects(TestiRect) && mouseState.LeftButton == ButtonState.Pressed  || HandRect.Intersects(TestiRect2) && mouseState.LeftButton == ButtonState.Pressed)
             {
                 osuma = true;
             }
@@ -154,7 +164,7 @@ namespace InssiParty.Games
             for(int i=0; i< kaapit.Count;i++)
             {
                 //draw rectangle on kaappi.sijainti + koko
-                spriteBatch.Draw(box, kaapit[i].sijainti+kaapit[i].koko, Color.White);
+                spriteBatch.Draw(box, kaapit[i].sijainti, Color.White);
             
             }
 
@@ -162,14 +172,19 @@ namespace InssiParty.Games
 
             if (osuma == true && over2 == true)
             {
-                spriteBatch.Draw(lose, new Vector2(0, 0), Color.White);
+                for (int i = 0; i < kaapit.Count; i++)
+                {
+                    spriteBatch.Draw(poison, kaapit[i].sijainti + kaapit[i].koko, Color.White);
+            }
             }
 
             if (osuma == true && over == true)
             {
-                spriteBatch.Draw(win,new Vector2(0,0), Color.White);
+                //spriteBatch.Draw(win,new Vector2(0,0), Color.White);
             }
 
+
+            //spriteBatch.Draw(lose, new Vector2(0, 0), Color.White);
 
         }
 
