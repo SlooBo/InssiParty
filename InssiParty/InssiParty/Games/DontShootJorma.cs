@@ -86,27 +86,18 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (timer < 100)
+            if (shotDone == false)
             {
-                //Show the guide on the start
-                spriteBatch.DrawString(font, "Don't Shoot jorma.", new Vector2(300, 280), Color.Red);
+                spriteBatch.Draw(shotgun1Texture, new Vector2(320, 463), Color.WhiteSmoke);
             }
             else
             {
-
-                if (shotDone == false)
-                {
-                    spriteBatch.Draw(shotgun1Texture, new Vector2(320, 463), Color.WhiteSmoke);
-                }
-                else
-                {
-                    spriteBatch.Draw(shotgun2Texture, new Vector2(320, 463), Color.WhiteSmoke);
-                }
-
-                spriteBatch.Draw(barTexture, timerBar, Color.White);
-
-                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+                spriteBatch.Draw(shotgun2Texture, new Vector2(320, 463), Color.WhiteSmoke);
             }
+
+            spriteBatch.Draw(barTexture, timerBar, Color.White);
+
+            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
         }
 
     }

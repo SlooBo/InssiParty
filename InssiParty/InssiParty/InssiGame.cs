@@ -101,7 +101,7 @@ namespace InssiParty
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
 
 
-            addGame(new vali(), "demodemodemodemo");
+            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
 
             /* ############ */
 
