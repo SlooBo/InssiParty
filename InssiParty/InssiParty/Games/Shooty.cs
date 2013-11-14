@@ -119,6 +119,28 @@ namespace InssiParty.Games
                 Console.WriteLine(angle);
             }
 
+            foreach (Cannonball item in cannonballs)
+            {
+                item.Update();
+
+                foreach (Cannonball c in cannonballs)
+                {
+                    if (item.CollisionRect.Intersects(c.CollisionRect))
+                    {
+                        c.IsDead = true;
+                        item.IsDead = true;
+                    }
+                }
+
+                if (item.Position.X > background.Width)
+                {
+                    item.IsDead = true;
+                }
+                if (item.Position.Y < background.Height)
+                {
+                    item.IsDead = true;
+                }
+            }
 
             if (nyancat_pos > background.Width)
             {
@@ -145,11 +167,14 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backgroundTexture, background, Color.White);
+            foreach (Cannonball item in cannonballs)
+            {
+                item.Draw(spriteBatch);
+            }
             spriteBatch.Draw(turretTexture, new Vector2(50, 400), Color.White);
             spriteBatch.Draw(nyantail, new Vector2(nyancat_pos - 187, 10), Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
-            spriteBatch.Draw(cannonballTexture, cbPos, Color.White);
         }
 
     }
