@@ -81,14 +81,14 @@ namespace InssiParty
 
             addGame(new SampleGame(), "Sample Game");
             addGame(new HelloWorld(), "Hello World");
-            addGame(new lapsytys(), "Lapsytys");
+            addGame(new lapsytys(), "Läpsytys");
             addGame(new DontShootJorma(), "Don't shoot Jorma!");
             addGame(new ParticleExample(), "Particle Example");
             addGame(new SpotLanguage(), "Spot the real coding language");
             addGame(new Koodirage(), "Koodi Rage");
             addGame(new FeedGame(),"Ruokkimis-peli");
             addGame(new Lampunvaihto(),"Lampun Vaihto");
-            addGame(new tentti(), "Auta inssia tentissa");
+            addGame(new tentti(), "Auta inssiä tentissä");
             addGame(new Shooty(), "Shoot the Nyan-cat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa");
 
