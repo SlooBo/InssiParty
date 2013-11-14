@@ -98,6 +98,7 @@ namespace InssiParty
             addGame(new SilitaKissaa(), "Silitä kissaa");
             addGame(new Kysymys(), "Random kysymyksiä");
             addGame(new Promo(), "Väistä ATJ-Promoja");
+            addGame(new inssihorjuu(), "Auta inssi kämpille");
 
             /* ############ */
 
