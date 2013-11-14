@@ -11,7 +11,7 @@ namespace InssiParty
      */
     static class TipList
     {
-        public static void InitTipList(TipManager tipManager)
+        private static void tipList(TipManager tipManager)
         {
             tipManager.addTip("Olut on hyvää");
             tipManager.addTip("Alienteknologiaa!");
@@ -20,8 +20,17 @@ namespace InssiParty
             tipManager.addTip("                           D:");
             tipManager.addTip("Inssit > katit");
             tipManager.addTip("Tontzan hakkaaminen laudalla tuottaa mielihyvää");
+        }
+
+
+
+
+        public static void InitTipList(TipManager tipManager)
+        {
+            tipList(tipManager);
 
             Console.WriteLine("[TipList] " + tipManager.getTipCount() + " tips loaded!");
         }
+
     }
 }
