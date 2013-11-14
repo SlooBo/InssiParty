@@ -39,6 +39,8 @@ namespace InssiParty.Games
         private int silityskerrat;
         private int silitysvirhe;
 
+        private bool soundLoaded;
+
         //Kissakuvat
         Texture2D kissatextuuri; //aloituskuva
         Texture2D kissatextuuriPaa;
@@ -88,10 +90,21 @@ namespace InssiParty.Games
             //ladataan fontti
             fontti = Content.Load<SpriteFont>("DefaultFont");
 
-            //ladataan kissaääniä
-            murukehrays = Content.Load<SoundEffect>("kehräys");
-            muruvihainen = Content.Load<SoundEffect>("vihaisempi");
-            murupaaosuma = Content.Load<SoundEffect>("silmäänosu");
+            try
+            {
+                //ladataan kissaääniä
+                murukehrays = Content.Load<SoundEffect>("kehräys");
+                muruvihainen = Content.Load<SoundEffect>("vihaisempi");
+                murupaaosuma = Content.Load<SoundEffect>("silmäänosu");
+
+                soundLoaded = true;
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+
+                soundLoaded = false;
+            }
         }
 
         /**
@@ -138,7 +151,11 @@ namespace InssiParty.Games
                 {
                     kissatextuuri = kissatextuuriPaa; //vaihdetaan kissan kuvaa
                     kasialku = silityskasi; // vaihdetaan käsi silityskädeksi
-                    murukehrays.Play();
+
+                    if (soundLoaded)
+                    {
+                        murukehrays.Play();
+                    }
                     silityskerrat++; // lisätään yksi piste silityskertoihin
                 }
                 if (lastMouseState.RightButton == ButtonState.Released &&
@@ -148,7 +165,10 @@ namespace InssiParty.Games
                 {
                     kissatextuuri = kissantextuuriMasis; // vaihdetaan kissatextuuria
                     kasialku = tokkaasormi; //vaihdetaan kuva tökkäämiskädeksi
-                    muruvihainen.Play();
+                    if (soundLoaded)
+                    {
+                        muruvihainen.Play();
+                    }
                     silitysvirhe++; //lisätään silitysvirhe   
                 }
             }
@@ -158,14 +178,20 @@ namespace InssiParty.Games
                         currentMouseState.LeftButton == ButtonState.Pressed)
                 {
                     kissatextuuri = kissatextuuriSeriously;
-                    murupaaosuma.Play();
+                    if (soundLoaded)
+                    {
+                        murupaaosuma.Play();
+                    }
                     silitysvirhe++;
                 }
                 if (lastMouseState.RightButton == ButtonState.Released &&
                         currentMouseState.RightButton == ButtonState.Pressed)
                 {
                     kasialku = tokkaasormi;
-                    murupaaosuma.Play();
+                    if (soundLoaded)
+                    {
+                        murupaaosuma.Play();
+                    }
                     silitysvirhe++;
                 }
             }
