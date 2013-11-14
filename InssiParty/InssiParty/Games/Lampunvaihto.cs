@@ -21,8 +21,9 @@ namespace InssiParty.Games
     class Lampunvaihto : GameBase
     {
         //Variablet
-        private int value;
+        private int uusi = 0;
         private int add = 0;
+        private int kiinni = 0;
         private int power = 0;
         private Vector2 cursorPos;
         Rectangle cursorRect = new Rectangle(0, 0, 1, 1);
@@ -96,18 +97,20 @@ namespace InssiParty.Games
 
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
-                        Console.WriteLine("Hailuta niinku hullu!");
+                        Console.WriteLine("Heiluta niinku hullu!");
+
                         if (Lamppu.Intersects(cursorRect))
                         {
                             add++;
                             Console.WriteLine(add);
                         }
-                    }
-
+                    }   
                 }
+
                 if (Katkaisin.Intersects(cursorRect))
                 {
                     Console.WriteLine("Katkaisin");
+
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
                         power = 1;
@@ -117,7 +120,7 @@ namespace InssiParty.Games
             }
 
             //Laitetaan toinen lamppu hollille
-            else if (add > 20)
+            if (add > 19)
             {
                 Lamppupaalla = Lamppupois;
                 Console.WriteLine("Tarvitaan uusi lamppu");
@@ -125,26 +128,60 @@ namespace InssiParty.Games
                 if (Uusilamppu.Intersects(cursorRect))
                 {
                     Console.WriteLine("Klikkaa uusi lamppu kayttoon");
+
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
-                        Lamppupois = Lamppuhollilla;
+                        uusi = 1;
+                    }
+                }
+            }
+            if (uusi == 1)
+            {
+                Lamppupois = Lamppuhollilla;
 
-                        //Lamppu on hollilla, tässä pitää viimeistään muistaa ottaa virrat pois
-                        if (Katkaisin.Intersects(cursorRect))
+                if (kiinni < 20)
+                {
+
+                    if (Hollilla.Intersects(cursorRect))
+                    {
+                        Console.WriteLine("Ruuvaa se kiinni");
+                        if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                         {
-                            Console.WriteLine("Katkaisin");
+                            Console.WriteLine("Heiluta niinku hullu!");
 
-                            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                            if (Hollilla.Intersects(cursorRect))
                             {
-                                power = 1;
-                                Console.WriteLine("Virta on pois");
+                                kiinni++;
+                                Console.WriteLine(add);
                             }
                         }
+                    }
 
-                        if (Hollilla.Intersects(cursorRect))
+                    if (Katkaisin.Intersects(cursorRect))
+                    {
+                        Console.WriteLine("Katkaisin");
+
+                        if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                         {
-
+                            power = 1;
+                            Console.WriteLine("Virta on pois");
                         }
+                    }
+                }
+
+                if (kiinni > 19)
+                {
+
+                    if (power == 1)
+                    {
+                        Lamppuhollilla = Lamppuvoitto;
+                        Console.WriteLine("Voitit!!!");
+                    }
+
+                    if (power == 0)
+                    {
+                        Lamppuhollilla = Lamppuboom;
+                        Console.WriteLine("Piti sitte tunaroija!!!");
                     }
                 }
             }
