@@ -100,6 +100,9 @@ namespace InssiParty
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
 
+
+            addGame(new vali(), "demodemodemodemo");
+
             /* ############ */
 
             Console.WriteLine("# Loaded " + games.Count + " games.");

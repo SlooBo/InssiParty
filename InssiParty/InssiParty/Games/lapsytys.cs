@@ -15,7 +15,6 @@ namespace InssiParty.Games
     {
         //Variaabelit
         private int value;
-        Rectangle background = new Rectangle(0, 0, 800, 600);
         private Vector2 cursorPos;
         private int i, k, a, alpha, fadeinc, win;
 
@@ -30,7 +29,8 @@ namespace InssiParty.Games
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
         Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
         Rectangle tekstiRect = new Rectangle(0,0,554,136);
-        
+        Rectangle background = new Rectangle(0, 0, 800, 600);
+
         //kontentin loadaus
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
