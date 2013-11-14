@@ -125,6 +125,7 @@
     <Compile Include="Games\SampleGame.cs" />
     <Compile Include="Games\HelloWorld.cs" />
     <Compile Include="Games\Shooty.cs" />
+    <Compile Include="Games\SilitaKissaa.cs" />
     <Compile Include="Games\tentti.cs" />
     <Compile Include="Games\SpotLanguage.cs" />
     <Compile Include="Objects\Cannonball.cs" />

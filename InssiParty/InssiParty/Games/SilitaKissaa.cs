@@ -70,7 +70,7 @@ namespace InssiParty.Games
         SoundEffect murupaaosuma;
 
 
-        public override void Load(ContentManager Content)
+        public override void Load(ContentManager Content, GraphicsDevice device)
         {
             //ladataan kissakuvia :3
             kissatextuuri = Content.Load<Texture2D>("aloitusmuru");
