@@ -101,8 +101,8 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
 
-            //nyancat_pos+=2;
-            // NYANI ON PYSÄYTETTY TESTAUKSIA VARTEN
+            nyancat_pos+=2;
+
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;

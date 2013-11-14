@@ -78,6 +78,7 @@ namespace InssiParty
             
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
+
             addGame(new SampleGame(), "Sample Game");
             addGame(new HelloWorld(), "Hello World");
             addGame(new lapsytys(), "Lapsytys");
@@ -89,6 +90,8 @@ namespace InssiParty
             addGame(new Lampunvaihto(),"Lampun Vaihto");
             addGame(new tentti(), "Auta inssia tentissa");
             addGame(new Shooty(), "Shoot the Nyan-cat!");
+            addGame(new rollibyrintti(), "rollaile labyrintissa");
+
             /* ############ */
 
             Console.WriteLine("# Loaded " + games.Count + " games.");
