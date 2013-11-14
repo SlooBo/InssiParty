@@ -84,21 +84,21 @@ namespace InssiParty
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
 
-            addGame(new SampleGame(), "Sample Game");
-            addGame(new HelloWorld(), "Hello World");
-            addGame(new lapsytys(), "L‰psytys");
-            addGame(new DontShootJorma(), "Don't shoot Jorma!");
-            addGame(new ParticleExample(), "Particle Example");
-            addGame(new SpotLanguage(), "Spot the real coding language");
-            addGame(new Koodirage(), "Koodi Rage");
-            addGame(new FeedGame(),"Ruokkimis-peli");
-            addGame(new Lampunvaihto(),"Lampun Vaihto");
-            addGame(new tentti(), "Auta inssi‰ tentiss‰");
-            addGame(new Shooty(), "Shoot the Nyan-cat!");
-            addGame(new rollibyrintti(), "rollaile labyrintissa");
-            addGame(new SilitaKissaa(), "Silit‰ kissaa");
-            addGame(new Kysymys(), "Random kysymyksi‰");
-            addGame(new Promo(), "V‰ist‰ ATJ-Promoja");
+            addGame(new SampleGame(), "Sample Game", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new HelloWorld(), "Hello World", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new lapsytys(), "L‰psytys", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new DontShootJorma(), "Don't shoot Jorma!", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new ParticleExample(), "Particle Example", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new SpotLanguage(), "Spot the real coding language", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new Koodirage(), "Koodi Rage", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new FeedGame(), "Ruokkimis-peli", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new Lampunvaihto(), "Lampun Vaihto", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new tentti(), "Auta inssi‰ tentiss‰", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new Shooty(), "Shoot the Nyan-cat!", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new rollibyrintti(), "rollaile labyrintissa", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new SilitaKissaa(), "Silit‰ kissaa", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new Kysymys(), "Random kysymyksi‰", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new Promo(), "V‰ist‰ ATJ-Promoja", "P‰ivit‰ ohje InssiGame.cs!");
 
             /* ############ */
 
@@ -183,7 +183,7 @@ namespace InssiParty
 
                 if (transitionTimer < TRANSITION_TIME)
                 {
-                    spriteBatch.DrawString(font, "Don't Shoot jorma.", new Vector2(300, 280), Color.Red);
+                    spriteBatch.DrawString(font, currentGame.GuideString, new Vector2(300, 280), Color.Red);
                 }
             }
             else
@@ -225,12 +225,13 @@ namespace InssiParty
         /**
          * Add a new game and load it!
          */
-        private void addGame(GameBase game, String name)
+        private void addGame(GameBase game, String name, String help)
         {
             Console.Write("Loading game: " + name + "... ");
 
             games.Add(game);
             game.Name = name;
+            game.GuideString = help;
             game.Load(Content,GraphicsDevice);
 
             Console.WriteLine("Done!");

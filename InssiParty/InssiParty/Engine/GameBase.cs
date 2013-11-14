@@ -14,6 +14,8 @@ namespace InssiParty.Engine
     abstract class GameBase
     {
         public String Name { get; set; }
+        public String GuideString { get; set; }
+
         public ParticleManager particleManager { get; set; }
 
         //Is the game running or not? The game can close itself with this.
