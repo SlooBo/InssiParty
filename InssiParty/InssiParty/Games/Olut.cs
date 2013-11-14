@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
+
 namespace InssiParty.Games
 {
 
@@ -24,11 +25,11 @@ namespace InssiParty.Games
      */
 
     /**
-     * PelinNimi
+     * Avaa oluttölkki
      * 
-     * Selitys pelistä
+     * Auta inssiä avaamaan oluttölkki ja välttämään janoon kuoleminen.
      * 
-     * By: Tekijän Nimi
+     * By: Markus Tolvanen
      */
     class Olut : GameBase
     {
@@ -38,14 +39,17 @@ namespace InssiParty.Games
         private int fail_counter;
         private int success_counter;
         Random rnd = new Random();
-
+        private string syöte;
+        int painettava;
+        Rectangle Pelikuva = new Rectangle(0, 0, 1, 1);
+        Rectangle Prompti = new Rectangle(300, 180, 180, 180);
 
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D Background;
         private Texture2D Can;
-        private Texture2D HissingCan;
+        private Texture2D OpeningCan;
         private Texture2D EmptyCan;
-
+        SpriteFont font;
+        
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -54,10 +58,10 @@ namespace InssiParty.Games
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
-            Background = Content.Load<Texture2D>("propelli");
             Can = Content.Load<Texture2D>("propelli");
-            HissingCan = Content.Load<Texture2D>("propelli");
+            OpeningCan = Content.Load<Texture2D>("propelli");
             EmptyCan = Content.Load<Texture2D>("propelli");
+            font = Content.Load<SpriteFont>("DefaultFont");
         }
 
         /**
@@ -67,13 +71,12 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting Olut");
+            Console.WriteLine("Starting Avaa oluttölkki");
 
             value = 500;
 
-            numValues = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-
-            int painettava = rnd.Next(27);
+            numValues = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            
         }
 
         /**
@@ -81,7 +84,7 @@ namespace InssiParty.Games
          */
         public override void Stop()
         {
-            Console.WriteLine("Closing Olut");
+            Console.WriteLine("Closing Avaa oluttölkki");
         }
 
         /**
@@ -92,12 +95,35 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            
-
-            if (value < 0)
+            for (int i = 0; i < 5; i++)
             {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                CloseGame(true);
+                painettava = rnd.Next(27);
+                Console.WriteLine(numValues[painettava]);
+               
+                
+                
+                
+
+                if (syöte == numValues[painettava])
+                {
+                    success_counter++;
+                }
+
+                else if (syöte != numValues[painettava])
+                {
+                    fail_counter++;
+                }
+
+                if (success_counter == 5)
+                {
+                    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                    CloseGame(true);
+                }
+
+                else if (fail_counter == 3)
+                {
+                    CloseGame(false);
+                }
             }
         }
 
@@ -114,10 +140,12 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(Background, new Vector2(50, value), Color.White);
-            spriteBatch.Draw(Background, new Vector2(50, value), Color.White);
-            spriteBatch.Draw(Background, new Vector2(50, value), Color.White);
-            spriteBatch.Draw(Background, new Vector2(50, value), Color.White);
+          spriteBatch.Draw(Can, new Vector2(50, value), Color.White); 
+          spriteBatch.Draw(OpeningCan, new Vector2(50, value), Color.White);
+          spriteBatch.Draw(EmptyCan, new Vector2(50, value), Color.White);
+          spriteBatch.DrawString(font,numValues[painettava], new Vector2(0,0), Color.White);
+
+            
         }
 
     }
