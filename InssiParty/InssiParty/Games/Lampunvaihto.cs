@@ -25,15 +25,26 @@ namespace InssiParty.Games
         private int add = 0;
         private int kiinni = 0;
         private int power = 0;
+        int puoli = 1;
+        int value = 0;
+        int value2 = 0;
         private Vector2 cursorPos;
+
+        //Rectumit
         Rectangle cursorRect = new Rectangle(0, 0, 1, 1);
-        Rectangle Lamppu = new Rectangle(300, 180, 180, 180);
+        Rectangle background = new Rectangle(0, 0, 800, 600);
+        Rectangle Lamppu = new Rectangle(292, 180, 184, 180);
+        Rectangle Lamppu1 = new Rectangle(292, 180, 92, 180);
+        Rectangle Lamppu2 = new Rectangle(384, 180, 92, 180);
         Rectangle Katkaisin = new Rectangle(530, 285, 30, 30);
         Rectangle Uusilamppu = new Rectangle(710, 500, 60, 50);
-        Rectangle Hollilla = new Rectangle(300, 240, 180, 180);
+        Rectangle Hollilla = new Rectangle(292, 240, 184, 180);
+        Rectangle Hollilla1 = new Rectangle(292, 240, 92, 180);
+        Rectangle Hollilla2 = new Rectangle(384, 240, 92, 180);
 
 
         //Tekstuurit
+        private Texture2D Background;
         private Texture2D Lamppupaalla;
         private Texture2D Lamppupois;
         private Texture2D Lamppuhollilla;
@@ -46,6 +57,7 @@ namespace InssiParty.Games
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
+            Background = Content.Load<Texture2D>("lamppupaalla");
             Lamppupaalla = Content.Load<Texture2D>("lamppupaalla");
             Lamppupois = Content.Load<Texture2D>("lamppupois");
             Lamppuhollilla = Content.Load<Texture2D>("lamppuhollilla");
@@ -63,6 +75,13 @@ namespace InssiParty.Games
         public override void Start()
         {
             Console.WriteLine("Starting Lampun vaihto");
+            uusi = 0;
+            add = 0;
+            kiinni = 0;
+            power = 0;
+            puoli = 1;
+            value = 0;
+            value2 = 0;
         }
 
         /**
@@ -85,6 +104,8 @@ namespace InssiParty.Games
             cursorRect.X = mouseState.X;
             cursorRect.Y = mouseState.Y;
             cursorPos = new Vector2(mouseState.X, mouseState.Y);
+            value++;
+            Background = Lamppupaalla;
 
             //Otetaan lamppu irti
             if (add < 20)
@@ -98,11 +119,19 @@ namespace InssiParty.Games
                     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                     {
                         Console.WriteLine("Heiluta niinku hullu!");
-
-                        if (Lamppu.Intersects(cursorRect))
+                        
+                        if (Lamppu1.Intersects(cursorRect) && puoli == 2)
                         {
                             add++;
                             Console.WriteLine(add);
+                            puoli = 1;
+                        }
+
+                        if (Lamppu2.Intersects(cursorRect) && puoli == 1)
+                        {
+                            add++;
+                            Console.WriteLine(add);
+                            puoli = 2;
                         }
                     }   
                 }
@@ -122,7 +151,7 @@ namespace InssiParty.Games
             //Laitetaan toinen lamppu hollille
             if (add > 19)
             {
-                Lamppupaalla = Lamppupois;
+                Background = Lamppupois;
                 Console.WriteLine("Tarvitaan uusi lamppu");
 
                 if (Uusilamppu.Intersects(cursorRect))
@@ -135,9 +164,10 @@ namespace InssiParty.Games
                     }
                 }
             }
+
             if (uusi == 1)
             {
-                Lamppupois = Lamppuhollilla;
+                Background = Lamppuhollilla;
 
                 if (kiinni < 20)
                 {
@@ -149,10 +179,18 @@ namespace InssiParty.Games
                         {
                             Console.WriteLine("Heiluta niinku hullu!");
 
-                            if (Hollilla.Intersects(cursorRect))
+                            if (Hollilla1.Intersects(cursorRect) && puoli == 2)
                             {
                                 kiinni++;
                                 Console.WriteLine(add);
+                                puoli = 1;
+                            }
+                            
+                            if (Hollilla2.Intersects(cursorRect) && puoli == 1)
+                            {
+                                kiinni++;
+                                Console.WriteLine(add);
+                                puoli = 2;
                             }
                         }
                     }
@@ -174,17 +212,48 @@ namespace InssiParty.Games
 
                     if (power == 1)
                     {
-                        Lamppuhollilla = Lamppuvoitto;
-                        Console.WriteLine("Voitit!!!");
+                        value = 0;
+                        value2++;
+                        if (value2 < 150)
+                        {
+                            Background = Lamppuvoitto;
+                            Console.WriteLine("Voitit!!!");
+                        }
+                        if (value2 > 150)
+                        {
+                            CloseGame(true);
+                        }
                     }
 
                     if (power == 0)
                     {
-                        Lamppuhollilla = Lamppuboom;
-                        Console.WriteLine("Piti sitte tunaroija!!!");
+                        value = 0;
+                        value2++;
+                        if (value2 < 150)
+                        {
+                            Background = Lamppuboom;
+                            Console.WriteLine("Piti sitte tunaroija!!!");
+                        }
+                        if (value2 > 150)
+                        {
+                            CloseGame(false);
+                        }
                     }
                 }
             }
+
+            if (value > 450)
+            {
+                Background = Lamppuaika;
+            }
+
+            if (value > 600)
+            {
+                CloseGame(false);
+            }
+                
+
+            
         }
 
         /**
@@ -200,7 +269,7 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(Lamppupaalla, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(Background, background, Color.White);
             spriteBatch.Draw(Kursori, cursorPos, Color.White);
         }
 
