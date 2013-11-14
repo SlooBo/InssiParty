@@ -349,7 +349,7 @@
     <Compile Include="kehräys.mp3">
       <Name>kehräys</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="masismuru.png">
       <Name>masismuru</Name>
@@ -379,7 +379,7 @@
     <Compile Include="silmäänosu.mp3">
       <Name>silmäänosu</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
     <Compile Include="tokkimissormi.png">
       <Name>tokkimissormi</Name>
@@ -389,7 +389,7 @@
     <Compile Include="vihaisempi.mp3">
       <Name>vihaisempi</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

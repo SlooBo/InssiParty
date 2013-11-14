@@ -86,7 +86,7 @@ namespace InssiParty.Games
             kasialkutoinen = Content.Load<Texture2D>("aloituskasi1");
 
             //ladataan fontti
-            fontti = Content.Load<SpriteFont>("fontfont");
+            fontti = Content.Load<SpriteFont>("DefaultFont");
 
             //ladataan kissaääniä
             murukehrays = Content.Load<SoundEffect>("kehräys");
