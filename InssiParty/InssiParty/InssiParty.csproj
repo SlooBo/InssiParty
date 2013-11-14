@@ -114,6 +114,7 @@
     <Compile Include="Engine\ParticleManager.cs" />
     <Compile Include="Engine\TipManager.cs" />
     <Compile Include="Games\DontShootJorma.cs" />
+    <Compile Include="Games\inssihorjuu.cs" />
     <Compile Include="Games\Promo.cs" />
     <Compile Include="Games\Kysymys.cs" />
     <Compile Include="Games\Lampunvaihto.cs" />

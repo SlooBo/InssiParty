@@ -101,8 +101,8 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
 
-            nyancat_pos+=2;
-
+            //nyancat_pos+=2;
+            
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
@@ -117,28 +117,33 @@ namespace InssiParty.Games
                 cbSpeed = new Vector2((float)initX, (float)initY);
                 cannonballs.Add(new Cannonball(cannonballTexture, barrelhp, cbSpeed));
                 Console.WriteLine(angle);
+                
             }
 
             foreach (Cannonball item in cannonballs)
             {
                 item.Update();
 
-                foreach (Cannonball c in cannonballs)
-                {
-                    if (item.CollisionRect.Intersects(c.CollisionRect))
-                    {
-                        c.IsDead = true;
-                        item.IsDead = true;
-                    }
-                }
+
 
                 if (item.Position.X > background.Width)
                 {
                     item.IsDead = true;
                 }
-                if (item.Position.Y < background.Height)
+                if (item.Position.Y > background.Height)
                 {
                     item.IsDead = true;
+                }
+            }
+
+            for (int i = 0; i < cannonballs.Count; i++)
+            {
+                Cannonball c = cannonballs[i];
+
+                if (c.IsDead)
+                {
+                    cannonballs.Remove(c);
+                    i--;
                 }
             }
 
