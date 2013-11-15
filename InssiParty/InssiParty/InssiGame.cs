@@ -92,7 +92,7 @@ namespace InssiParty
             addGame(new SpotLanguage(), "Spot the real coding language", "Päivitä ohje InssiGame.cs!");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!");
             addGame(new FeedGame(), "Ruokkimis-peli", "Päivitä ohje InssiGame.cs!");
-            addGame(new Lampunvaihto(), "Lampun Vaihto", "Päivitä ohje InssiGame.cs!");
+            addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.");
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!");
