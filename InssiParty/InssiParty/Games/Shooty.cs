@@ -107,24 +107,23 @@ namespace InssiParty.Games
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
             targetRect.Y = mouseState.Y;
-            //if (targetRect.X < 84)
-            //{
-            //    targetRect.X = 84;
-            //}
-            //if (targetRect.Y > 418)
-            //{
-            //    targetRect.Y = 418;
-            //}
+            if (targetRect.X < 84)
+            {
+                targetRect.X = 84;
+            }
+            if (targetRect.Y > 418)
+            {
+                targetRect.Y = 418;
+            }
             targetPos = new Vector2(targetRect.X - 32, targetRect.Y - 32);
-
 
 
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X)) * 180 / PI;
-                initX = Math.Sin(angle) * 6; //näissä ongelma
-                initY = Math.Cos(angle) * 6; // ongelmaaa
+                angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X));
+                initX = Math.Cos(angle) * 6; //näissä ongelma
+                initY = Math.Sin(angle) * 6; // ongelmaaa
                 cbSpeed = new Vector2((float)initX, (float)initY);
                 cannonballs.Add(new Cannonball(cannonballTexture, barrelhp, cbSpeed));
                 Console.WriteLine(angle);
