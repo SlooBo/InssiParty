@@ -24,12 +24,15 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private List<Kaappi> kaapit;
+        private List<Tavarat> tavarat;
         private Vector2 HandPos;
 
         //private bool over = false;
         //private bool osuma = false;
 
         int item;
+        int item2;
+        int item3;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
         private Texture2D box;
@@ -37,6 +40,8 @@ namespace InssiParty.Games
         private Texture2D win;
         private Texture2D lose;
         private Texture2D poison;
+        private Texture2D ruoka;
+        private Texture2D testi;
 
         Rectangle HandRect = new Rectangle(0, 0, 100, 100);
         Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
@@ -55,6 +60,8 @@ namespace InssiParty.Games
             win = Content.Load<Texture2D>("You_won");
             lose = Content.Load<Texture2D>("hävisit");
             poison = Content.Load<Texture2D>("Pullo");
+            ruoka = Content.Load<Texture2D>("ruoka");
+            testi = Content.Load<Texture2D>("testi_item");
         }
 
         /**
@@ -65,9 +72,24 @@ namespace InssiParty.Games
         public override void Start()
         {
             item = 1;
+            item2 = 2;
+            item3 = 3;
             kaapit = new List<Kaappi>();
-            Kaappi temp = new Kaappi();
+            tavarat = new List<Tavarat>();
 
+            Tavarat tempo = new Tavarat();
+            tempo.id = item;
+            tavarat.Add(tempo);
+
+            tempo = new Tavarat();
+            tempo.id = item2;
+            tavarat.Add(tempo);
+
+            tempo = new Tavarat();
+            tempo.id = item3;
+            tavarat.Add(tempo);
+
+            Kaappi temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
             temp.koko = new Vector2(300,300);
@@ -79,14 +101,14 @@ namespace InssiParty.Games
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = item; 
+            temp.tavara_id = item2; 
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
             temp.koko = new Vector2(300, 300);
-            temp.tavara_id = item;
+            temp.tavara_id = item3;
             kaapit.Add(temp);
              
              
@@ -145,28 +167,28 @@ namespace InssiParty.Games
             {
                 //draw rectangle on kaappi.sijainti + koko
                 spriteBatch.Draw(box, kaapit[i].sijainti, Color.White);
+                if (kaapit[i].auki == true)
+                {
+                    if (kaapit[i].tavara_id == 1)
+                    {
+                        spriteBatch.Draw(poison, kaapit[i].sijainti, Color.White);
+                    }
+                    else if (kaapit[i].tavara_id == 2)
+                    {
+                        spriteBatch.Draw(testi, kaapit[i].sijainti, Color.White);
+                    }
+
+                    else if (kaapit[i].tavara_id == 3)
+                    {
+                        spriteBatch.Draw(ruoka, kaapit[i].sijainti, Color.White);
+                    }
+                }
             
             }
 
 
-            if (kaapit[1].auki == true)
-            {
-                spriteBatch.Draw(poison, kaapit[1].sijainti, Color.White);
-            }
-
-            if (kaapit[2].auki == true)
-            {
-                spriteBatch.Draw(poison, kaapit[2].sijainti, Color.White);
-            }
-
-            if (kaapit[0].auki == true)
-            {
-                spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
-            }
-
-
             spriteBatch.Draw(handu, HandPos, Color.White);
-
+            //    spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
             //spriteBatch.Draw(lose, new Vector2(0, 0), Color.White);
         }
 
