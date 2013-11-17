@@ -29,6 +29,7 @@ namespace InssiParty.Games
             CollisionRect = new Rectangle((int)_position.X,(int)_position.Y,
                 _texture.Bounds.Width, _texture.Bounds.Height);
             _position += new Vector2(1, -1) *_speed;
+            _speed-= new Vector2(0, 0.025f);
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -38,6 +38,7 @@ namespace InssiParty.Games
         private int nyancat_pos, health;
         private double angle, PI, initX, initY;
         private float inifX, inifY;
+        private bool mousestate;
 
         Rectangle background = new Rectangle(0, 0, 800, 600);
         Rectangle targetRect = new Rectangle(0, 0, 62, 62);
@@ -118,17 +119,21 @@ namespace InssiParty.Games
             targetPos = new Vector2(targetRect.X - 32, targetRect.Y - 32);
 
 
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                mousestate = true;
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && mousestate)
             {
                 angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X));
-                initX = Math.Cos(angle) * 6; //näissä ongelma
-                initY = Math.Sin(angle) * 6; // ongelmaaa
+                initX = Math.Cos(angle) * 6; 
+                initY = Math.Sin(angle) * 6;
                 cbSpeed = new Vector2((float)initX, (float)initY);
                 cannonballs.Add(new Cannonball(cannonballTexture, barrelhp, cbSpeed));
                 Console.WriteLine(angle);
                 Console.WriteLine(initX);
                 Console.WriteLine(initY);
+                mousestate = false;
 
             }
 
