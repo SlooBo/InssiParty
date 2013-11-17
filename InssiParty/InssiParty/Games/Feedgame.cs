@@ -26,8 +26,8 @@ namespace InssiParty.Games
         private List<Kaappi> kaapit;
         private Vector2 HandPos;
 
-        private bool over = false;
-        private bool osuma = false;
+        //private bool over = false;
+        //private bool osuma = false;
 
         int item;
         //Tekstuurit pitää myös listata tässä kohdassa.
@@ -118,27 +118,10 @@ namespace InssiParty.Games
                 if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     Console.WriteLine("Hand hits the cupboard");
-                    osuma = true;
+                    kaapit[i].auki = true;
 
                 }
             }
-
-
-            if (HandRect.Intersects(new Rectangle((int)kaapit[0].sijainti.X, (int)kaapit[0].sijainti.Y, (int)kaapit[0].koko.X, (int)kaapit[0].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
-            {
-                kaapit[0].auki = true;
-            }
-
-            if (HandRect.Intersects(new Rectangle((int)kaapit[1].sijainti.X, (int)kaapit[1].sijainti.Y, (int)kaapit[1].koko.X, (int)kaapit[1].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
-            {
-                kaapit[1].auki = true;
-            }
-
-            if (HandRect.Intersects(new Rectangle((int)kaapit[2].sijainti.X, (int)kaapit[2].sijainti.Y, (int)kaapit[2].koko.X, (int)kaapit[2].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
-            {
-                kaapit[2].auki = true;
-            }
-
 
         }
 
@@ -166,17 +149,17 @@ namespace InssiParty.Games
             }
 
 
-            if (osuma == true && kaapit[1].auki == true)
+            if (kaapit[1].auki == true)
             {
                 spriteBatch.Draw(poison, kaapit[1].sijainti, Color.White);
             }
 
-            if (osuma == true && kaapit[2].auki == true)
+            if (kaapit[2].auki == true)
             {
                 spriteBatch.Draw(poison, kaapit[2].sijainti, Color.White);
             }
 
-            if (osuma == true && kaapit[0].auki == true)
+            if (kaapit[0].auki == true)
             {
                 spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
             }
