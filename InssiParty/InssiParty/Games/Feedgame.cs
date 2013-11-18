@@ -24,15 +24,11 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private List<Kaappi> kaapit;
-        private List<Tavarat> tavarat;
         private Vector2 HandPos;
 
         //private bool over = false;
         //private bool osuma = false;
 
-        int item;
-        int item2;
-        int item3;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
         private Texture2D box;
@@ -44,8 +40,8 @@ namespace InssiParty.Games
         private Texture2D testi;
 
         Rectangle HandRect = new Rectangle(0, 0, 100, 100);
-        Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
-        Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
+        //Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
+        //Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -71,29 +67,17 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            item = 1;
-            item2 = 2;
-            item3 = 3;
+
+            Random rand = new Random();
             kaapit = new List<Kaappi>();
-            tavarat = new List<Tavarat>();
 
-            Tavarat tempo = new Tavarat();
-            tempo.id = item;
-            tavarat.Add(tempo);
 
-            tempo = new Tavarat();
-            tempo.id = item2;
-            tavarat.Add(tempo);
-
-            tempo = new Tavarat();
-            tempo.id = item3;
-            tavarat.Add(tempo);
 
             Kaappi temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = item;
+            temp.tavara_id = rand.Next(4);
             kaapit.Add(temp);
 
 
@@ -101,14 +85,14 @@ namespace InssiParty.Games
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = item2; 
+            temp.tavara_id = rand.Next(4); 
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
             temp.koko = new Vector2(300, 300);
-            temp.tavara_id = item3;
+            temp.tavara_id = rand.Next(4);
             kaapit.Add(temp);
              
              
@@ -142,6 +126,26 @@ namespace InssiParty.Games
                     Console.WriteLine("Hand hits the cupboard");
                     kaapit[i].auki = true;
 
+                }
+
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 255, (int)kaapit[i].sijainti.Y + 255, (int)kaapit[i].koko.X - 275, (int)kaapit[i].koko.Y - 275)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    Console.WriteLine("Hand hits item");
+                    if (kaapit[i].tavara_id==1)
+                    {
+                        Console.WriteLine("You Die!!!");
+                    }
+
+                    else if (kaapit[i].tavara_id == 2)
+                    {
+                        Console.WriteLine("Wololooo");
+                    }
+
+                    else if (kaapit[i].tavara_id == 3)
+                    {
+                        Console.WriteLine("Selvisit hengissä!");
+                    }
+                    
                 }
             }
 

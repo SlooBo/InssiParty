@@ -114,7 +114,6 @@
     <Compile Include="Engine\Input.cs" />
     <Compile Include="Engine\ParticleManager.cs" />
     <Compile Include="Engine\TipManager.cs" />
-    <Compile Include="Games\FeedGameSrc\Tavarat.cs" />
     <Compile Include="Games\Pallo.cs" />
     <Compile Include="Objects\AnimatedSprite.cs" />
     <Compile Include="Games\vali.cs" />
