@@ -9,7 +9,7 @@ namespace InssiParty.Engine
     //*************************
     //
     //
-    //        HUOM
+    //        HUOMIO
     //  LISÄÄ TIPIT FILUUN TipList.cs
     //
     //*************************

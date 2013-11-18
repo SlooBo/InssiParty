@@ -14,10 +14,12 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
+    // -> Schedule timing for this project
     // -> transition screens
     // -> Better menu screen
     // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
+    // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -84,11 +86,11 @@ namespace InssiParty
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
 
-            addGame(new SampleGame(), "Sample Game", "P‰ivit‰ ohje InssiGame.cs!");
-            addGame(new HelloWorld(), "Hello World", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new SampleGame(), "Sample Game", "Pohjapeli");
+            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki");
             addGame(new lapsytys(), "L‰psytys", "P‰ivit‰ ohje InssiGame.cs!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "El‰ ammu jormaa!");
-            addGame(new ParticleExample(), "Particle Example", "P‰ivit‰ ohje InssiGame.cs!");
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelij‰rjestelm‰lle.");
             addGame(new SpotLanguage(), "Spot the real coding language", "P‰ivit‰ ohje InssiGame.cs!");
             addGame(new Koodirage(), "Koodi Rage", "P‰ivit‰ ohje InssiGame.cs!");
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!");

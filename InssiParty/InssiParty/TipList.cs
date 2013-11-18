@@ -21,10 +21,9 @@ namespace InssiParty
             tipManager.addTip("Inssit > katit");
             tipManager.addTip("Tontzan hakkaaminen laudalla tuottaa mielihyvää");
             tipManager.addTip("Right click to skip transition!");
+            tipManager.addTip("XNA on vanhentunutta teknologiaa!");
+            tipManager.addTip("} //MITÄ VITTUA!? If-lause renderissä aiheuttaa Avastin sekoamisen?");
         }
-
-
-
 
         public static void InitTipList(TipManager tipManager)
         {
