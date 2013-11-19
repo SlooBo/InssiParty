@@ -13,10 +13,9 @@ namespace InssiParty.Games
 {
 
 
-    /**
-     * PelinNimi
+    /*
      * Ruokkimi-speli
-     * Selitys pelistä
+
      * Löydä syötävää tai kuolet
      * By: Hannu
      */
@@ -24,6 +23,7 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private List<Kaappi> kaapit;
+        int[] tavarat = new int[5];
         private Vector2 HandPos;
 
         //private bool over = false;
@@ -67,8 +67,15 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-
             Random rand = new Random();
+            for (int i = 0; i < 4;i++ )
+            {
+                if (tavarat[i] == tavarat[0] || tavarat[i] == tavarat[1] || tavarat[i] == tavarat[2] || tavarat[i] == tavarat[3])
+                {
+                    tavarat[i] = rand.Next(4);
+                }
+            }
+
             kaapit = new List<Kaappi>();
 
 
@@ -77,7 +84,7 @@ namespace InssiParty.Games
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = rand.Next(4);
+            temp.tavara_id = tavarat[0];
             kaapit.Add(temp);
 
 
@@ -85,14 +92,14 @@ namespace InssiParty.Games
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = rand.Next(4); 
+            temp.tavara_id = tavarat[1]; 
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
             temp.koko = new Vector2(300, 300);
-            temp.tavara_id = rand.Next(4);
+            temp.tavara_id = tavarat[2];
             kaapit.Add(temp);
              
              
