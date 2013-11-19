@@ -20,6 +20,7 @@ namespace InssiParty
     // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
     // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
+    // -> stats/achievement system
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -91,7 +92,7 @@ namespace InssiParty
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!");
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.");
-            addGame(new SpotLanguage(), "Spot the real coding language", "Päivitä ohje InssiGame.cs!");
+            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!");
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.");
@@ -102,8 +103,6 @@ namespace InssiParty
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
-
-
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
 
             /* ############ */
