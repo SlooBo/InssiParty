@@ -10,52 +10,38 @@ using Microsoft.Xna.Framework.Content;
 namespace InssiParty.Games
 {
 
-    /**
-     * Uuden pelin luominen
-     * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostossa
-     * 
-     */
-
-    /**
-     * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
-     * IGameBase pitää jättää semmoiseksi
-     */
-
-    /**
-     * Nimi: Kymysyspeli
+ 
+     /* Nimi: Kymysyspeli
      * 
      * Selitys pelistä: Peli kysyy pelaajalta viisi kysymystä, joista vähintään kolmeen on vastattava oikein.
      * 
      * By: Timo Partanen
      */
+
     class Kysymys : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
+        //Variablet
         private int value;
         private SpriteFont font;
         
        
 
-        //Tekstuurit pitää myös listata tässä kohdassa.
+        //Tekstuurit
         private Texture2D taustak;
 
         /**
          * Lataa tekstuureihin itse data.
-         * 
          * Ajetaan kun koko ohjelma käynnistyy.
          */
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
+       
             taustak = Content.Load<Texture2D>("taustaktesti");
             font = Content.Load<SpriteFont>("DefaultFont");
         }
 
         /**
          * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
          * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
          */
         public override void Start()
@@ -93,9 +79,7 @@ namespace InssiParty.Games
 
         /**
          * Pelkkä piirtäminen
-         * 
          * ELÄ sijoita pelilogiikkaa tänne.
-         *
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
