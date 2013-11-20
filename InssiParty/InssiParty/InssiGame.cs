@@ -221,7 +221,7 @@ namespace InssiParty
                 }
 
                 //Draw the tip
-                spriteBatch.DrawString(font, currentTip, new Vector2(5, 570), Color.White);
+                spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
 
                 //Draw the cursor
                 spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
