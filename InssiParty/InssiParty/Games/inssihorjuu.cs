@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace InssiParty.Games
 {
 
@@ -36,9 +37,7 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         private int forward = 0;
-        private float inssi_movement;
-        private double x;
-        private float y;
+        private double inssi_movement;
         Random random;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi;
@@ -67,7 +66,7 @@ namespace InssiParty.Games
             inssi_movement = 250;
             Console.WriteLine("Starting hello world");
             value = 500;
-            x = 2;
+
         }
 
         /**
@@ -86,21 +85,38 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            forward++;
-
-            x = Math.Sin(200 / 60 * Math.PI);
-            inssi_movement = (float)x;
-
-            //inssi_movement = inssi_movement + random.Next(4, 32);
 
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.W))
             {
-                inssi_movement = inssi_movement - 10;
+                inssi_movement = inssi_movement - 2;
             }
             if (keyboard.IsKeyDown(Keys.S))
             {
-                inssi_movement = inssi_movement + 10;
+                inssi_movement = inssi_movement + 2;
+            }
+            if (keyboard.IsKeyDown(Keys.D))
+            {
+                forward += 2;
+            }
+            if (keyboard.IsKeyDown(Keys.A))
+            {
+                forward -= random.Next(3, 5);
+            }
+            if (random.Next(1, 10) == 3)
+            {
+                forward -= 5;
+            }
+
+            for (int i = 0; i < random.Next(10, 15); i++)
+            {
+                i++;
+                inssi_movement += random.Next(2,3);
+            }
+            for (int b = 0; b < random.Next(10, 15); b++)
+            {
+                b++;
+                inssi_movement -= random.Next(1, 4);
             }
 
             if (value < 0)
@@ -122,8 +138,9 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
+            spriteBatch.Draw(inssi, new Vector2(forward, (float)inssi_movement), Color.White);
+            Console.WriteLine(inssi_movement);
         }
-
     }
+
 }

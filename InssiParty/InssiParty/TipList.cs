@@ -22,11 +22,11 @@ namespace InssiParty
             tipManager.addTip("Tontzan hakkaaminen laudalla tuottaa mielihyvää.");
             tipManager.addTip("Right click to skip transition!");
             tipManager.addTip("XNA on vanhentunutta teknologiaa!");
-            tipManager.addTip("} //MITÄ VITTUA!? If-lause renderissä aiheuttaa Avastin sekoamisen?");
+            tipManager.addTip("} //MITÄ VITTUA!? If-lause renderissä aiheuttaa Avastin \nsekoamisen?");
             tipManager.addTip("Vastoin yleistä käsitystä, insinöörit eivät pohjimmiltaan\n ole kovinkaan fiksuja.");
             tipManager.addTip("Tutkimusten mukaan auringon massa on huomattavisti suurempi\n kuin omenan.");
             tipManager.addTip("Ohjelmoija on organismi joka muuntaa kofeiinin koodiksi.");
-            tipManager.addTip("Insinööri korjaa ongelmia joita ei tiennyt olevan olemassakaan\n tavoilla joita hän ei itse ymmärrä");
+            tipManager.addTip("Insinööri korjaa ongelmia joita ei tiennyt olevan olemassakaan\n tavoilla joita hän ei itse ymmärrä.");
         }
 
         public static void InitTipList(TipManager tipManager)
