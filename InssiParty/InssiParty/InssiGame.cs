@@ -14,10 +14,13 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
+    // -> Schedule timing for this project
     // -> transition screens
     // -> Better menu screen
     // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
+    // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
+    // -> stats/achievement system
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -84,23 +87,22 @@ namespace InssiParty
             //Lisää pelisi tähän listaan!
             /* ############ */
 
-            addGame(new SampleGame(), "Sample Game", "Päivitä ohje InssiGame.cs!");
-            addGame(new HelloWorld(), "Hello World", "Päivitä ohje InssiGame.cs!");
+            addGame(new SampleGame(), "Sample Game", "Pohjapeli");
+            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki");
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!");
-            addGame(new ParticleExample(), "Particle Example", "Päivitä ohje InssiGame.cs!");
-            addGame(new SpotLanguage(), "Spot the real coding language", "Päivitä ohje InssiGame.cs!");
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.");
+            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!");
-            addGame(new FeedGame(), "Ruokkimis-peli", "Päivitä ohje InssiGame.cs!");
+            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.");
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä tai töki kissaa");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Päivitä ohje InssiGame.cs!");
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
-
-
+            addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
 
             /* ############ */
@@ -219,7 +221,7 @@ namespace InssiParty
                 }
 
                 //Draw the tip
-                spriteBatch.DrawString(font, currentTip, new Vector2(5, 570), Color.White);
+                spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
 
                 //Draw the cursor
                 spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
