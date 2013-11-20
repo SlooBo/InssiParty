@@ -20,18 +20,20 @@ namespace InssiParty.Games
     class tentti : GameBase
     {
         //Muuttujat
-        double timer = 0;
+        private double timer = 0;
         private int value = 0;
         private int picture = 0;
-        KeyboardState k_state_old;
-        Rectangle background = new Rectangle(0, 0, 800, 600);
-        Rectangle render = new Rectangle(0, 0, 800, 600);
-
+        private KeyboardState k_state_old;
+        private Rectangle background = new Rectangle(0, 0, 800, 600);
+        private Rectangle render = new Rectangle(0, 0, 800, 600);
+        private Rectangle timerBar = new Rectangle(0, 580, 800, 200);
+        private SpriteFont font;
         //Tekstuurit
         private Texture2D inssi_start;
         private Texture2D inssi_mid;
         private Texture2D inssi_end;
         private Texture2D blood;
+        private Texture2D barTexture;
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -41,6 +43,9 @@ namespace InssiParty.Games
             inssi_end = Content.Load<Texture2D>("inssi_end position");
             k_state_old = Keyboard.GetState();
             blood = Content.Load<Texture2D>("veritippa");
+            barTexture = new Texture2D(GraphicsDevice, 1, 1);
+            barTexture.SetData(new Color[] { Color.Purple });
+            font = Content.Load<SpriteFont>("DefaultFont");
         }
 
         public override void Start()
@@ -48,6 +53,7 @@ namespace InssiParty.Games
             Console.WriteLine("Start game");
             //voitto laskuri
             value = 0;
+            timerBar.Width = 800;
         }
 
         public override void Stop()
@@ -59,12 +65,18 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
             timer++;
+
+            do
+            {
+                timerBar.Width = timerBar.Width - 3;
+            }
+            while (timerBar.Width == 0);
                 if (value == 50)
                 {
                     //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                     CloseGame(true);
                 }
-                if (timer == 500)
+                if (timer == 250)
                 {
                     CloseGame(false);
                 }
@@ -97,7 +109,8 @@ namespace InssiParty.Games
                     100,                                         // Max time to live
                     50);                                         // Particle amount
                 }
-                k_state_old = k_state;        
+                k_state_old = k_state;
+                spriteBatch.Draw(barTexture, timerBar, Color.Purple);
             }
 
             Console.WriteLine("Valiluonnin iskut" + value);
