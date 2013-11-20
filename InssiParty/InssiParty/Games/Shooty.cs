@@ -80,7 +80,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             nyancat_pos = 0;
-            health = 3;
+            health = 5;
             barrelhp = new Vector2(84, 418);
             PI = 3.14159;
         }
@@ -102,8 +102,9 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
 
-            //nyancat_pos+=2;
-
+            nyancat_pos+=2;
+            NyancatRect = new Rectangle((int)nyancat_pos, (int)10,
+                Nyancat.Bounds.Width, Nyancat.Bounds.Height);
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
@@ -141,7 +142,11 @@ namespace InssiParty.Games
             {
                 item.Update();
 
-
+                if (item.CollisionRect.Intersects(NyancatRect))
+                {
+                    health--;
+                    item.IsDead = true;
+                }
 
                 if (item.Position.X > background.Width)
                 {
