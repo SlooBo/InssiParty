@@ -36,7 +36,7 @@ namespace InssiParty.Games
     class Shooty : GameBase
     {
         private int nyancat_pos, health;
-        private double angle, barrelangle, PI, initX, initY;
+        private double angle, PI, initX, initY;
         private float inifX, inifY;
         private bool mousestate;
 
@@ -87,7 +87,6 @@ namespace InssiParty.Games
             cannonBarrelRect = new Rectangle(84, 418, cannonbarrel.Width, cannonbarrel.Height);
             origin.X = cannonBarrelRect.Width / 2;
             origin.Y = cannonBarrelRect.Height / 2;
-            barrelangle =angle % (Math.PI * 2);
         }
 
         /**
@@ -208,7 +207,7 @@ namespace InssiParty.Games
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
 
-            spriteBatch.Draw(cannonbarrel, barrelhp, cannonBarrelRect, Color.White, (float)barrelangle, origin, 1.0f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(cannonbarrel, barrelhp, cannonBarrelRect, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 0f);
             
         }
 
