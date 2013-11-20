@@ -98,12 +98,9 @@ namespace InssiParty.Games
             for (int i = 0; i < 5; i++)
             {
                 painettava = rnd.Next(27);
-                Console.WriteLine(numValues[painettava]);
+              
+                syöte = Console.ReadLine();         
                
-                
-                
-                
-
                 if (syöte == numValues[painettava])
                 {
                     success_counter++;
@@ -112,6 +109,7 @@ namespace InssiParty.Games
                 else if (syöte != numValues[painettava])
                 {
                     fail_counter++;
+                    
                 }
 
                 if (success_counter == 5)
