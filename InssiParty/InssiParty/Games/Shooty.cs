@@ -43,20 +43,21 @@ namespace InssiParty.Games
         Rectangle background = new Rectangle(0, 0, 800, 600);
         Rectangle targetRect = new Rectangle(0, 0, 62, 62);
         Rectangle NyancatRect = new Rectangle(0, 0, 62, 37);
-        //Rectangle turretBarrelRect = new Rectangle(0, 0, 62, 62); 
+        Rectangle cannonBarrelRect; 
         private Vector2 targetPos;
         private Vector2 barrelhp;
         private Vector2 cbSpeed;
         private Vector2 cbPos;
         private Vector2 tri;
+        private Vector2 origin;
 
+        private Texture2D cannonbarrel;
         private Texture2D Nyancat;
         private Texture2D nyantail;
         private Texture2D targetTexture;
         private Texture2D cannonballTexture;
         private Texture2D backgroundTexture;
         private Texture2D turretTexture;
-        //private Texture2D turretBarrelTexture;
 
         List<Cannonball> cannonballs = new List<Cannonball>();
 
@@ -69,7 +70,7 @@ namespace InssiParty.Games
             targetTexture = Content.Load<Texture2D>("Target");
             cannonballTexture = Content.Load<Texture2D>("cannonball");
             turretTexture = Content.Load<Texture2D>("playerturret");
-            //turretBarrelTexture = Content.Load<Texture2D>("turretbarrel");
+            cannonbarrel = Content.Load<Texture2D>("cannonbarrel");
         }
 
         /**
@@ -83,6 +84,9 @@ namespace InssiParty.Games
             health = 5;
             barrelhp = new Vector2(84, 418);
             PI = 3.14159;
+            cannonBarrelRect = new Rectangle(84, 418, cannonbarrel.Width, cannonbarrel.Height);
+            origin.X = cannonBarrelRect.Width / 2;
+            origin.Y = cannonBarrelRect.Height / 2;
         }
 
         /**
@@ -202,6 +206,9 @@ namespace InssiParty.Games
             spriteBatch.Draw(nyantail, new Vector2(nyancat_pos - 187, 10), Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
+
+            spriteBatch.Draw(cannonbarrel, barrelhp, cannonBarrelRect, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 0f);
+            
         }
 
     }
