@@ -457,8 +457,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InssiParty - Opening Theme.mp3">
-      <Name>InssiParty - Opening Theme</Name>
+    <Compile Include="InssiParty - Opening Theme%28Loop-Compatible%29.mp3">
+      <Name>InssiParty - Opening Theme%28Loop-Compatible%29</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
