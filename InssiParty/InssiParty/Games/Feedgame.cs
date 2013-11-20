@@ -70,10 +70,26 @@ namespace InssiParty.Games
             Random rand = new Random();
             for (int i = 0; i < 4;i++ )
             {
-                if (tavarat[i] == tavarat[0] || tavarat[i] == tavarat[1] || tavarat[i] == tavarat[2] || tavarat[i] == tavarat[3])
+                if (tavarat[i] == tavarat[0] && i !=0)
                 {
                     tavarat[i] = rand.Next(4);
                 }
+
+                if (tavarat[i] == tavarat[1]&& i !=0)
+                {
+                    tavarat[i] = rand.Next(4);
+                }
+
+                if (tavarat[i] == tavarat[2]&& i !=0)
+                {
+                    tavarat[i] = rand.Next(4);
+                }
+
+                if (tavarat[i] == tavarat[3] && i != 0)
+                {
+                    tavarat[i] = rand.Next(4);
+                }
+ 
             }
 
             kaapit = new List<Kaappi>();
@@ -135,7 +151,7 @@ namespace InssiParty.Games
 
                 }
 
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 255, (int)kaapit[i].sijainti.Y + 255, (int)kaapit[i].koko.X - 275, (int)kaapit[i].koko.Y - 275)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 150, (int)kaapit[i].sijainti.Y + 150, (int)kaapit[i].koko.X - 236, (int)kaapit[i].koko.Y - 236)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     Console.WriteLine("Hand hits item");
                     if (kaapit[i].tavara_id==1)
@@ -182,16 +198,16 @@ namespace InssiParty.Games
                 {
                     if (kaapit[i].tavara_id == 1)
                     {
-                        spriteBatch.Draw(poison, kaapit[i].sijainti, Color.White);
+                        spriteBatch.Draw(poison, kaapit[i].sijainti+new Vector2(150,150), Color.White);
                     }
                     else if (kaapit[i].tavara_id == 2)
                     {
-                        spriteBatch.Draw(testi, kaapit[i].sijainti, Color.White);
+                        spriteBatch.Draw(testi, kaapit[i].sijainti+new Vector2(150,150), Color.White);
                     }
 
                     else if (kaapit[i].tavara_id == 3)
                     {
-                        spriteBatch.Draw(ruoka, kaapit[i].sijainti, Color.White);
+                        spriteBatch.Draw(ruoka, kaapit[i].sijainti+new Vector2(150,150), Color.White);
                     }
                 }
             
