@@ -25,9 +25,9 @@ namespace InssiParty.Games
         
         //variablesit
         private int value;
-        private int inssi_nopeus = 3;
         private bool osuma = false;
-        private Vector2 inssi_kohta = Vector2.Zero;
+
+        private Vector2 inssi_kohta, inssi_nopeus, inssi_vauhti;
 
         //Tekstuurit
         
@@ -44,7 +44,7 @@ namespace InssiParty.Games
             spritebatch = new SpriteBatch(GraphicsDevice);
             inssi = Content.Load<Texture2D>("Nyancat");
 
-            inssi_kohta = Vector2.One * 100;
+ 
         }
 
         /**
@@ -54,9 +54,14 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting Vaista ATJ-Promoja");
+            Console.WriteLine("Starting Väistä ATJ-Promoja");
             
-            value = 0;
+            value = 500;
+
+            //inssin liikkeiden vektoreita
+            inssi_kohta = new Vector2(400, 300);
+            inssi_vauhti = Vector2.Zero;
+            inssi_nopeus = new Vector2(5, 5);
         }
 
         /**
@@ -77,34 +82,40 @@ namespace InssiParty.Games
         {
             //value--;
 
-            //if (value < 0)
-            //{
+
             //    sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-            //    CloseGame(true);
-            //}
-           
+
+            //liikkumistoiminnot
+            inssi_vauhti = Vector2.Zero;
+
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.D))
             {
-                inssi_kohta += Vector2.UnitX * inssi_nopeus;
+                inssi_vauhti.X = inssi_nopeus.X;
             }
 
             if (keyboard.IsKeyDown(Keys.A))
             {
-                inssi_kohta -= Vector2.UnitX * inssi_nopeus;
+                inssi_vauhti.X = -inssi_nopeus.X;
             }
 
             if (keyboard.IsKeyDown(Keys.S))
             {
-                inssi_kohta += Vector2.UnitY * inssi_nopeus;
+                inssi_vauhti.Y = inssi_nopeus.Y;
             }
 
             if (keyboard.IsKeyDown(Keys.W))
             {
-                inssi_kohta -= Vector2.UnitY * inssi_nopeus;
+                inssi_vauhti.Y = -inssi_nopeus.Y;
+            }
+
+            inssi_kohta += inssi_vauhti;
+
+            if (value < 0)
+            {
+                CloseGame(true);
             }
         }
-
         /**
          * Pelkkä piirtäminen
          * 
@@ -118,7 +129,7 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(inssi, new Vector2(400,300), Color.White);
+            spriteBatch.Draw(inssi, inssi_kohta, Color.White);
         }
 
     }
