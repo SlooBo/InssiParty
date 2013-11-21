@@ -99,7 +99,7 @@ namespace InssiParty
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Päivitä ohje InssiGame.cs!");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla");
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
