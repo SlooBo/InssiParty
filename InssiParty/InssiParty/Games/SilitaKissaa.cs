@@ -107,11 +107,6 @@ namespace InssiParty.Games
             }
         }
 
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
         public override void Start()
         {
             Console.WriteLine("Starting hello world");
@@ -119,20 +114,11 @@ namespace InssiParty.Games
             value = 500;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Update(GameTime gameTime)
         {
             var MouseState = Mouse.GetState(); //Määritetään hiiri
@@ -209,18 +195,9 @@ namespace InssiParty.Games
             }
         }
 
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
-
-            //spriteBatch.Draw funktiolla voit piirtää ruudulle
 
             spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
             spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
