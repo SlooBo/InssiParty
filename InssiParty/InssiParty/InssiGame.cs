@@ -174,7 +174,7 @@ namespace InssiParty
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend);
 
             if (gameActive == true)
             {

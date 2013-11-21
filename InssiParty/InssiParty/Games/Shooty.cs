@@ -207,8 +207,7 @@ namespace InssiParty.Games
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
 
-            spriteBatch.Draw(cannonbarrel, barrelhp, cannonBarrelRect, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 0f);
-            
+            spriteBatch.Draw(cannonbarrel, barrelhp, null, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 0f);
         }
 
     }
