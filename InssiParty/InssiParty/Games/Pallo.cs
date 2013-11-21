@@ -18,6 +18,9 @@ namespace InssiParty.Games.FeedGameSrc
         private Texture2D pallo;
         private Texture2D Kori;
         private Texture2D Palkki;
+        
+
+
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -25,11 +28,13 @@ namespace InssiParty.Games.FeedGameSrc
             pallo = Content.Load<Texture2D>("Pallo");
             Kori = Content.Load<Texture2D>("Kori");
             Palkki = Content.Load<Texture2D>("Palkki");
+            
         }
 
         public override void Start()
         {
             Console.WriteLine("Start Game");
+        
 
             //alustus
         }
@@ -39,16 +44,23 @@ namespace InssiParty.Games.FeedGameSrc
             Console.WriteLine("Game Over");
 
             //alustus
+            CloseGame(true);
         }
 
         public override void Update(GameTime gameTime)
         {
-           
+            if (Input.IsKeyDown(Keys.A))
+                 -= Vector2.UnitX;
+            if (Input.IsKeyDown(Keys.D))
+                 += Vector2.UnitX;
+             
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime) 
         {
-        
+            spriteBatch.Draw(pallo, new Vector2(400, 0), Color.Beige);
+            spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.Beige);
+            spriteBatch.Draw(Kori, new Vector2(350,600), Color.Beige);
         }
 
     }
