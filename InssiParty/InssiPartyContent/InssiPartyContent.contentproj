@@ -206,23 +206,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="inssi_mid position.jpg">
-      <Name>inssi_mid position</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="inssi_end position.jpg">
-      <Name>inssi_end position</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="inssi_start position.jpg">
-      <Name>inssi_start position</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Target.png">
       <Name>Target</Name>
       <Importer>TextureImporter</Importer>
@@ -529,6 +512,23 @@
     </Compile>
     <Compile Include="seriouslymurucopy.png">
       <Name>seriouslymurucopy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="inssi_end position.png">
+      <Name>inssi_end position</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="inssi_mid position.png">
+      <Name>inssi_mid position</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="inssi_start position.png">
+      <Name>inssi_start position</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

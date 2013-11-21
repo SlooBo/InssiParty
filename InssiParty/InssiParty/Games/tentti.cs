@@ -23,6 +23,7 @@ namespace InssiParty.Games
         private double timer = 0;
         private int value = 0;
         private int picture = 0;
+        private float blood_gravity = 0;
         private KeyboardState k_state_old;
         private Rectangle background = new Rectangle(0, 0, 800, 600);
         private Rectangle render = new Rectangle(0, 0, 800, 600);
@@ -93,13 +94,15 @@ namespace InssiParty.Games
                     spriteBatch.Draw(inssi_mid, render, Color.White);
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
-                       value++;           
+                       value++;
+                       blood_gravity -= 0.2f;
                     }
                  }          
      
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
                     spriteBatch.Draw(inssi_end, render, new Color (255,255,255));
+                    particleManager.setGravity(new Vector2(0, blood_gravity));
                     particleManager.AddParticle(
                     blood,                                       // Texture
                     new Vector2(390,275),                        // Position
