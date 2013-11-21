@@ -24,7 +24,7 @@ namespace InssiParty
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
-        const int TRANSITION_TIME = 150;
+        private const int TRANSITION_TIME = 150;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -47,7 +47,7 @@ namespace InssiParty
         private int transitionTimer;
 
         //Game objects
-        List<GameBase> games;
+        private List<GameBase> games;
 
         public InssiGame()
         {
