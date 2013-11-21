@@ -126,7 +126,7 @@
     <Compile Include="Games\FeedGameSrc\Kaappi.cs" />
     <Compile Include="Games\KoodiRage.cs" />
     <Compile Include="Games\lapsytys.cs" />
-    <Compile Include="Games\Olut.cs" />
+    <Compile Include="Games\AvaaOluttölkki.cs" />
     <Compile Include="Games\ParticleExample.cs" />
     <Compile Include="Games\rollibyrintti.cs" />
     <Compile Include="Games\SampleGame.cs" />
