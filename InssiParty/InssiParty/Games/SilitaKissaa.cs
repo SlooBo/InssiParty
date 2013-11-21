@@ -76,9 +76,9 @@ namespace InssiParty.Games
         {
             //ladataan kissakuvia :3
             kissatextuuri = Content.Load<Texture2D>("aloitusmurucopy");
-            kissatextuuriPaa = Content.Load<Texture2D>("murupaa");
-            kissantextuuriMasis = Content.Load<Texture2D>("masismuru");
-            kissatextuuriSeriously = Content.Load<Texture2D>("seriouslymuru");
+            kissatextuuriPaa = Content.Load<Texture2D>("murupaacopy");
+            kissantextuuriMasis = Content.Load<Texture2D>("masismuru copy");
+            kissatextuuriSeriously = Content.Load<Texture2D>("seriouslymurucopy");
             kissatextuuriIloinen = Content.Load<Texture2D>("muruiloinenpää");
 
             //ladataan kasikuvia
