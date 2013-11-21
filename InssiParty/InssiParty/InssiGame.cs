@@ -44,6 +44,7 @@ namespace InssiParty
         private GameBase currentGame;
         private Vector2 cursorPosition;
         private String currentTip;
+        private int menuPosition;
 
         //Transition stuff
         private int transitionTimer;
@@ -53,7 +54,8 @@ namespace InssiParty
 
         public InssiGame()
         {
-            menuState = MenuState.GameList;
+            menuState = MenuState.GameList; // START MENU
+            menuPosition = 0;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
