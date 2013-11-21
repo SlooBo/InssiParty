@@ -89,8 +89,6 @@ namespace InssiParty.Games
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
-            
-
 
              
         }
@@ -101,17 +99,16 @@ namespace InssiParty.Games
             bool lukuOk = false;
             while (lukuOk == false)
             {
+                lukuOk = true; //Oletuksen kaikki o ok, katotaan jos alta löytyy ongelmia
                 for (int i = 0; i < kaapit.Count; ++i)
                 {
                     if (luku == kaapit[i].tavara_id)
                     {
                         //Tavara löyty kaapista, uusi random
                         luku = rand.Next(0, 4);
-                        break;
+                        lukuOk = false; //Uusi luku asetettu, pitää kaikki chekata läpi
                     }
                 }
-
-                lukuOk = true;
             }
 
             return luku;
