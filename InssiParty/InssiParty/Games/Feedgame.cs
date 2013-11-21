@@ -99,25 +99,50 @@ namespace InssiParty.Games
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = tavarat[0];
-            kaapit.Add(temp);
+            temp.tavara_id = RandomTavara(rand);
 
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = tavarat[1]; 
+            temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
             temp.koko = new Vector2(300, 300);
-            temp.tavara_id = tavarat[2];
+            temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
+
+            
+
+
              
-             
+        }
+
+        private int RandomTavara(Random rand)
+        {
+            int luku = rand.Next(0, 4);
+
+            bool lukuOk = false;
+            while (lukuOk == false)
+            {
+                for (int i = 0; i < kaapit.Count; ++i)
+                {
+                    if (luku == kaapit[i].tavara_id)
+                    {
+                        //Tavara löyty kaapista, uusi random
+                        luku = rand.Next(0, 4);
+                        break;
+                    }
+                }
+
+                lukuOk = true;
+            }
+
+            return luku;
         }
 
         /**

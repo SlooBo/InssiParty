@@ -23,6 +23,8 @@ namespace InssiParty
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
+        private enum MenuState { MainMenu, GameList }
+
         private const int TRANSITION_TIME = 150;
 
         private GraphicsDeviceManager graphics;
@@ -36,6 +38,7 @@ namespace InssiParty
         private SpriteFont font;
 
         //Menu stuff
+        private MenuState menuState;
         private Texture2D cursorTexture;
         private bool gameActive;
         private GameBase currentGame;
@@ -50,6 +53,8 @@ namespace InssiParty
 
         public InssiGame()
         {
+            menuState = MenuState.GameList;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -240,18 +245,27 @@ namespace InssiParty
 
         void MenuUpdate()
         {
-
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            //Main menu
+            if (menuState == MenuState.MainMenu)
             {
-                for (int i = 0; i < games.Count(); ++i)
-                {
-                    if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
-                    {
-                        startGame(games[i]);
 
-                        if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            }
+
+            // Game list
+            if (menuState == MenuState.GameList)
+            {
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+                {
+                    for (int i = 0; i < games.Count(); ++i)
+                    {
+                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
                         {
-                            transitionTimer = TRANSITION_TIME + 10;
+                            startGame(games[i]);
+
+                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                            {
+                                transitionTimer = TRANSITION_TIME + 10;
+                            }
                         }
                     }
                 }
@@ -264,24 +278,35 @@ namespace InssiParty
             //Title
             spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
 
-            //List games
-
-            var mouseState = Mouse.GetState();
-
-            for (int i = 0; i < games.Count; ++i)
+            //Main menu
+            if (menuState == MenuState.MainMenu)
             {
-                //Check if the mouse is on position:
-                if (mouseState.X < 400 && mouseState.X > 0)
-                {
-                    if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
-                    {
-                        spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
-                        continue;
-                    }
-                }
+                spriteBatch.DrawString(font, "Päävalikko", new Vector2(20, 20), Color.Red);
 
-                spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+                spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
+                spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
             }
+
+            //List games
+            if (menuState == MenuState.GameList)
+            {
+                var mouseState = Mouse.GetState();
+
+                for (int i = 0; i < games.Count; ++i)
+                {
+                    //Check if the mouse is on position:
+                    if (mouseState.X < 400 && mouseState.X > 0)
+                    {
+                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                        {
+                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
+                            continue;
+                        }
+                    }
+
+                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+                }
+            } //  </listgames>
 
             //Draw the tip
             spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
