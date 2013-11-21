@@ -55,7 +55,6 @@ namespace InssiParty.Games
             //voitto laskuri
             value = 0;
             timerBar.Width = 800;
-            blood_gravity = 0;
             timer = 0;
         }
 
@@ -97,22 +96,21 @@ namespace InssiParty.Games
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
                        value++;
-                       blood_gravity -= 0.3f;
                     }
                  }          
      
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
                     spriteBatch.Draw(inssi_end, render, new Color (255,255,255));
-                    particleManager.setGravity(new Vector2(0, blood_gravity));
+                    particleManager.setGravity(new Vector2(0, -0.2f));
                     particleManager.AddParticle(
                     blood,                                       // Texture
                     new Vector2(390,275),                        // Position
-                    new Vector2(-5, -5),                         // Min speed on x / y axis
-                    new Vector2(5, 5),                           // Max speed on x / y axis
+                    new Vector2(20, -5),                         // Min speed on x / y axis
+                    new Vector2(10, 5),                           // Max speed on x / y axis
                     50,                                          // Min time to live
                     100,                                         // Max time to live
-                    50);                                         // Particle amount
+                    100);                                         // Particle amount
                 }
                 k_state_old = k_state;
                 spriteBatch.Draw(barTexture, timerBar, Color.Purple);
