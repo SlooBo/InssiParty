@@ -55,6 +55,8 @@ namespace InssiParty.Games
             //voitto laskuri
             value = 0;
             timerBar.Width = 800;
+            blood_gravity = 0;
+            timer = 0;
         }
 
         public override void Stop()
@@ -95,7 +97,7 @@ namespace InssiParty.Games
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
                        value++;
-                       blood_gravity -= 0.2f;
+                       blood_gravity -= 0.3f;
                     }
                  }          
      
