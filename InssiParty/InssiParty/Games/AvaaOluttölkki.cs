@@ -153,10 +153,13 @@ namespace InssiParty.Games
             //Palikka piirretään y akselilla, valuen kohtaan
          while(success_counter!=5&&fail_counter!=3)
          {
-             spriteBatch.DrawString(font, numValues[painettava], new Vector2(0, 0), Color.White);
+             spriteBatch.DrawString(font, "Painele näytöllä näkyviä kirjaimia.", new Vector2(100, 100), Color.White);
              
              spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
-             spriteBatch.Draw(Can, new Vector2(0, 0), Color.White);
+             
+             spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
+
+             spriteBatch.DrawString(font, numValues[painettava], new Vector2(0, 0), Color.White);
              
              if(success_counter>=3&&fail_counter==0)
              {
