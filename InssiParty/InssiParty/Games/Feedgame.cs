@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.Input;
 namespace InssiParty.Games
 {
 
-
     /*
      * Ruokkimi-speli
 

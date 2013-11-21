@@ -17,7 +17,6 @@ namespace InssiParty
     // -> Schedule timing for this project
     // -> transition screens
     // -> Better menu screen
-    // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
     // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
     // -> stats/achievement system
@@ -160,23 +159,8 @@ namespace InssiParty
             }
             else
             {
-            
-                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
-                {
-                    for (int i = 0; i < games.Count(); ++i)
-                    {
-                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
-                        {
-                            startGame(games[i]);
 
-                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                            {
-                                transitionTimer = TRANSITION_TIME + 10;
-                            }
-                        }
-                    }
-
-                }
+                MenuUpdate();
             }
 
             base.Update(gameTime);
@@ -198,33 +182,7 @@ namespace InssiParty
             }
             else
             {
-                //Title
-                spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
-
-                //List games
-
-                var mouseState = Mouse.GetState();
-
-                for (int i = 0; i < games.Count; ++i)
-                {
-                    //Check if the mouse is on position:
-                    if (mouseState.X < 400 && mouseState.X > 0)
-                    {
-                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
-                        {
-                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
-                            continue;
-                        }
-                    }
-
-                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
-                }
-
-                //Draw the tip
-                spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
-
-                //Draw the cursor
-                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+                MenuDraw();
             }
 
             spriteBatch.End();
@@ -275,5 +233,62 @@ namespace InssiParty
             currentGame.IsRunning = false;
             currentGame.Stop();
         }
+
+        /**
+         * Menu systems
+         */
+
+        void MenuUpdate()
+        {
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                for (int i = 0; i < games.Count(); ++i)
+                {
+                    if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
+                    {
+                        startGame(games[i]);
+
+                        if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                        {
+                            transitionTimer = TRANSITION_TIME + 10;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void MenuDraw()
+        {
+            //Title
+            spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
+
+            //List games
+
+            var mouseState = Mouse.GetState();
+
+            for (int i = 0; i < games.Count; ++i)
+            {
+                //Check if the mouse is on position:
+                if (mouseState.X < 400 && mouseState.X > 0)
+                {
+                    if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                    {
+                        spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
+                        continue;
+                    }
+                }
+
+                spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+            }
+
+            //Draw the tip
+            spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
+
+            //Draw the cursor
+            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+        }
+
     }
 }
