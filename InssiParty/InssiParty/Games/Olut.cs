@@ -6,6 +6,8 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
+using InssiParty.Games.FeedGameSrc;
 
 
 namespace InssiParty.Games
@@ -99,7 +101,8 @@ namespace InssiParty.Games
             {
                 painettava = rnd.Next(27);
               
-                syöte = Console.ReadLine();         
+                syöte = Convert.ToString(Keyboard.GetState());
+                Keyboard.GetState();
                
                 if (syöte == numValues[painettava])
                 {
@@ -112,7 +115,12 @@ namespace InssiParty.Games
                     
                 }
 
-                if (success_counter == 5)
+                if (success_counter < 3 && fail_counter == 0)
+                {
+                    
+                }
+
+                else if (success_counter == 5)
                 {
                     //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                     CloseGame(true);
@@ -138,11 +146,21 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-          spriteBatch.Draw(Can, new Vector2(50, value), Color.White); 
-          spriteBatch.Draw(OpeningCan, new Vector2(50, value), Color.White);
-          spriteBatch.Draw(EmptyCan, new Vector2(50, value), Color.White);
-          spriteBatch.DrawString(font,numValues[painettava], new Vector2(0,0), Color.White);
+         while(success_counter!=5&&fail_counter!=3)
+         {
+             spriteBatch.Draw(Can, new Vector2(0, 0), Color.White);
+             
+             if(success_counter>=3&&fail_counter==0)
+             {
+                spriteBatch.Draw(OpeningCan, new Vector2(0, 0), Color.White);
+             }
 
+             else if(success_counter==5&&fail_counter==0)
+             {
+                spriteBatch.Draw(EmptyCan, new Vector2(0, 0), Color.White);
+             }
+          spriteBatch.DrawString(font,numValues[painettava], new Vector2(0,0), Color.White);
+         }
             
         }
 
