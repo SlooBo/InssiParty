@@ -28,7 +28,7 @@ namespace InssiParty.Games
 
         public override void Start()
         {
-            particleManager.setGravity(new Vector2(0,20));
+            particleManager.setGravity(new Vector2(0,1));
         }
 
         public override void Stop()

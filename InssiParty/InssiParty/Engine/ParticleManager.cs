@@ -41,8 +41,8 @@ namespace InssiParty.Engine
             //Handle updating
             for (i = 0; i < particleList.Count; ++i)
             {
+                particleList[i].vel -= gravity;
                 particleList[i].pos += particleList[i].vel;
-                particleList[i].pos -= gravity;
                 particleList[i].ttl--;
 
                 if (particleList[i].ttl < 0)
