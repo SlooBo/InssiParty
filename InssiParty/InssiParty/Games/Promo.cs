@@ -27,7 +27,7 @@ namespace InssiParty.Games
         private int value;
         private int inssi_nopeus = 3;
         private bool osuma = false;
-        private Vector2 inssi_kohta;
+        private Vector2 inssi_kohta = Vector2.Zero;
 
         //Tekstuurit
         
