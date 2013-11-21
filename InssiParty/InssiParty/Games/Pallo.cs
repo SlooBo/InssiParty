@@ -49,11 +49,14 @@ namespace InssiParty.Games.FeedGameSrc
 
         public override void Update(GameTime gameTime)
         {
+            /**
+             * Ei pistetä bugisia committeja repoon! Hajoaa kaikilta koodit.
+             
             if (Input.IsKeyDown(Keys.A))
                  -= Vector2.UnitX;
             if (Input.IsKeyDown(Keys.D))
                  += Vector2.UnitX;
-             
+             */
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime) 
