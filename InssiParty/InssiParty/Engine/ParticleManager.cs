@@ -25,6 +25,8 @@ namespace InssiParty.Engine
         private List<Particle> particleList;
         private Random random;
 
+        private Vector2 gravity;
+
         public ParticleManager()
         {
             random = new Random();
@@ -40,6 +42,7 @@ namespace InssiParty.Engine
             for (i = 0; i < particleList.Count; ++i)
             {
                 particleList[i].pos += particleList[i].vel;
+                particleList[i].pos -= gravity;
                 particleList[i].ttl--;
 
                 if (particleList[i].ttl < 0)
@@ -78,7 +81,12 @@ namespace InssiParty.Engine
         public void Reset()
         {
             particleList.Clear();
+            gravity = new Vector2(0, 0);
         }
 
+        public void setGravity(Vector2 value)
+        {
+            gravity = value;
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace InssiParty.Games
     class Shooty : GameBase
     {
         private int nyancat_pos, health;
-        private double angle, PI, initX, initY;
+        private double angle, PI, initX, initY, initXB, initYB, barrelangle;
         private float inifX, inifY;
         private bool mousestate;
 
@@ -81,7 +81,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             nyancat_pos = 0;
-            health = 5;
+            health = 10;
             barrelhp = new Vector2(84, 418);
             PI = 3.14159;
             cannonBarrelRect = new Rectangle(84, 418, cannonbarrel.Width, cannonbarrel.Height);
@@ -141,6 +141,10 @@ namespace InssiParty.Games
                 mousestate = false;
 
             }
+
+            initXB = Math.Cos(angle) * 1;
+            initYB = Math.Sin(angle) * -1;
+            barrelangle = Math.Atan(initYB / initXB);
 
             foreach (Cannonball item in cannonballs)
             {
@@ -202,13 +206,12 @@ namespace InssiParty.Games
             {
                 item.Draw(spriteBatch);
             }
+            spriteBatch.Draw(cannonbarrel, barrelhp, null, Color.White, (float)barrelangle, origin, 1.0f, SpriteEffects.None, 0f);
             spriteBatch.Draw(turretTexture, new Vector2(50, 400), Color.White);
             spriteBatch.Draw(nyantail, new Vector2(nyancat_pos - 187, 10), Color.White);
             spriteBatch.Draw(Nyancat, new Vector2(nyancat_pos, 10), Color.White);
             spriteBatch.Draw(targetTexture, targetPos, Color.White);
 
-            spriteBatch.Draw(cannonbarrel, barrelhp, cannonBarrelRect, Color.White, (float)angle, origin, 1.0f, SpriteEffects.None, 0f);
-            
         }
 
     }

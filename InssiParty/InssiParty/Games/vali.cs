@@ -50,7 +50,7 @@ namespace InssiParty.Games
         {            
             sprite.HandleSpriteMovement(gameTime);
             sprite.Animate(gameTime);
-
+            
             if (value < 0)
             {
                 CloseGame(true);

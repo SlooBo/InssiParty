@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.Input;
 namespace InssiParty.Games
 {
 
-
     /*
      * Ruokkimi-speli
 
@@ -23,7 +22,6 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private List<Kaappi> kaapit;
-        int[] tavarat = new int[5];
         private Vector2 HandPos;
 
         //private bool over = false;
@@ -39,7 +37,7 @@ namespace InssiParty.Games
         private Texture2D ruoka;
         private Texture2D testi;
 
-        Rectangle HandRect = new Rectangle(0, 0, 100, 100);
+        Rectangle HandRect = new Rectangle(0, 0, 4, 4);
         //Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
         //Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
         /**
@@ -68,57 +66,55 @@ namespace InssiParty.Games
         public override void Start()
         {
             Random rand = new Random();
-            for (int i = 0; i < 4;i++ )
-            {
-                if (tavarat[i] == tavarat[0] && i !=0)
-                {
-                    tavarat[i] = rand.Next(4);
-                }
-
-                if (tavarat[i] == tavarat[1]&& i !=0)
-                {
-                    tavarat[i] = rand.Next(4);
-                }
-
-                if (tavarat[i] == tavarat[2]&& i !=0)
-                {
-                    tavarat[i] = rand.Next(4);
-                }
-
-                if (tavarat[i] == tavarat[3] && i != 0)
-                {
-                    tavarat[i] = rand.Next(4);
-                }
- 
-            }
-
             kaapit = new List<Kaappi>();
-
-
 
             Kaappi temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = tavarat[0];
+            temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
-
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
             temp.koko = new Vector2(300,300);
-            temp.tavara_id = tavarat[1]; 
+            temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
             temp.koko = new Vector2(300, 300);
-            temp.tavara_id = tavarat[2];
+            temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
+
+            
+
+
              
-             
+        }
+
+        private int RandomTavara(Random rand)
+        {
+            int luku = rand.Next(0, 4);
+            bool lukuOk = false;
+            while (lukuOk == false)
+            {
+                for (int i = 0; i < kaapit.Count; ++i)
+                {
+                    if (luku == kaapit[i].tavara_id)
+                    {
+                        //Tavara löyty kaapista, uusi random
+                        luku = rand.Next(0, 4);
+                        break;
+                    }
+                }
+
+                lukuOk = true;
+            }
+
+            return luku;
         }
 
         /**

@@ -26,7 +26,10 @@ namespace InssiParty.Games
             particleTexture = Content.Load<Texture2D>("palikka");
         }
 
-        public override void Start() { }
+        public override void Start()
+        {
+            particleManager.setGravity(new Vector2(0,20));
+        }
 
         public override void Stop()
         {

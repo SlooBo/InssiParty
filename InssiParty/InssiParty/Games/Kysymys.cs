@@ -6,6 +6,7 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
@@ -23,21 +24,40 @@ namespace InssiParty.Games
         //Variablet
         private int value;
         private SpriteFont font;
+
+        //Muuttujat
+        char valinta;
+
+
         
        
 
         //Tekstuurit
-        private Texture2D taustak;
-
+        private Texture2D taustakuva;
+        private Texture2D kymysys1;
+        private Texture2D kymysys2;
+        private Texture2D kymysys3;
+        private Texture2D kymysys4;
+        private Texture2D kymysys5;
+        private Texture2D voitto1;
+        private Texture2D häviö1;
         /**
          * Lataa tekstuureihin itse data.
          * Ajetaan kun koko ohjelma käynnistyy.
          */
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-       
-            taustak = Content.Load<Texture2D>("taustaktesti");
+            taustakuva = Content.Load<Texture2D>("k1");
+            kymysys1 = Content.Load<Texture2D>("k1");
+            kymysys2 = Content.Load<Texture2D>("k2");
+            kymysys3 = Content.Load<Texture2D>("k3");
+            kymysys4 = Content.Load<Texture2D>("k4");
+            kymysys5 = Content.Load<Texture2D>("k5");
+            voitto1 = Content.Load<Texture2D>("v1");
+            häviö1 = Content.Load<Texture2D>("h1");
+            
             font = Content.Load<SpriteFont>("DefaultFont");
+            
         }
 
         /**
@@ -69,6 +89,16 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
             value--;
+          
+
+            taustakuva = kymysys1;
+            KeyboardState state = new KeyboardState();
+
+            if (state.IsKeyDown(Keys.K))
+            {
+                //K on painettu
+            }
+
 
             if (value < 0)
             {
@@ -89,7 +119,15 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(taustak, new Vector2(0, value), Color.White);
+            spriteBatch.Draw(taustakuva, new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(kymysys1,new Vector2(0, 0), Color.White); 
+            spriteBatch.Draw(kymysys2,new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(kymysys3,new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(kymysys4,new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(kymysys5,new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(voitto1,new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(häviö1,new Vector2(0, 0), Color.White);
+            
         }
 
     }

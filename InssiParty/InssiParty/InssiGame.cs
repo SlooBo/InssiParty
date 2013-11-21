@@ -17,14 +17,15 @@ namespace InssiParty
     // -> Schedule timing for this project
     // -> transition screens
     // -> Better menu screen
-    // -> Private/public state on this class
     // -> Point / Life counters for the gameplay.
     // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
     // -> stats/achievement system
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
-        const int TRANSITION_TIME = 150;
+        private enum MenuState { MainMenu, GameList }
+
+        private const int TRANSITION_TIME = 150;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -37,20 +38,25 @@ namespace InssiParty
         private SpriteFont font;
 
         //Menu stuff
+        private MenuState menuState;
         private Texture2D cursorTexture;
         private bool gameActive;
         private GameBase currentGame;
         private Vector2 cursorPosition;
         private String currentTip;
+        private int menuPosition;
 
         //Transition stuff
         private int transitionTimer;
 
         //Game objects
-        List<GameBase> games;
+        private List<GameBase> games;
 
         public InssiGame()
         {
+            menuState = MenuState.GameList; // START MENU
+            menuPosition = 0;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
@@ -99,11 +105,12 @@ namespace InssiParty
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Päivitä ohje InssiGame.cs!");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla");
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
+            addGame(new Olut(),"Avaa Oluttölkki", "Näkeehän sen nimestä");
 
             /* ############ */
 
@@ -160,23 +167,8 @@ namespace InssiParty
             }
             else
             {
-            
-                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
-                {
-                    for (int i = 0; i < games.Count(); ++i)
-                    {
-                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
-                        {
-                            startGame(games[i]);
 
-                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                            {
-                                transitionTimer = TRANSITION_TIME + 10;
-                            }
-                        }
-                    }
-
-                }
+                MenuUpdate();
             }
 
             base.Update(gameTime);
@@ -185,7 +177,7 @@ namespace InssiParty
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend);
 
             if (gameActive == true)
             {
@@ -198,33 +190,7 @@ namespace InssiParty
             }
             else
             {
-                //Title
-                spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
-
-                //List games
-
-                var mouseState = Mouse.GetState();
-
-                for (int i = 0; i < games.Count; ++i)
-                {
-                    //Check if the mouse is on position:
-                    if (mouseState.X < 400 && mouseState.X > 0)
-                    {
-                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
-                        {
-                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
-                            continue;
-                        }
-                    }
-
-                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
-                }
-
-                //Draw the tip
-                spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
-
-                //Draw the cursor
-                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+                MenuDraw();
             }
 
             spriteBatch.End();
@@ -275,5 +241,82 @@ namespace InssiParty
             currentGame.IsRunning = false;
             currentGame.Stop();
         }
+
+        /**
+         * Menu systems
+         */
+
+        void MenuUpdate()
+        {
+            //Main menu
+            if (menuState == MenuState.MainMenu)
+            {
+
+            }
+
+            // Game list
+            if (menuState == MenuState.GameList)
+            {
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+                {
+                    for (int i = 0; i < games.Count(); ++i)
+                    {
+                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
+                        {
+                            startGame(games[i]);
+
+                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                            {
+                                transitionTimer = TRANSITION_TIME + 10;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void MenuDraw()
+        {
+            //Title
+            spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
+
+            //Main menu
+            if (menuState == MenuState.MainMenu)
+            {
+                spriteBatch.DrawString(font, "Päävalikko", new Vector2(20, 20), Color.Red);
+
+                spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
+                spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
+            }
+
+            //List games
+            if (menuState == MenuState.GameList)
+            {
+                var mouseState = Mouse.GetState();
+
+                for (int i = 0; i < games.Count; ++i)
+                {
+                    //Check if the mouse is on position:
+                    if (mouseState.X < 400 && mouseState.X > 0)
+                    {
+                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
+                        {
+                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
+                            continue;
+                        }
+                    }
+
+                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+                }
+            } //  </listgames>
+
+            //Draw the tip
+            spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
+
+            //Draw the cursor
+            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
+        }
+
     }
 }
