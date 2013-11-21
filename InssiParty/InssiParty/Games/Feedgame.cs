@@ -36,7 +36,11 @@ namespace InssiParty.Games
         private Texture2D poison;
         private Texture2D ruoka;
         private Texture2D testi;
+        private Texture2D Ajastin;
 
+        private int timer;
+
+        private Rectangle timer_bar;
         Rectangle HandRect = new Rectangle(0, 0, 4, 4);
         //Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
         //Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
@@ -56,6 +60,10 @@ namespace InssiParty.Games
             poison = Content.Load<Texture2D>("Pullo");
             ruoka = Content.Load<Texture2D>("ruoka");
             testi = Content.Load<Texture2D>("testi_item");
+            Ajastin = new Texture2D(GraphicsDevice, 1, 1);
+            Ajastin.SetData(new Color[] {Color.Wheat});
+
+            timer_bar = new Rectangle(0,580,800,20);
         }
 
         /**
@@ -65,6 +73,7 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
+            timer = 0;
             Random rand = new Random();
             kaapit = new List<Kaappi>();
 
@@ -165,6 +174,10 @@ namespace InssiParty.Games
                 }
             }
 
+            ++timer;
+
+            timer_bar.Width = 800 - timer;
+
         }
 
         /**
@@ -205,7 +218,7 @@ namespace InssiParty.Games
                 }
             
             }
-
+            spriteBatch.Draw(Ajastin,timer_bar,Color.White);
 
             spriteBatch.Draw(handu, HandPos, Color.White);
             //    spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
