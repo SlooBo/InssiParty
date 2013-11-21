@@ -75,7 +75,7 @@ namespace InssiParty.Games
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
             //ladataan kissakuvia :3
-            kissatextuuri = Content.Load<Texture2D>("aloitusmuru");
+            kissatextuuri = Content.Load<Texture2D>("aloitusmurucopy");
             kissatextuuriPaa = Content.Load<Texture2D>("murupaa");
             kissantextuuriMasis = Content.Load<Texture2D>("masismuru");
             kissatextuuriSeriously = Content.Load<Texture2D>("seriouslymuru");
