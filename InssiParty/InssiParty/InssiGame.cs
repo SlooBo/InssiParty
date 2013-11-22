@@ -110,6 +110,7 @@ namespace InssiParty
             addGame(new Promo(), "Väistä ATJ-Promoja", "Päivitä ohje InssiGame.cs!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
+            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L");
             addGame(new Olut(),"Avaa Oluttölkki", "Näkeehän sen nimestä");
 
             /* ############ */

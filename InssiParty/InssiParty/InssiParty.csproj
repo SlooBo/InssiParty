@@ -115,6 +115,7 @@
     <Compile Include="Engine\ParticleManager.cs" />
     <Compile Include="Engine\TipManager.cs" />
     <Compile Include="Games\Pallo.cs" />
+    <Compile Include="Games\speedtester.cs" />
     <Compile Include="Objects\AnimatedSprite.cs" />
     <Compile Include="Games\vali.cs" />
     <Compile Include="Games\DontShootJorma.cs" />
