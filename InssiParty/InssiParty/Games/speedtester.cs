@@ -25,36 +25,59 @@ namespace InssiParty.Games
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D taustakuva; //ladataan taustakuva
-        Texture2D haaleanappikuva; //
-        Texture2D gameOveranimaatio;
-        SpriteFont fontti;
+
+        //ladattavat kuvat
+        Texture2D taustakuva; //esitellään taustakuva
+        Texture2D haaleanappikuva; //esitellään nappikuva
+        Texture2D gameOveranimaatio; // esitellään gameoverkuva
+       
+        //fontti
+        SpriteFont fontti; // esitellään fontti
+
+        //muuttujia
         int nappi;
-        Random random;
-        bool gameover = false; //määritellään bool tyyppinen gameover muuttuja, oletusarvoksi false
         int pisteet;
         int aika;
+
+        Random random;
+
+        //näppäimistö
         KeyboardState keys;
         KeyboardState previous;
+
+        //äänet
+        private bool soundLoaded;
         SoundEffect Gameover;
 
+        //ruutu
         public static Vector2 ruudunKoko =  new Vector2(800, 600);
 
+        //animaatio
         float animation_timer = 0.0f; //animaation ajastus
         int animation_frame_count = 5; // animaation kehysten määrä
-        int gameanimation_frame = 3;
+        int gameanimation_frame = 3; //oma kehysten määrä gameoverille
+
+        //gameover tarkistus
+        bool gameover = false; 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             taustakuva = Content.Load<Texture2D>("taustaanimaatio"); // ladataan taustakuva
             haaleanappikuva = Content.Load<Texture2D>("nappi"); // ladataan nappi
             fontti = Content.Load<SpriteFont>("DefaultFont"); // ladataan fontti
-           
-            
-            //Gameover = Content.Load<SoundEffect>("naurumies"); //ladataan gameover ääni
-            
-            
             gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover anim
+
+            try
+            {
+                Gameover = Content.Load<SoundEffect>("naurumies"); //ladataan gameover ääni
+                soundLoaded = true;
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+                soundLoaded = false;
+            }
+            
         }
 
         /**
@@ -102,8 +125,10 @@ namespace InssiParty.Games
                     pisteet = pisteet - 1;
                     gameover = true;
 
-                    //Gameover.Play();
-
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
             }
 
@@ -123,7 +148,10 @@ namespace InssiParty.Games
                 else
                 {
                     gameover = true; //jos ei paineta gameover true
-                    //Gameover.Play(); // soitetaan ääni
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
             }
 
@@ -138,7 +166,10 @@ namespace InssiParty.Games
                 else
                 {
                     gameover = true;
-                    //Gameover.Play();
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
             }
             if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
@@ -152,7 +183,10 @@ namespace InssiParty.Games
                 else
                 {
                     gameover = true;
-                    //Gameover.Play();
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
             }
             if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
@@ -166,7 +200,10 @@ namespace InssiParty.Games
                 else
                 {
                     gameover = true;
-                    //Gameover.Play();
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
             }
 
