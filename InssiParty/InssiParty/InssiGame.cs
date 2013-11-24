@@ -19,11 +19,11 @@ namespace InssiParty
     // -> Better menu screen
     // -> Point / Life counters for the gameplay.
     // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
-    // -> stats/achievement system
+    // -> stats/achievement system ?!?
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
-        private enum MenuState { MainMenu, GameList }
+        private enum MenuState { IntroScreen, MainMenu, GameList }
 
         private const int TRANSITION_TIME = 150;
 
@@ -189,8 +189,20 @@ namespace InssiParty
             }
             else
             {
+                //We are in some menu! Lets switch and run the correct one
+                switch (menuState)
+                {
+                    case MenuState.IntroScreen:
+                        IntroUpdate();
+                        break;
+                    case MenuState.MainMenu:
+                        MenuUpdate();
+                        break;
+                    case MenuState.GameList:
+                        GameListUpdate();
+                        break;
+                }
 
-                MenuUpdate();
             }
 
             base.Update(gameTime);
@@ -212,7 +224,22 @@ namespace InssiParty
             }
             else
             {
-                MenuDraw();
+                //The game is in a menu! Draw em.
+                switch (menuState)
+                {
+                    case MenuState.IntroScreen:
+                        IntroDraw();
+                        break;
+                    case MenuState.MainMenu:
+                        MenuDraw();
+                        break;
+                    case MenuState.GameList:
+                        GameListDraw();
+                        break;
+                }
+
+                //Cursor gets draw on the menu always:
+                spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
             }
 
             spriteBatch.End();
@@ -269,34 +296,75 @@ namespace InssiParty
          * Menu systems
          */
 
-        void MenuUpdate()
+        void IntroUpdate()
         {
-            //Main menu
-            if (menuState == MenuState.MainMenu)
-            {
+            KeyboardState keyboard = Keyboard.GetState();
 
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                menuState = MenuState.MainMenu;
             }
 
-            // Game list
-            if (menuState == MenuState.GameList)
+            if (Keyboard.GetState().GetPressedKeys().Length > 0)
             {
-                if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
-                {
-                    for (int i = 0; i < games.Count(); ++i)
-                    {
-                        if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
-                        {
-                            startGame(games[i]);
+                menuState = MenuState.MainMenu;
+            }
+        }
 
-                            if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                            {
-                                transitionTimer = TRANSITION_TIME + 10;
-                            }
+        void IntroDraw()
+        {
+            //TODO: Draw the epic intro sreen here!
+            spriteBatch.DrawString(font, "EEPPINEN INTRO RUUTU!\n\nPress any key", new Vector2(0, 0), Color.Pink);
+        }
+
+        void MenuUpdate()
+        {
+            menuPosition = 0;
+
+            /*
+                * 
+                * reference for the menu positions
+            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
+            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
+            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
+            */
+        }
+
+        private void GameListDraw()
+        {
+            for (int i = 0; i < games.Count; ++i)
+            {
+                //Check if the mouse is on position:
+                if (cursorPosition.X < 400 && cursorPosition.X > 0)
+                {
+                    if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
+                    {
+                        spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
+                        continue;
+                    }
+                }
+
+                spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
+            }
+        }
+
+        private void GameListUpdate()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                for (int i = 0; i < games.Count(); ++i)
+                {
+                    if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
+                    {
+                        startGame(games[i]);
+
+                        if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                        {
+                            transitionTimer = TRANSITION_TIME + 10;
                         }
                     }
                 }
             }
-
         }
 
         private void MenuDraw()
@@ -304,41 +372,14 @@ namespace InssiParty
             //Title
             spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
 
-            //Main menu
-            if (menuState == MenuState.MainMenu)
-            {
-                spriteBatch.DrawString(font, "Päävalikko", new Vector2(20, 20), Color.Red);
+            spriteBatch.DrawString(font, "Päävalikko", new Vector2(20, 20), Color.Red);
 
-                spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
-                spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
-            }
-
-            //List games
-            if (menuState == MenuState.GameList)
-            {
-                var mouseState = Mouse.GetState();
-
-                for (int i = 0; i < games.Count; ++i)
-                {
-                    //Check if the mouse is on position:
-                    if (mouseState.X < 400 && mouseState.X > 0)
-                    {
-                        if (mouseState.Y > 20 + (i * 20) && mouseState.Y < 40 + (i * 20))
-                        {
-                            spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Red);
-                            continue;
-                        }
-                    }
-
-                    spriteBatch.DrawString(font, games[i].Name, new Vector2(5, 20 + (i * 20)), Color.Green);
-                }
-            } //  </listgames>
+            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
+            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
+            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
 
             //Draw the tip
             spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
-
-            //Draw the cursor
-            spriteBatch.Draw(cursorTexture, cursorPosition, Color.White);
         }
 
     }
