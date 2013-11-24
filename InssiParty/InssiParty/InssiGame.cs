@@ -172,6 +172,7 @@ namespace InssiParty
                 if (gameActive == true)
                 {
                     stopGame();
+                    menuState = MenuState.MainMenu;
                 }
             }
 
@@ -303,7 +304,7 @@ namespace InssiParty
         {
             KeyboardState keyboard = Keyboard.GetState();
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (InputManager.IsMouseButton1Pressed())
             {
                 menuState = MenuState.MainMenu;
             }
@@ -330,7 +331,7 @@ namespace InssiParty
             spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
             */
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (InputManager.IsMouseButton1Pressed())
             {
                 //The menu is only checked on the Y axis, because logic
 
@@ -373,7 +374,7 @@ namespace InssiParty
 
         private void GameListUpdate()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (InputManager.IsMouseButton1Pressed())
             {
                 for (int i = 0; i < games.Count(); ++i)
                 {
