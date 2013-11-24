@@ -374,7 +374,7 @@ namespace InssiParty
 
         private void GameListUpdate()
         {
-            if (InputManager.IsMouseButton1Pressed())
+            if (InputManager.IsMouseButton1Pressed() || InputManager.IsMouseButton2Pressed())
             {
                 for (int i = 0; i < games.Count(); ++i)
                 {
@@ -384,7 +384,7 @@ namespace InssiParty
 
                         if (Mouse.GetState().RightButton == ButtonState.Pressed)
                         {
-                            transitionTimer = TRANSITION_TIME + 10;
+                            transitionTimer = TRANSITION_TIME + 10; //skip the transition
                         }
                     }
                 }
