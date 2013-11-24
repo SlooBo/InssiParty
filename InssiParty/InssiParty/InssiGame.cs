@@ -33,6 +33,7 @@ namespace InssiParty
         //EngineSystems
         private ParticleManager particleManager;
         private TipManager tipManager;
+        private InputManager inputManager;
 
         //Global resources
         private SpriteFont font;
@@ -60,7 +61,7 @@ namespace InssiParty
         public InssiGame()
         {
             soundsLoaded = false;
-            menuState = MenuState.GameList; // START MENU
+            menuState = MenuState.IntroScreen; // START MENU
             menuPosition = 0;
 
             graphics = new GraphicsDeviceManager(this);
@@ -68,6 +69,7 @@ namespace InssiParty
 
             particleManager = new ParticleManager();
             tipManager = new TipManager();
+            inputManager = new InputManager();
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -118,7 +120,7 @@ namespace InssiParty
             addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false);
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false);
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false);
-            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true);   //Set as true for debugging purposes!
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true);   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false);
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false);
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false);
@@ -321,8 +323,6 @@ namespace InssiParty
 
         private void MenuUpdate()
         {
-            menuPosition = 0;
-
             /*
                 * 
                 * reference for the menu positions
@@ -330,6 +330,28 @@ namespace InssiParty
             spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
             spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
             */
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed || Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                //The menu is only checked on the Y axis, because logic
+
+                if (cursorPosition.Y > 100 && cursorPosition.Y < 120)
+                {
+                    Console.WriteLine("Start the damn story mode!");
+                }
+
+                if (cursorPosition.Y > 140 && cursorPosition.Y < 160)
+                {
+                    Console.WriteLine("Arcade Model selected!");
+                    menuState = MenuState.GameList;
+                }
+
+                if (cursorPosition.Y > 180 && cursorPosition.Y < 200)
+                {
+                    //Exit the application
+                    Exit();
+                }
+            }
         }
 
         private void GameListDraw()

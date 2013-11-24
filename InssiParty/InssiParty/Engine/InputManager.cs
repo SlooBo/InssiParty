@@ -6,14 +6,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Engine
 {
-    class Input
+    class InputManager
     {
         static KeyboardState k_state, k_state_old;
+        static MouseState mouseState;
 
         public static void UpdateState()
         {
             k_state_old = k_state;
             k_state = Keyboard.GetState();
+            mouseState = Mouse.GetState();
         }
 
         public static bool IsKeyDown(Keys key)
