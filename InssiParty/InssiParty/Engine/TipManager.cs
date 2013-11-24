@@ -25,7 +25,7 @@ namespace InssiParty.Engine
             random = new Random();
             tipList = new List<String>();
 
-            Console.WriteLine("[TipManager] init ok!");
+            Console.WriteLine("[TipManager] Init ok!");
         }
 
         public int getTipCount()

@@ -15,6 +15,7 @@ namespace InssiParty.Engine
     {
         public String Name { get; set; }
         public String GuideString { get; set; }
+        public bool FinalVersion { get; set; }
 
         public ParticleManager particleManager { get; set; }
 

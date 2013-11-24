@@ -114,29 +114,30 @@ namespace InssiParty
             //Lisää pelisi tähän listaan!
             /* ############ */
 
-            addGame(new SampleGame(), "Sample Game", "Pohjapeli");
-            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki");
-            addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!");
-            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!");
-            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.");
-            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.");
-            addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!");
-            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!");
-            addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.");
-            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!");
-            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!");
-            addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla");
-            addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!");
-            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!");
-            addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille");
-            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF");
-            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L");
-            addGame(new Olut(),"Avaa Oluttölkki", "Näkeehän sen nimestä");
+            addGame(new SampleGame(), "Sample Game", "Pohjapeli",false);
+            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false);
+            addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false);
+            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false);
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true);   //Set as true for debugging purposes!
+            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false);
+            addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false);
+            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false);
+            addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false);
+            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", false);
+            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", false);
+            addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false);
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false);
+            addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!", false);
+            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false);
+            addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false);
+            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false);
+            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false);
+            addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false);
 
             /* ############ */
 
             Console.WriteLine("# Loaded " + games.Count + " games.");
+            Console.WriteLine("# " + finalGameCount() + " finished games, " + (games.Count - finalGameCount()) + " games under development");
             //startGame(games[2]);
 
             TipList.InitTipList(tipManager);
@@ -250,13 +251,14 @@ namespace InssiParty
         /**
          * Add a new game and load it!
          */
-        private void addGame(GameBase game, String name, String help)
+        private void addGame(GameBase game, String name, String help, bool finalVersion)
         {
             Console.Write("Loading game: " + name + "... ");
 
             games.Add(game);
             game.Name = name;
             game.GuideString = help;
+            game.FinalVersion = finalVersion;
             game.Load(Content,GraphicsDevice);
 
             Console.WriteLine("Done!");
@@ -296,7 +298,7 @@ namespace InssiParty
          * Menu systems
          */
 
-        void IntroUpdate()
+        private void IntroUpdate()
         {
             KeyboardState keyboard = Keyboard.GetState();
 
@@ -311,13 +313,13 @@ namespace InssiParty
             }
         }
 
-        void IntroDraw()
+        private void IntroDraw()
         {
             //TODO: Draw the epic intro sreen here!
             spriteBatch.DrawString(font, "EEPPINEN INTRO RUUTU!\n\nPress any key", new Vector2(0, 0), Color.Pink);
         }
 
-        void MenuUpdate()
+        private void MenuUpdate()
         {
             menuPosition = 0;
 
@@ -380,6 +382,22 @@ namespace InssiParty
 
             //Draw the tip
             spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
+        }
+
+        /**
+         * Get the count of games that are final.
+         */
+        public int finalGameCount()
+        {
+            int count = 0;
+
+            for (int i = 0; i < games.Count; ++i)
+            {
+                if (games[i].FinalVersion == true)
+                    ++count;
+            }
+
+            return count;
         }
 
     }
