@@ -46,6 +46,11 @@ namespace InssiParty
         private String currentTip;
         private int menuPosition;
 
+        //Music
+        private bool soundsLoaded;
+        private SoundEffect introThemeMusic;
+        private SoundEffectInstance introThemeMusicInstance;
+        
         //Transition stuff
         private int transitionTimer;
 
@@ -54,6 +59,7 @@ namespace InssiParty
 
         public InssiGame()
         {
+            soundsLoaded = false;
             menuState = MenuState.GameList; // START MENU
             menuPosition = 0;
 
@@ -80,6 +86,21 @@ namespace InssiParty
 
         protected override void LoadContent()
         {
+            //Menu music, etc globally played music.
+            try
+            {
+                introThemeMusic = Content.Load<SoundEffect>("InssiPartyOpenTheme");
+                soundsLoaded = true;
+
+                //DEBUG: Music disabled for debugging 
+                introThemeMusicInstance = introThemeMusic.CreateInstance();
+               // introThemeMusicInstance.Play();
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+            }
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Global resources
@@ -219,6 +240,7 @@ namespace InssiParty
          */
         private void startGame(GameBase game)
         {
+            introThemeMusicInstance.Stop();
             Console.WriteLine("Starting game: " + game.Name);
 
             gameActive            = true;
