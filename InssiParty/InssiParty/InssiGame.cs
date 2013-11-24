@@ -33,7 +33,6 @@ namespace InssiParty
         //EngineSystems
         private ParticleManager particleManager;
         private TipManager tipManager;
-        private InputManager inputManager;
 
         //Global resources
         private SpriteFont font;
@@ -69,7 +68,6 @@ namespace InssiParty
 
             particleManager = new ParticleManager();
             tipManager = new TipManager();
-            inputManager = new InputManager();
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -155,6 +153,7 @@ namespace InssiParty
 
         protected override void Update(GameTime gameTime)
         {
+            InputManager.UpdateState();
             var mouseState = Mouse.GetState();
             cursorPosition.X = mouseState.X;
             cursorPosition.Y = mouseState.Y;
