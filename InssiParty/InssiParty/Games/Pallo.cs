@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
-namespace InssiParty.Games.FeedGameSrc
+namespace InssiParty.Games
 {
     class Pallo : GameBase
     {
@@ -18,8 +18,8 @@ namespace InssiParty.Games.FeedGameSrc
         private Texture2D pallo;
         private Texture2D Kori;
         private Texture2D Palkki;
-        
-
+        private int liike = 0;
+        private int value;
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -34,8 +34,7 @@ namespace InssiParty.Games.FeedGameSrc
         public override void Start()
         {
             Console.WriteLine("Start Game");
-        
-
+            value = 500;
             //alustus
         }
 
@@ -49,22 +48,21 @@ namespace InssiParty.Games.FeedGameSrc
 
         public override void Update(GameTime gameTime)
         {
-            /**
-             * Ei pistetä bugisia committeja repoon! Hajoaa kaikilta koodit.
-             
-            if (Input.IsKeyDown(Keys.A))
-                 -= Vector2.UnitX;
-            if (Input.IsKeyDown(Keys.D))
-                 += Vector2.UnitX;
-             */
+            KeyboardState keyboard = Keyboard.GetState();
+            if (keyboard.IsKeyDown(Keys.A))
+              liike -= 2 ;
+            if (keyboard.IsKeyDown(Keys.D))
+              liike += 2;
+            
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime) 
         {
-            spriteBatch.Draw(pallo, new Vector2(400, 0), Color.Beige);
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.Beige);
-            spriteBatch.Draw(Kori, new Vector2(350,600), Color.Beige);
+            spriteBatch.Draw(Kori, new Vector2(330,520), Color.Beige); 
+            spriteBatch.Draw(pallo, new Vector2(350, 0), Color.Beige);
         }
 
     }
 }
+            

@@ -133,6 +133,7 @@ namespace InssiParty
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false);
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false);
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false);
+            //addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true);
 
             /* ############ */
 
