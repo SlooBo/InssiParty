@@ -1,6 +1,13 @@
 InssiParty
 ==========
 
+## ÄÄNI FILUT SAATAVILLA!
+
+Jos tilasit äänitiimiltä jotakin niin nyt ne on ladattavissa:
+
+[http://37.139.28.111/local/inssiparty/kasitellutAanet/](http://37.139.28.111/local/inssiparty/kasitellutAanet/)
+
+Voit ladata ääniä yksitellen tai kerralla koko paketin lataamalla .zip filun.
 
 ## Tarvittavat ohjelmat
 
