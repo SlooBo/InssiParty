@@ -43,8 +43,8 @@ namespace InssiParty.Games
         Random rnd = new Random();
         private string syöte;
         int painettava;
-        Rectangle Tölkki = new Rectangle(0, 0, 1, 1);
-        Rectangle Prompti = new Rectangle(300, 180, 180, 180);
+        Rectangle Tölkki = new Rectangle(292, 180, 184, 180);
+        Rectangle Prompti = new Rectangle(0, 0, 800, 600);
 
         //Esitellään tekstuurit
         private Texture2D Can;
@@ -104,6 +104,7 @@ namespace InssiParty.Games
         {
             for (int i = 0; i < 5; i++)
             {
+                backround_texture = Can;
                 painettava = rnd.Next(27);
               
                 syöte = Convert.ToString(Keyboard.GetState());
@@ -122,11 +123,12 @@ namespace InssiParty.Games
 
                 if (success_counter < 3 && fail_counter == 0)
                 {
-                    
+                    Can = OpeningCan;
                 }
 
                 else if (success_counter == 5)
                 {
+                    OpeningCan = EmptyCan;
                     //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                     CloseGame(true);
                 }
@@ -151,37 +153,24 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-         while(success_counter!=5&&fail_counter!=3)
-         {
-             spriteBatch.DrawString(font, "Painele näytöllä näkyviä kirjaimia.", new Vector2(100, 100), Color.White);
-             
-             spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
-             
-             spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
 
-             spriteBatch.DrawString(font, numValues[painettava], new Vector2(0, 0), Color.White);
-             
-             if(success_counter>=3&&fail_counter==0)
-             {
-                spriteBatch.Draw(OpeningCan, new Vector2(0, 0), Color.White);
-             }
+            spriteBatch.DrawString(font, "Painele näytöllä näkyviä kirjaimia.", new Vector2(100, 100), Color.White);
 
-             else if(success_counter==5&&fail_counter==0)
-             {
-                spriteBatch.Draw(EmptyCan, new Vector2(0, 0), Color.White);
-             }
-          
-         }
-         if (success_counter == 5)
-         {
-             spriteBatch.DrawString(font, "Onnea. Voitit. Osaat avata töklin. Tapu tapu.", new Vector2(0, 0), Color.White);
-         }
+            spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
 
-         else if(fail_counter==3)
-         {
-             spriteBatch.DrawString(font, "Saatanan tunari! Hävistit! Ootko ylpee ittestäs!?", new Vector2(0, 0), Color.White);
-         }
-  
+            spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
+
+            spriteBatch.DrawString(font, numValues[painettava], new Vector2(0, 0), Color.White);
+
+            spriteBatch.Draw(OpeningCan, new Vector2(0, 0), Color.White);
+
+            spriteBatch.Draw(EmptyCan, new Vector2(0, 0), Color.White);
+
+            spriteBatch.DrawString(font, "Onnea. Voitit. Osaat avata töklin. Tapu tapu.", new Vector2(0, 0), Color.White);
+
+            spriteBatch.DrawString(font, "Saatanan tunari! Hävistit! Ootko ylpee ittestäs!?", new Vector2(0, 0), Color.White);
+
+
 
 
         }
