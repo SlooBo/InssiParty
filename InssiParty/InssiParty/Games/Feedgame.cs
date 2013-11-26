@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using InssiParty.Games.FeedGameSrc;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
@@ -24,9 +25,6 @@ namespace InssiParty.Games
         private List<Kaappi> kaapit;
         private Vector2 HandPos;
 
-        //private bool over = false;
-        //private bool osuma = false;
-
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D backround_texture;
         private Texture2D box;
@@ -37,6 +35,8 @@ namespace InssiParty.Games
         private Texture2D ruoka;
         private Texture2D testi;
         private Texture2D Ajastin;
+
+        SoundEffect open, eat, drink, die;
 
         private int timer;
 
@@ -64,6 +64,16 @@ namespace InssiParty.Games
             Ajastin.SetData(new Color[] {Color.Wheat});
 
             timer_bar = new Rectangle(0,580,800,20);
+
+            try
+            {
+                open = Content.Load<SoundEffect>("kaappi_auki");
+            }
+            catch(Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+            }
+
         }
 
         /**
@@ -150,6 +160,7 @@ namespace InssiParty.Games
                 {
                     Console.WriteLine("Hand hits the cupboard");
                     kaapit[i].auki = true;
+                    open.Play();
 
                 }
 
