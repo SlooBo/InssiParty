@@ -38,6 +38,7 @@ namespace InssiParty.Games
 
         SoundEffect open, eat, drink, die;
 
+        private bool elossa,hungry;
         private int timer;
 
         private Rectangle timer_bar;
@@ -68,6 +69,9 @@ namespace InssiParty.Games
             try
             {
                 open = Content.Load<SoundEffect>("kaappi_auki");
+                eat = Content.Load<SoundEffect>("eat_food");
+
+                die = Content.Load<SoundEffect>("drink_poison");
             }
             catch(Exception eek)
             {
@@ -84,6 +88,8 @@ namespace InssiParty.Games
         public override void Start()
         {
             timer = 0;
+            elossa = true;
+            hungry = true;
             Random rand = new Random();
             kaapit = new List<Kaappi>();
 
@@ -156,7 +162,7 @@ namespace InssiParty.Games
 
             for (int i = 0; i < kaapit.Count; i++)
             {
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed)
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed && kaapit[i].auki == false)
                 {
                     Console.WriteLine("Hand hits the cupboard");
                     kaapit[i].auki = true;
@@ -170,6 +176,11 @@ namespace InssiParty.Games
                     if (kaapit[i].tavara_id==1)
                     {
                         Console.WriteLine("You Die!!!");
+                        if (elossa == true)
+                        { 
+                            die.Play(); 
+                        }
+                        elossa = false;
                     }
 
                     else if (kaapit[i].tavara_id == 2)
@@ -180,6 +191,11 @@ namespace InssiParty.Games
                     else if (kaapit[i].tavara_id == 3)
                     {
                         Console.WriteLine("Selvisit hengissä!");
+                        if (hungry == true)
+                        {
+                            eat.Play();
+                        }
+                        hungry = false;
                     }
                     
                 }
@@ -188,6 +204,16 @@ namespace InssiParty.Games
             ++timer;
 
             timer_bar.Width = 800 - timer;
+
+            if (timer == 0 || elossa ==false)
+            {
+                CloseGame(false);
+            }
+
+            if (timer == 0 && hungry == false)
+            {
+                CloseGame(true);
+            }
 
         }
 
