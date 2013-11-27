@@ -40,7 +40,7 @@ namespace InssiParty.Games
             jari2 = Content.Load<Texture2D>("jari2");
             jari3 = Content.Load<Texture2D>("jari3");
             jari4 = Content.Load<Texture2D>("jari4");
-            cursorTexture = Content.Load<Texture2D>("hand");
+            cursorTexture = Content.Load<Texture2D>("aloituskasi1");
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
 
