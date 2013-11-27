@@ -23,7 +23,18 @@ namespace InssiParty
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
+        /**
+         * Intro screen provides "press any key" screen.
+         * Main menu has selection if story,arcade and exit
+         * Gamelist is before the arcade mode.
+         */
         private enum MenuState { IntroScreen, MainMenu, GameList }
+
+        /**
+         * In storymode next game and transitions are played automatically.
+         * In arcade mode the game reverts back to the menu after the game.
+         */
+        private enum GameMode { StoryMode, ArcadeMode }
 
         private const int TRANSITION_TIME = 150;
 
@@ -33,6 +44,7 @@ namespace InssiParty
         //EngineSystems
         private ParticleManager particleManager;
         private TipManager tipManager;
+        private StoryManager storyManager;
 
         //Global resources
         private SpriteFont font;
@@ -40,11 +52,14 @@ namespace InssiParty
         //Menu stuff
         private MenuState menuState;
         private Texture2D cursorTexture;
-        private bool gameActive;
-        private GameBase currentGame;
         private Vector2 cursorPosition;
         private String currentTip;
         private int menuPosition;
+
+        //Game state management
+        private bool gameActive;
+        private GameBase currentGame;
+        private GameMode currentGameMode;
 
         //Music
         private bool soundsLoaded;
@@ -66,8 +81,11 @@ namespace InssiParty
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            games = new List<GameBase>();
+
             particleManager = new ParticleManager();
             tipManager = new TipManager();
+            storyManager = new StoryManager(games);
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -108,12 +126,11 @@ namespace InssiParty
 
             // Local resources
             cursorTexture = Content.Load<Texture2D>("palikka");
-
-            games = new List<GameBase>();
             
             //Lisää pelisi tähän listaan!
             /* ############ */
 
+            //DEBUG: Some games marked finished before they are, for debugging purposes of the story mode!
             addGame(new SampleGame(), "Sample Game", "Pohjapeli",false);
             addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false);
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false);
@@ -123,8 +140,8 @@ namespace InssiParty
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false);
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false);
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false);
-            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", false);
-            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", false);
+            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true);
+            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true);
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false);
             addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false);
             addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!", false);
@@ -286,7 +303,7 @@ namespace InssiParty
         }
 
         /**
-         * Stop the current game from running, fallback to menu.
+         * Stop the current game from running, if running in arcade mode, fall back to menu.
          */
         private void stopGame()
         {
@@ -295,6 +312,19 @@ namespace InssiParty
             gameActive = false;
             currentGame.IsRunning = false;
             currentGame.Stop();
+
+            if (currentGameMode == GameMode.ArcadeMode)
+            {
+                menuState = MenuState.GameList;
+                return;
+            }
+
+            if (currentGameMode == GameMode.StoryMode)
+            {
+                //Start next game, if game is not lost.
+                storyManager.StoryNextGame(currentGame.IsVictory);
+                return;
+            }
         }
 
         /**
@@ -338,7 +368,9 @@ namespace InssiParty
 
                 if (cursorPosition.Y > 100 && cursorPosition.Y < 120)
                 {
-                    Console.WriteLine("Start the damn story mode!");
+                    Console.WriteLine("Start the story mode!");
+                    currentGameMode = GameMode.StoryMode;
+                    storyManager.StartStory();
                 }
 
                 if (cursorPosition.Y > 140 && cursorPosition.Y < 160)
@@ -381,6 +413,7 @@ namespace InssiParty
                 {
                     if (cursorPosition.Y > 20 + (i * 20) && cursorPosition.Y < 40 + (i * 20))
                     {
+                        currentGameMode = GameMode.ArcadeMode;
                         startGame(games[i]);
 
                         if (Mouse.GetState().RightButton == ButtonState.Pressed)
