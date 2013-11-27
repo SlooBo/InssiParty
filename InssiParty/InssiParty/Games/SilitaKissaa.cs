@@ -11,24 +11,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
-
     /**
-     * Uuden pelin luominen
+     * Silitä Kissaa
      * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostossa
-     * 
-     */
-
-    /**
-     * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
-     * IGameBase pitää jättää semmoiseksi
-     */
-
-    /**
-     * PelinNimi
-     * 
-     * Selitys pelistä
+     * Silitä kissaa hiiren vasemmalla, töki oikealla. Tavoitteena silittää niin kauan että kisu nukahtaa
      * 
      * By: Annika Veteli
      */
@@ -47,6 +33,7 @@ namespace InssiParty.Games
         Texture2D kissantextuuriMasis;
         Texture2D kissatextuuriSeriously;
         Texture2D kissatextuuriIloinen;
+        Texture2D kissavoittokuva;
 
         //käsikuvat
         Texture2D kasialku; //aloituskäsikuva
@@ -71,6 +58,8 @@ namespace InssiParty.Games
         SoundEffect murukehrays;
         SoundEffect murupaaosuma;
 
+        private bool voitto = false;
+
 
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
@@ -80,6 +69,7 @@ namespace InssiParty.Games
             kissantextuuriMasis = Content.Load<Texture2D>("masismuru copy");
             kissatextuuriSeriously = Content.Load<Texture2D>("seriouslymurucopy");
             kissatextuuriIloinen = Content.Load<Texture2D>("muruiloinenpää");
+            kissavoittokuva = Content.Load<Texture2D>("nukkuvamurucopy");
 
             //ladataan kasikuvia
             kasialku = Content.Load<Texture2D>("aloituskasi");
@@ -188,7 +178,12 @@ namespace InssiParty.Games
 
             value--;
 
-            if (value < 0)
+            if (silityskerrat == 5)
+            {
+                voitto = true;
+            }
+
+            if (value < 0 )
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
@@ -199,9 +194,17 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Draw " + value);
 
-            spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
-            spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
-                    Mouse.GetState().Y - 100), Color.White);
+            if (voitto == false)
+            {
+
+                spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
+                spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
+                        Mouse.GetState().Y - 100), Color.White);
+            }
+            if (voitto == true)
+            {
+                spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
+            }
             spriteBatch.DrawString(fontti, "Silityksia: " + silityskerrat.ToString() + "Virheelliset: " + silitysvirhe.ToString(),
                 new Vector2(10, 10), Color.Turquoise);
         }
