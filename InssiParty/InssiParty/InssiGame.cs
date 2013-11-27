@@ -85,7 +85,7 @@ namespace InssiParty
 
             particleManager = new ParticleManager();
             tipManager = new TipManager();
-            storyManager = new StoryManager(games);
+            storyManager = new StoryManager();
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -155,8 +155,10 @@ namespace InssiParty
             /* ############ */
 
             Console.WriteLine("# Loaded " + games.Count + " games.");
-            Console.WriteLine("# " + finalGameCount() + " finished games, " + (games.Count - finalGameCount()) + " games under development");
+            Console.WriteLine("# " + GameHelpers.finalGameCount(games) + " finished games, " + (games.Count - GameHelpers.finalGameCount(games)) + " games under development");
             //startGame(games[2]);
+
+            storyManager.LoadGames(games);
 
             TipList.InitTipList(tipManager);
 
@@ -438,22 +440,6 @@ namespace InssiParty
 
             //Draw the tip
             spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
-        }
-
-        /**
-         * Get the count of games that are final.
-         */
-        public int finalGameCount()
-        {
-            int count = 0;
-
-            for (int i = 0; i < games.Count; ++i)
-            {
-                if (games[i].FinalVersion == true)
-                    ++count;
-            }
-
-            return count;
         }
 
     }

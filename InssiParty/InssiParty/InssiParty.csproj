@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\GameBase.cs" />
+    <Compile Include="Engine\GameHelpers.cs" />
     <Compile Include="Engine\InputManager.cs" />
     <Compile Include="Engine\ParticleManager.cs" />
     <Compile Include="Engine\StoryManager.cs" />

@@ -21,17 +21,31 @@ namespace InssiParty.Engine
 
         private Random random;
 
-        public StoryManager(List<GameBase> games)
+        public StoryManager()
         {
-            //Get the pointer to the game list.
-            this.games = games;
-
             //Games list is just a local list of the games played so same game won't come up twice.
             gamesPlayed = new List<GameBase>();
+
+            //list of games that are "done" Separated from the list in the main menu.
+            games = new List<GameBase>();
 
             random = new Random();
 
             Console.WriteLine("[StoryManager] Init ok!");
+        }
+
+        /**
+         * Get pointers to all games that are "done".
+         */
+        public void LoadGames(List<GameBase> allGames)
+        {
+            for (int i = 0; i < allGames.Count; ++i)
+            {
+                if (allGames[i].FinalVersion)
+                    games.Add(allGames[i]);
+            }
+
+            Console.WriteLine("[StoryManager] found " + games.Count + " games ready for story mode.");
         }
 
         public void StopStory()
