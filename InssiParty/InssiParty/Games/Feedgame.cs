@@ -39,7 +39,7 @@ namespace InssiParty.Games
         SoundEffect open, eat, drink, die;
 
         private bool elossa,hungry;
-        private int timer;
+        private int timer,timer2;
 
         private Rectangle timer_bar;
         Rectangle HandRect = new Rectangle(0, 0, 4, 4);
@@ -71,7 +71,7 @@ namespace InssiParty.Games
                 open = Content.Load<SoundEffect>("kaappi_auki");
                 eat = Content.Load<SoundEffect>("eat_food");
 
-                die = Content.Load<SoundEffect>("drink_poison");
+                drink = Content.Load<SoundEffect>("drink_and_die");
             }
             catch(Exception eek)
             {
@@ -88,6 +88,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             timer = 0;
+            timer2 = 0;
             elossa = true;
             hungry = true;
             Random rand = new Random();
@@ -96,21 +97,21 @@ namespace InssiParty.Games
             Kaappi temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(0, 0);
-            temp.koko = new Vector2(300,300);
+            temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(200, 300);
-            temp.koko = new Vector2(300,300);
+            temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
             temp.sijainti = new Vector2(500, 0);
-            temp.koko = new Vector2(300, 300);
+            temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
@@ -130,7 +131,7 @@ namespace InssiParty.Games
                     if (luku == kaapit[i].tavara_id)
                     {
                         //Tavara löyty kaapista, uusi random
-                        luku = rand.Next(0, 4);
+                        luku = rand.Next(0, 2);
                         lukuOk = false; //Uusi luku asetettu, pitää kaikki chekata läpi
                     }
                 }
@@ -170,25 +171,25 @@ namespace InssiParty.Games
 
                 }
 
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 150, (int)kaapit[i].sijainti.Y + 150, (int)kaapit[i].koko.X - 236, (int)kaapit[i].koko.Y - 236)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 64, (int)kaapit[i].sijainti.Y + 64, (int)kaapit[i].koko.X - 64, (int)kaapit[i].koko.Y - 64)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     Console.WriteLine("Hand hits item");
-                    if (kaapit[i].tavara_id==1)
+                    if (kaapit[i].tavara_id==0)
                     {
                         Console.WriteLine("You Die!!!");
                         if (elossa == true)
                         { 
-                            die.Play(); 
+                            drink.Play(); 
                         }
                         elossa = false;
                     }
 
-                    else if (kaapit[i].tavara_id == 2)
+                    else if (kaapit[i].tavara_id == 1)
                     {
                         Console.WriteLine("Wololooo");
                     }
 
-                    else if (kaapit[i].tavara_id == 3)
+                    else if (kaapit[i].tavara_id == 2)
                     {
                         Console.WriteLine("Selvisit hengissä!");
                         if (hungry == true)
@@ -239,18 +240,18 @@ namespace InssiParty.Games
                 spriteBatch.Draw(box, kaapit[i].sijainti, Color.White);
                 if (kaapit[i].auki == true)
                 {
-                    if (kaapit[i].tavara_id == 1)
+                    if (kaapit[i].tavara_id == 0)
                     {
-                        spriteBatch.Draw(poison, kaapit[i].sijainti+new Vector2(150,150), Color.White);
+                        spriteBatch.Draw(poison, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
-                    else if (kaapit[i].tavara_id == 2)
+                    else if (kaapit[i].tavara_id == 1)
                     {
-                        spriteBatch.Draw(testi, kaapit[i].sijainti+new Vector2(150,150), Color.White);
+                        spriteBatch.Draw(testi, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
 
-                    else if (kaapit[i].tavara_id == 3)
+                    else if (kaapit[i].tavara_id == 2)
                     {
-                        spriteBatch.Draw(ruoka, kaapit[i].sijainti+new Vector2(150,150), Color.White);
+                        spriteBatch.Draw(ruoka, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
                 }
             
