@@ -45,7 +45,7 @@ namespace InssiParty.Engine
                     games.Add(allGames[i]);
             }
 
-            Console.WriteLine("[StoryManager] found " + games.Count + " games ready for story mode.");
+            Console.WriteLine("[StoryManager] found " + games.Count + " games that are ready for the story mode.");
         }
 
         public void StopStory()

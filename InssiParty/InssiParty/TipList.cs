@@ -27,6 +27,7 @@ namespace InssiParty
             tipManager.addTip("Tutkimusten mukaan auringon massa on huomattavisti suurempi\n kuin omenan.");
             tipManager.addTip("Ohjelmoija on organismi joka muuntaa kofeiinin koodiksi.");
             tipManager.addTip("Insinööri korjaa ongelmia joita ei tiennyt olevan olemassakaan\n tavoilla joita hän ei itse ymmärrä.");
+            tipManager.addTip("iddqd");
         }
 
         public static void InitTipList(TipManager tipManager)

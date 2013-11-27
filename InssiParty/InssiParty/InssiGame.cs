@@ -131,26 +131,26 @@ namespace InssiParty
             /* ############ */
 
             //DEBUG: Some games marked finished before they are, for debugging purposes of the story mode!
-            addGame(new SampleGame(), "Sample Game", "Pohjapeli",false);
-            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false);
-            addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false);
-            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false);
-            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true);   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
-            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false);
-            addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false);
-            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false);
-            addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false);
-            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true);
-            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true);
-            addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false);
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false);
-            addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!", false);
-            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false);
-            addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false);
-            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false);
-            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false);
-            addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false);
-            //addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true);
+            addGame(new SampleGame(), "Sample Game", "Pohjapeli",false,"Lauri Mäkinen");
+            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false,"Lauri Mäkinen");
+            addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
+            addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
+            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false, "Lauri Mäkinen");
+            addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
+            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false, "Creator missing!");
+            addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false, "Creator missing!");
+            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Creator missing!");
+            addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true, "Creator missing!");
+            addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Creator missing!");
+            addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
+            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Creator missing!");
+            addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Creator missing!");
+            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
+            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Creator missing!");
+            addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
+            //addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true,"Creator missing!");
 
             /* ############ */
 
@@ -273,14 +273,15 @@ namespace InssiParty
         /**
          * Add a new game and load it!
          */
-        private void addGame(GameBase game, String name, String help, bool finalVersion)
+        private void addGame(GameBase game, String name, String help, bool finalVersion, String creator)
         {
-            Console.Write("Loading game: " + name + "... ");
+            Console.Write("Loading game: " + name + " by " + creator + " ");
 
             games.Add(game);
             game.Name = name;
             game.GuideString = help;
             game.FinalVersion = finalVersion;
+            game.Creator = creator;
             game.Load(Content,GraphicsDevice);
 
             Console.WriteLine("Done!");
