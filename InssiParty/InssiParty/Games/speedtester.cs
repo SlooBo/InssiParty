@@ -30,6 +30,7 @@ namespace InssiParty.Games
         Texture2D taustakuva; //esitellään taustakuva
         Texture2D haaleanappikuva; //esitellään nappikuva
         Texture2D gameOveranimaatio; // esitellään gameoverkuva
+        Texture2D winwinAnimaatio;
        
         //fontti
         SpriteFont fontti; // esitellään fontti
@@ -58,14 +59,17 @@ namespace InssiParty.Games
         int gameanimation_frame = 3; //oma kehysten määrä gameoverille
 
         //gameover tarkistus
-        bool gameover = false; 
+        bool gameover = false;
+        bool win = false;
+        bool gameRunning = true;
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             taustakuva = Content.Load<Texture2D>("taustaanimaatio"); // ladataan taustakuva
             haaleanappikuva = Content.Load<Texture2D>("nappi"); // ladataan nappi
             fontti = Content.Load<SpriteFont>("DefaultFont"); // ladataan fontti
-            gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover anim
+            gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover animaatio
+            winwinAnimaatio = Content.Load<Texture2D>("winwin");
 
             try
             {
@@ -114,15 +118,15 @@ namespace InssiParty.Games
             value--;
 
 
-            if (gameover == false)
+            if (gameRunning == true)
             {
                 aika = aika + 1;
                 if (aika >= 60)
                 {
                     aika = 0;
                     nappi = random.Next(1, 5);
-                    //miinuspisteet
-                    pisteet = pisteet - 1;
+                    pisteet = pisteet - 1; //vähennetään pisteitä
+                    gameRunning = false;
                     gameover = true;
 
                     if (soundLoaded)
@@ -136,77 +140,91 @@ namespace InssiParty.Games
             previous = keys; //
             keys = Keyboard.GetState();
 
-            //Määritetään A-näppäin ja pistelaskuri
-            if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) //jos A-näppäin on painettuna alas
+            if ( gameRunning == true)
             {
-                if (nappi == 1) //ja jos nappi on yksi
-                {
-                    nappi = random.Next(1, 5);
-                    pisteet = pisteet + 1; //lisätään pisteitä
-                    aika = +1; // aika on nolla?
-                }
-                else
-                {
-                    gameover = true; //jos ei paineta gameover true
-                    if (soundLoaded)
-                    {
-                        Gameover.Play();
-                    }
-                }
-            }
 
-            if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))//määritetään jos s-näppäin on pohjassa
-            {
-                if (nappi == 2) // jos nappi on 2
+                //Määritetään A-näppäin ja pistelaskuri
+                if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) //jos A-näppäin on painettuna alas
                 {
-                    nappi = random.Next(1, 5);
-                    pisteet = pisteet + 1; // lisätään piste
-                    aika = 0;
-                }
-                else
-                {
-                    gameover = true;
-                    if (soundLoaded)
+                    if (nappi == 1) //ja jos nappi on yksi
                     {
-                        Gameover.Play();
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1; //lisätään pisteitä
+                        aika = +1; // aika on nolla?
+                    }
+                    else
+                    {
+                        gameover = true; //jos ei paineta gameover true
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
                     }
                 }
-            }
-            if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
-            {
-                if (nappi == 3)
-                {
-                    nappi = random.Next(1, 5);
-                    pisteet = pisteet + 1;
-                    aika = 0;
-                }
-                else
-                {
-                    gameover = true;
-                    if (soundLoaded)
-                    {
-                        Gameover.Play();
-                    }
-                }
-            }
-            if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
-            {
-                if (nappi == 4)
-                {
-                    nappi = random.Next(1, 5);
-                    pisteet = pisteet + 1;
-                    aika = 0;
-                }
-                else
-                {
-                    gameover = true;
-                    if (soundLoaded)
-                    {
-                        Gameover.Play();
-                    }
-                }
-            }
 
+                if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))//määritetään jos s-näppäin on pohjassa
+                {
+                    if (nappi == 2) // jos nappi on 2
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1; // lisätään piste
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+                if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
+                {
+                    if (nappi == 3)
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1;
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+                if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
+                {
+                    if (nappi == 4)
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1;
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+
+                if (value == 100)
+                {
+                    win = true;
+                    gameRunning = false;
+                }
+            }
+         
 
             if (value < 0)
             {
@@ -215,13 +233,6 @@ namespace InssiParty.Games
             }
         }
 
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Draw " + value);
@@ -229,11 +240,10 @@ namespace InssiParty.Games
             animation_timer += 0.08f;
             int currentFrame = (int)(animation_timer % animation_frame_count);
 
-            //Rectangle screenRetangle = new Rectangle(0, 0, screenWidth, screenHeight);
             spriteBatch.Draw(taustakuva, new Rectangle(0, 0, (int)ruudunKoko.X, (int)ruudunKoko.Y), new Rectangle(taustakuva.Width / animation_frame_count * currentFrame, 0, taustakuva.Width / animation_frame_count, taustakuva.Height),
             Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 0.0F);
 
-            if (gameover == false)
+            if (gameRunning == true)
             {
 
                 for (int i = 1; i < 5; i++)
@@ -266,7 +276,16 @@ namespace InssiParty.Games
             }
             spriteBatch.DrawString(fontti, "Pisteet: " + pisteet.ToString(), new Vector2(40, 20), Color.White);
 
-            if (gameover == true)
+            if (win == true && gameRunning == false)
+            {
+                animation_timer += 0.08f;
+                gameanimation_frame = 3;
+
+                spriteBatch.Draw(winwinAnimaatio, new Vector2(100, 200), new Rectangle(winwinAnimaatio.Width / gameanimation_frame * currentFrame, 0, winwinAnimaatio.Width / gameanimation_frame, winwinAnimaatio.Height),
+                Color.White, 0.0f, new Vector2(0, 0), 2.0f, SpriteEffects.None, 0.0F);
+            }
+
+            if (gameover == true && gameRunning == false)
             {
                 animation_timer += 0.08f;
                 gameanimation_frame = 3;
@@ -276,9 +295,6 @@ namespace InssiParty.Games
                 spriteBatch.DrawString(fontti, "Gameover", new Vector2(400, 20), Color.White);
             }
 
-            ////spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            ////Palikka piirretään y akselilla, valuen kohtaan
-            //spriteBatch.Draw(spriteBox, new Vector2(50, value), Color.White);
         }
 
     }
