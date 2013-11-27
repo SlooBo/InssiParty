@@ -34,6 +34,7 @@ namespace InssiParty.Games
         Texture2D kissatextuuriSeriously;
         Texture2D kissatextuuriIloinen;
         Texture2D kissavoittokuva;
+        Texture2D kissaGameOver;
 
         //käsikuvat
         Texture2D kasialku; //aloituskäsikuva
@@ -59,6 +60,7 @@ namespace InssiParty.Games
         SoundEffect murupaaosuma;
 
         private bool voitto = false;
+        private bool gameOver = false;
 
 
         public override void Load(ContentManager Content, GraphicsDevice device)
@@ -70,6 +72,7 @@ namespace InssiParty.Games
             kissatextuuriSeriously = Content.Load<Texture2D>("seriouslymurucopy");
             kissatextuuriIloinen = Content.Load<Texture2D>("muruiloinenpää");
             kissavoittokuva = Content.Load<Texture2D>("nukkuvamurucopy");
+            kissaGameOver = Content.Load<Texture2D>("gameovermurucopy");
 
             //ladataan kasikuvia
             kasialku = Content.Load<Texture2D>("aloituskasi");
@@ -183,6 +186,11 @@ namespace InssiParty.Games
                 voitto = true;
             }
 
+            if (silitysvirhe == 5 || value == 50)
+            {
+                gameOver = true;
+            }
+
             if (value < 0 )
             {
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
@@ -194,7 +202,7 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Draw " + value);
 
-            if (voitto == false)
+            if (voitto == false || gameOver == false)
             {
 
                 spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
@@ -204,6 +212,10 @@ namespace InssiParty.Games
             if (voitto == true)
             {
                 spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
+            }
+            if (gameOver == true)
+            {
+                spriteBatch.Draw(kissaGameOver, taustakissa, Color.White);
             }
             spriteBatch.DrawString(fontti, "Silityksia: " + silityskerrat.ToString() + "Virheelliset: " + silitysvirhe.ToString(),
                 new Vector2(10, 10), Color.Turquoise);
