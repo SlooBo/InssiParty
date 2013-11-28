@@ -28,6 +28,7 @@ namespace InssiParty
             tipManager.addTip("Ohjelmoija on organismi joka muuntaa kofeiinin koodiksi.");
             tipManager.addTip("Insinööri korjaa ongelmia joita ei tiennyt olevan olemassakaan\n tavoilla joita hän ei itse ymmärrä.");
             tipManager.addTip("iddqd");
+            tipManager.addTip("Inssitkin on ihmisiä.");
         }
 
         public static void InitTipList(TipManager tipManager)

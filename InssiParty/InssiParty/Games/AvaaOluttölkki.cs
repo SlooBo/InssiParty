@@ -44,6 +44,9 @@ namespace InssiParty.Games
         private string syöte;
         int painettava;
         Rectangle Tölkki = new Rectangle(292, 180, 184, 180);
+        Rectangle tausta = new Rectangle(0, 0, 800, 600);
+        private bool voitto = false;
+        private bool gameOver = false;
 
         //Esitellään tekstuurit
         private Texture2D Can;
@@ -51,6 +54,7 @@ namespace InssiParty.Games
         private Texture2D EmptyCan;
         SpriteFont font;
         private Texture2D backround_texture;
+        private Texture2D gameover;
         
         /**
          * 
@@ -65,6 +69,7 @@ namespace InssiParty.Games
             EmptyCan = Content.Load<Texture2D>("Can-Empty");
             font = Content.Load<SpriteFont>("DefaultFont");
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
+            gameover = Content.Load<Texture2D>("gameover");
         }
 
         /**
@@ -85,6 +90,8 @@ namespace InssiParty.Games
             success_counter=0;
 
             painettava = rnd.Next(27);
+
+            backround_texture = Can;
         }
 
         /**
@@ -103,9 +110,9 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < 5; i++)
+            while(success_counter<6||fail_counter<4)
             {
-                backround_texture = Can;
+                
                 
                 
               
@@ -123,7 +130,7 @@ namespace InssiParty.Games
                     
                 }
 
-                else if (success_counter < 3 && fail_counter == 0)
+                if (success_counter < 3 && fail_counter == 0)
                 {
                     Can = OpeningCan;
                 }
@@ -131,13 +138,17 @@ namespace InssiParty.Games
                 else if (success_counter == 5)
                 {
                     OpeningCan = EmptyCan;
+                    voitto = true;
                     //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                     CloseGame(true);
                 }
 
                 else if (fail_counter == 3)
                 {
-                    CloseGame(false);
+                    gameOver = true;
+                    OpeningCan = gameover;
+                    CloseGame(true);
+
                 }
             }
         }
@@ -158,19 +169,19 @@ namespace InssiParty.Games
 
             spriteBatch.DrawString(font, "Paina: " + numValues[painettava],new Vector2(10, 10), Color.Turquoise);
 
-            spriteBatch.Draw(backround_texture, new Vector2(500, 500), Color.White);
+            spriteBatch.Draw(backround_texture, new Vector2(100, 100), Color.White);
 
-            spriteBatch.Draw(Can, new Vector2(500, 500), Color.White);
+            spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
 
-            spriteBatch.DrawString(font, numValues[painettava], new Vector2(500, 500), Color.White);
+            spriteBatch.DrawString(font, numValues[painettava], new Vector2(100, 100), Color.White);
 
-            spriteBatch.Draw(OpeningCan, new Vector2(500, 500), Color.White);
+            spriteBatch.Draw(OpeningCan, new Vector2(100, 100), Color.White);
 
-            spriteBatch.Draw(EmptyCan, new Vector2(500, 500), Color.White);
+            spriteBatch.Draw(EmptyCan, new Vector2(100,100), Color.White);
 
-            spriteBatch.DrawString(font, "Onnea. Voitit. Osaat avata töklin. Tapu tapu.", new Vector2(0, 0), Color.White);
+            
 
-            spriteBatch.DrawString(font, "Saatanan tunari! Hävistit! Ootko ylpee ittestäs!?", new Vector2(0, 0), Color.White);
+         
 
 
 
