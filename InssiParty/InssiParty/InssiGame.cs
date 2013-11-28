@@ -36,6 +36,18 @@ namespace InssiParty
          */
         private enum GameMode { StoryMode, ArcadeMode }
 
+        /* INTRO SCREEN VARIABLES */
+        private int value;
+
+        Texture2D backgroundTexture, logoTexture, koodiTexture;
+        AnimatedSprite sprite;
+
+        Rectangle background = new Rectangle(0, 0, 800, 600);
+        Rectangle logoRect = new Rectangle(130, 50, 561, 299);
+        Rectangle koodiRect = new Rectangle(-1502 + 800, 0, 1502, 2985);
+        /*  </intro screen variables> */
+
+
         private const int TRANSITION_TIME = 150;
 
         private GraphicsDeviceManager graphics;
@@ -53,7 +65,6 @@ namespace InssiParty
         private Texture2D cursorTexture;
         private Vector2 cursorPosition;
         private String currentTip;
-        private int menuPosition;
 
         //Game state management
         private bool gameActive;
@@ -85,7 +96,6 @@ namespace InssiParty
         {
             soundsLoaded = false;
             menuState = MenuState.IntroScreen; // START MENU
-            menuPosition = 0;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -489,7 +499,7 @@ namespace InssiParty
             int id = 0;
             int missCount = -1;
 
-            if (gamesPlayed.Count == games.Count)
+            if (gamesPlayed.Count == playableGames.Count)
             {
                 //All games have been played! Give extra +5 points and clear the list.
                 points += 5;
@@ -500,22 +510,23 @@ namespace InssiParty
 
             while (gameSelected == false)
             {
-                id = random.Next(0, games.Count);
+                id = random.Next(0, playableGames.Count);
                 gameSelected = true;
 
                 //check if it has been already played
                 for (int i = 0; i < gamesPlayed.Count; ++i)
                 {
-                    if (games[id] == gamesPlayed[i])
+                    if (playableGames[id] == gamesPlayed[i])
                         gameSelected = false; //The game was already played.
                 }
 
                 ++missCount;
             }
 
-            Console.WriteLine("[StoryManager] " + games[id].Name + " chosen. (" + missCount + ") miss count on randoming.");
+            Console.WriteLine("[StoryManager] " + playableGames[id].Name + " chosen. (" + missCount + ") miss count on randoming.");
 
-            gamesPlayed.Add(games[id]);
+            gamesPlayed.Add(playableGames[id]);
+            startGame(playableGames[id]);
         }
 
 
@@ -533,6 +544,7 @@ namespace InssiParty
             }
 
             //TODO: Randomize next game.
+            StartNextGame();
         }
     }
 }
