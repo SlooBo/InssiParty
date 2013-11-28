@@ -88,7 +88,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             timer = 0;
-            timer2 = 0;
+            timer2 = 100;
             elossa = true;
             hungry = true;
             Random rand = new Random();
@@ -163,17 +163,9 @@ namespace InssiParty.Games
 
             for (int i = 0; i < kaapit.Count; i++)
             {
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y)) && mouseState.LeftButton == ButtonState.Pressed && kaapit[i].auki == false)
-                {
-                    Console.WriteLine("Hand hits the cupboard");
-                    kaapit[i].auki = true;
-                    open.Play();
-
-                }
-
-                if (mouseState.LeftButton == ButtonState.Released && kaapit[i].auki == true)
-                {
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 64, (int)kaapit[i].sijainti.Y + 64, (int)kaapit[i].koko.X - 64, (int)kaapit[i].koko.Y - 64)) && mouseState.LeftButton == ButtonState.Pressed)
+                    if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 64, (int)kaapit[i].sijainti.Y + 64, (int)kaapit[i].koko.X - 64, (int)kaapit[i].koko.Y - 64))
+                        && InputManager.IsMouseButton1Pressed() == true 
+                        && kaapit[i].auki == true)
                 {
                     Console.WriteLine("Hand hits item");
                     if (kaapit[i].tavara_id==0)
@@ -181,7 +173,7 @@ namespace InssiParty.Games
                         Console.WriteLine("You Die!!!");
                         if (elossa == true)
                         { 
-                            drink.Play(); 
+                            //drink.Play(); 
                         }
                         elossa = false;
                     }
@@ -196,20 +188,34 @@ namespace InssiParty.Games
                         Console.WriteLine("Selvisit hengissä!");
                         if (hungry == true)
                         {
-                            eat.Play();
+                            //eat.Play();
                         }
                         hungry = false;
                     }
                     
                 }
-            }
+
+                    if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X, (int)kaapit[i].sijainti.Y, (int)kaapit[i].koko.X, (int)kaapit[i].koko.Y))
+        && InputManager.IsMouseButton1Pressed() == true
+        && kaapit[i].auki == false)
+                    {
+                        Console.WriteLine("Hand hits the cupboard");
+                        kaapit[i].auki = true;
+                        //open.Play();
+
+                    }
+
             }
 
             ++timer;
 
             timer_bar.Width = 800 - timer;
+            if (elossa == false)
+            {
+                --timer2;
+            }
 
-            if (timer == 0 || elossa ==false)
+            if (timer == 0 || elossa ==false && timer2==0)
             {
                 CloseGame(false);
             }
