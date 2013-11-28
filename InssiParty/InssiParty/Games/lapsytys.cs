@@ -22,7 +22,7 @@ namespace InssiParty.Games
         //SoundEffect lapsy,murahdus, musa, raakasy;
 
         //Tekstuurit
-        private Texture2D backgroundTexture, cursorTexture, Fade, teksti;
+        private Texture2D backgroundTexture, cursorTexture, Fade, teksti, sydan;
         private Texture2D jari1, jari2, jari3, jari4;
 
         //parit rectanglet
@@ -43,6 +43,7 @@ namespace InssiParty.Games
             cursorTexture = Content.Load<Texture2D>("aloituskasi1");
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
+            sydan = Content.Load<Texture2D>("sydan");
 
             //äänet
             /*
@@ -174,6 +175,11 @@ namespace InssiParty.Games
                 backgroundTexture = jari4;
                 k = 0;
                 a = 0;
+                particleManager.AddParticle(sydan,
+                    new Vector2(400, 300),  //sijainti
+                    new Vector2(0.5f, -0.5f),    //min nopeus x/y
+                    new Vector2(2, -2),    //max nopeus x/y
+                    50, 500, 100);       // min/max live, amount
             }
             else if (a == 100 && value == 101) 
                 {
