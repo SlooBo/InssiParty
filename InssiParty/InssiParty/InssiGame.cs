@@ -152,8 +152,7 @@ namespace InssiParty
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
             addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");
             addGame(new valikko(), "valikko:demo", "valikko:demo", false, "Creator missing!");
-
-            //addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true,"Creator missing!");
+            addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true,"Marko Sydänmaa");
 
             /* ############ */
 

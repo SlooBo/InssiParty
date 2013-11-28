@@ -18,9 +18,12 @@ namespace InssiParty.Games
         private Texture2D pallo;
         private Texture2D Kori;
         private Texture2D Palkki;
-        private int liike = 0;
-        private int value;
 
+        private int value = 0;
+        private int joku;
+
+        Rectangle kori = new Rectangle(330, 520, 100, 75);
+        Rectangle ballo = new Rectangle(350, 0, 45, 45);
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -28,41 +31,61 @@ namespace InssiParty.Games
             pallo = Content.Load<Texture2D>("Pallo");
             Kori = Content.Load<Texture2D>("Kori");
             Palkki = Content.Load<Texture2D>("Palkki");
-            
+
         }
 
         public override void Start()
         {
             Console.WriteLine("Start Game");
-            value = 500;
             //alustus
+            Random random = new Random();
+            joku = random.Next(-10, 10);
+
         }
 
         public override void Stop()
         {
             Console.WriteLine("Game Over");
-
-            //alustus
-            CloseGame(true);
         }
 
         public override void Update(GameTime gameTime)
         {
+            ballo.Y += 5;
+            if (value == 0)
+            {
+                ballo.X += joku;
+            }
+            else
+            {
+                ballo.X -= -joku;
+            }
+
+
+            if (ballo.X + 22 < 0)
+            {
+                value = 0;
+            }
+            if (ballo.X + 22 > 755)
+            {
+                value = 1;
+            }
+            if (ballo.Y > 600)
+            {
+                CloseGame(false);
+            }
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.A))
-              liike -= 2 ;
+                kori.X -= 10;
             if (keyboard.IsKeyDown(Keys.D))
-              liike += 2;
-            
+                kori.X += 10;
         }
 
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime) 
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.Beige);
-            spriteBatch.Draw(Kori, new Vector2(330,520), Color.Beige); 
-            spriteBatch.Draw(pallo, new Vector2(350, 0), Color.Beige);
+            spriteBatch.Draw(Kori, kori, Color.Beige);
+            spriteBatch.Draw(pallo, ballo, Color.Beige);
         }
 
     }
 }
-            
