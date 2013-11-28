@@ -171,7 +171,9 @@ namespace InssiParty.Games
 
                 }
 
-                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 64, (int)kaapit[i].sijainti.Y + 64, (int)kaapit[i].koko.X - 64, (int)kaapit[i].koko.Y - 64)) && kaapit[i].auki == true && mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Released && kaapit[i].auki == true)
+                {
+                if (HandRect.Intersects(new Rectangle((int)kaapit[i].sijainti.X + 64, (int)kaapit[i].sijainti.Y + 64, (int)kaapit[i].koko.X - 64, (int)kaapit[i].koko.Y - 64)) && mouseState.LeftButton == ButtonState.Pressed)
                 {
                     Console.WriteLine("Hand hits item");
                     if (kaapit[i].tavara_id==0)
@@ -200,6 +202,7 @@ namespace InssiParty.Games
                     }
                     
                 }
+            }
             }
 
             ++timer;
