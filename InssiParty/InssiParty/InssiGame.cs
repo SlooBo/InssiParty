@@ -148,6 +148,16 @@ namespace InssiParty
 
             // Local resources
             cursorTexture = Content.Load<Texture2D>("palikka");
+
+            //Intro screen resources
+            backgroundTexture = Content.Load<Texture2D>("tausta");
+            logoTexture = Content.Load<Texture2D>("logo_rotate");
+            koodiTexture = Content.Load<Texture2D>("koodit_rotate");
+
+            sprite = new AnimatedSprite(Content.Load<Texture2D>("anykey60f"), 0, 296, 42);
+
+            sprite.Position = new Vector2(400, 450);
+
             
             //Lisää pelisi tähän listaan!
             /* ############ */
@@ -157,7 +167,7 @@ namespace InssiParty
             addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false,"Lauri Mäkinen");
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
-            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", true, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false, "Lauri Mäkinen");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false, "Creator missing!");
@@ -174,7 +184,7 @@ namespace InssiParty
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
             addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");
             addGame(new valikko(), "valikko:demo", "valikko:demo", false, "Creator missing!");
-            addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", true,"Marko Sydänmaa");
+            addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", false,"Marko Sydänmaa");
 
             /* ############ */
 
@@ -245,7 +255,7 @@ namespace InssiParty
                 switch (menuState)
                 {
                     case MenuState.IntroScreen:
-                        IntroUpdate();
+                        IntroUpdate(gameTime);
                         break;
                     case MenuState.MainMenu:
                         MenuUpdate();
@@ -365,9 +375,19 @@ namespace InssiParty
          * Menu systems
          */
 
-        private void IntroUpdate()
+        private void IntroUpdate(GameTime gameTime)
         {
             KeyboardState keyboard = Keyboard.GetState();
+
+            sprite.anykeyMovement(gameTime);
+            sprite.Animate(gameTime);
+
+            if (value < 0)
+            {
+                menuState = MenuState.MainMenu;
+            }
+            koodiRect.X += 1;
+            koodiRect.Y -= 5;
 
             if (InputManager.IsMouseButton1Pressed())
             {
@@ -382,8 +402,10 @@ namespace InssiParty
 
         private void IntroDraw()
         {
-            //TODO: Draw the epic intro sreen here!
-            spriteBatch.DrawString(font, "EEPPINEN INTRO RUUTU!\n\nPress any key", new Vector2(0, 0), Color.Pink);
+            spriteBatch.Draw(backgroundTexture, background, Color.White);
+            spriteBatch.Draw(koodiTexture, koodiRect, Color.White);
+            spriteBatch.Draw(logoTexture, logoRect, Color.White);
+            spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect, Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.None, 0);
         }
 
         private void MenuUpdate()
