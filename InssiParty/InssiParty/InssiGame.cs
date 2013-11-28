@@ -292,7 +292,9 @@ namespace InssiParty
          */
         private void startGame(GameBase game)
         {
-            introThemeMusicInstance.Stop();
+            if(soundsLoaded)
+                introThemeMusicInstance.Stop();
+
             Console.WriteLine("Starting game: " + game.Name);
 
             gameActive            = true;
