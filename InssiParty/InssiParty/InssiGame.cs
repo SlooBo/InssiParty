@@ -144,7 +144,7 @@ namespace InssiParty
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true, "Creator missing!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
             addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Creator missing!");
-            addGame(new Kysymys(), "Random kysymyksiä", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
+            addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Creator missing!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Creator missing!");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");

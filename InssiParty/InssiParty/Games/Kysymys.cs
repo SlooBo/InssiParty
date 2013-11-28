@@ -26,7 +26,7 @@ namespace InssiParty.Games
         private SpriteFont font;
 
         //Muuttujat
-        char valinta;
+        
 
 
         
@@ -89,21 +89,109 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
             value--;
-          
 
-            taustakuva = kymysys1;
-            KeyboardState state = new KeyboardState();
-
-            if (state.IsKeyDown(Keys.K))
+            //Kysymys1
             {
-                //K on painettu
+
+                taustakuva = kymysys1;
+                KeyboardState state = new KeyboardState();
+
+                if (state.IsKeyDown(Keys.K))
+                {
+                    value++;
+                }
+
+                if (state.IsKeyDown(Keys.E))
+                {
+
+                }
+
+            }
+            //Kysymys2
+            {
+
+                taustakuva = kymysys2;
+                KeyboardState state = new KeyboardState();
+
+                if (state.IsKeyDown(Keys.K))
+                {
+                    value++;
+                }
+
+                if (state.IsKeyDown(Keys.E))
+                {
+
+                }
+
             }
 
-
-            if (value < 0)
+            //Kysymys3
             {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+
+                taustakuva = kymysys3;
+                KeyboardState state = new KeyboardState();
+
+                if (state.IsKeyDown(Keys.K))
+                {
+                    
+                }
+
+                if (state.IsKeyDown(Keys.E))
+                {
+                    value++;
+                }
+
+            }
+
+            //Kysymys4
+            {
+
+                taustakuva = kymysys4;
+                KeyboardState state = new KeyboardState();
+
+                if (state.IsKeyDown(Keys.K))
+                {
+                    
+                }
+
+                if (state.IsKeyDown(Keys.E))
+                {
+                    value++;
+                }
+
+            }
+
+            //Kysymys5
+            {
+
+                taustakuva = kymysys5;
+                KeyboardState state = new KeyboardState();
+
+                if (state.IsKeyDown(Keys.K))
+                {
+                    value++;
+                }
+
+                if (state.IsKeyDown(Keys.E))
+                {
+
+                }
+
+            }
+
+          
+            if (value >= 3)
+            {
+                taustakuva = voitto1;
+                //voitto.
                 CloseGame(true);
+            }
+
+            if (value <= 2)
+            {
+                taustakuva = häviö1;
+                //häviö.
+                CloseGame(false);
             }
         }
 
