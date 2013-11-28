@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
@@ -20,10 +21,9 @@ namespace InssiParty.Games
     class tentti : GameBase
     {
         //Muuttujat
-        private double timer = 0;
+        private int timer = 0;
         private int value = 0;
-        private int picture = 0;
-        private float blood_gravity = 0;
+        private int cycle = 0;
         private KeyboardState k_state_old;
         private Rectangle background = new Rectangle(0, 0, 800, 600);
         private Rectangle render = new Rectangle(0, 0, 800, 600);
@@ -35,6 +35,8 @@ namespace InssiParty.Games
         private Texture2D inssi_end;
         private Texture2D blood;
         private Texture2D barTexture;
+        //äänet
+        SoundEffect hakkaus;
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -42,11 +44,13 @@ namespace InssiParty.Games
             inssi_start = Content.Load<Texture2D>("inssi_start position");
             inssi_mid = Content.Load<Texture2D>("inssi_mid position");
             inssi_end = Content.Load<Texture2D>("inssi_end position");
-            k_state_old = Keyboard.GetState();
             blood = Content.Load<Texture2D>("veritippa");
             barTexture = new Texture2D(GraphicsDevice, 1, 1);
             barTexture.SetData(new Color[] { Color.Purple });
             font = Content.Load<SpriteFont>("DefaultFont");
+            k_state_old = Keyboard.GetState();
+
+            hakkaus = Content.Load<SoundEffect>("päänhakkaus_edit");
         }
 
         public override void Start()
@@ -56,6 +60,7 @@ namespace InssiParty.Games
             value = 0;
             timerBar.Width = 800;
             timer = 0;
+            cycle = 0;
         }
 
         public override void Stop()
@@ -68,58 +73,69 @@ namespace InssiParty.Games
         {
             timer++;
 
-            do
-            {
-                timerBar.Width = timerBar.Width - 3;
-            }
-            while (timerBar.Width == 0);
-                if (value == 50)
-                {
-                    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                    CloseGame(true);
-                }
-                if (timer == 250)
-                {
-                    CloseGame(false);
-                }
-        }
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            spriteBatch.Draw(inssi_start, background, new Color(255, 255, 255));
-
             KeyboardState k_state = Keyboard.GetState();
             for (int i = 0; i < 10; i++)
             {
                 if (k_state.IsKeyDown(Keys.Space))
                 {
-                    spriteBatch.Draw(inssi_end, render, Color.White);
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
-                       value++;
-                       spriteBatch.Draw(inssi_mid, render, new Color(255, 255, 255));
-                       particleManager.setGravity(new Vector2(0, -0.2f));
-                       particleManager.AddParticle(
-                       blood,                                       // Texture
-                       new Vector2(390, 275),                        // Position
-                       new Vector2(20, -5),                         // Min speed on x / y axis
-                       new Vector2(10, 5),                           // Max speed on x / y axis
-                       50,                                          // Min time to live
-                       100,                                         // Max time to live
-                       100); 
+                        value++;
+                        particleManager.setGravity(new Vector2(0, -0.2f));
+                        particleManager.AddParticle(
+                        blood,                                       // Texture
+                        new Vector2(390, 275),                        // Position
+                        new Vector2(20, -5),                         // Min speed on x / y axis
+                        new Vector2(10, 5),                           // Max speed on x / y axis
+                        50,                                          // Min time to live
+                        100,                                         // Max time to live
+                        100);
+                        cycle++;
+                        hakkaus.Play(1, 0, 0);
                     }
-                 }          
-     
+                }
+
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
-                                        // Particle amount
+                    cycle++;
                 }
                 k_state_old = k_state;
-                spriteBatch.Draw(barTexture, timerBar, Color.Purple);
+                do
+                {
+                    timerBar.Width = timerBar.Width - timer;
+                }
+                while (timerBar.Width == 0);
+                {
+                    if (value == 45)
+                    {
+                        //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                        CloseGame(true);
+                    }
+                    if (timer == 250)
+                    {
+                        CloseGame(false);
+                    }
+                }
+            }
+        }
+        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            spriteBatch.Draw(inssi_start, background, new Color(255, 255, 255));
+            spriteBatch.Draw(barTexture, timerBar, Color.Purple);            
+            if(cycle==1)
+            {
+             spriteBatch.Draw(inssi_end, render, Color.White);
+            }
+            if(cycle==2)
+            {
+             spriteBatch.Draw(inssi_mid, render, new Color(255, 255, 255));
+             cycle = 0;
             }
 
             //Console.WriteLine("Valiluonnin iskut" + value);
             //Console.WriteLine("kuvat" + picture);
             //Console.WriteLine(timer);
+            //Console.WriteLine(cycle);
         }
 
     }
