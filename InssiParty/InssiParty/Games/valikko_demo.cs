@@ -9,27 +9,24 @@ using Microsoft.Xna.Framework.Content;
 
 namespace InssiParty.Games
 {
-    class vali : GameBase
+    class valikko_demo : GameBase
     {
         //variaabelit
         private int value;
 
         //Tekstuurit
         Texture2D backgroundTexture;
-        Texture2D valiTexture;
         AnimatedSprite sprite;
         
         //rektanglet
         Rectangle background = new Rectangle(0, 0, 800, 600);
-        Rectangle keskipalkki = new Rectangle(0, 180, 800, 220);
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //tekstuurit
             backgroundTexture = Content.Load<Texture2D>("tausta");
-            valiTexture = Content.Load<Texture2D>("trans_palkit");
 
-            sprite = new AnimatedSprite(Content.Load<Texture2D>("pullo_spritesheet"), 1, 150, 388);
+            sprite = new AnimatedSprite(Content.Load<Texture2D>("anykey60f"), 1, 296, 42);
 
             sprite.Position = new Vector2(400,300);
         }
@@ -63,7 +60,6 @@ namespace InssiParty.Games
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
-            spriteBatch.Draw(valiTexture, keskipalkki, Color.White);
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect, Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.None, 0);
         }
 

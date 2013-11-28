@@ -15,8 +15,8 @@ namespace InssiParty.Games
         float interval = 200f;
         int spriteSpeed = 2;
         int currentFrame = 0;
-        int spriteWidht = 150;
-        int spriteHeight = 388;
+        int spriteWidht = 296;
+        int spriteHeight = 42;
         Rectangle sourceRect;
         Vector2 position;
         Vector2 origin;
@@ -80,15 +80,15 @@ namespace InssiParty.Games
         {
             sourceRect = new Rectangle(currentFrame * spriteWidht, 0, spriteWidht, spriteHeight); 
 
-            if (currentFrame > 7)
+            if (currentFrame > 55)
             {
                 currentFrame = 0;
             }
 
             Animate(gameTime);
-            if (position.X < 150) 
+            if (position.Y < 42) 
             {
-                position.X += spriteSpeed;
+                position.Y += spriteSpeed;
             }
 
             origin = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
