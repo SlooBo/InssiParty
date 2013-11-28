@@ -29,11 +29,14 @@ namespace InssiParty.Games
 
         private Vector2 inssi_kohta, inssi_nopeus, inssi_vauhti;
         private Vector2 atj_kohta;
+        private List<ATJ> ATJs = new List<ATJ>();
+        private Random random = new Random();
 
+        float spawn = 0;
         //Tekstuurit
         
         private Texture2D inssi;
-        private Texture2D atj;
+        private ATJ atj;
 
         private Rectangle inssi_alue;
         private Rectangle atj_alue;
@@ -43,8 +46,6 @@ namespace InssiParty.Games
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             spritebatch = new SpriteBatch(GraphicsDevice);
             inssi = Content.Load<Texture2D>("Nyancat");
-            atj = Content.Load<Texture2D>("propelli");
- 
         }
 
         /**
@@ -56,7 +57,7 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Starting Väistä ATJ-Promoja");
             
-            value = 500;
+            value = 1000;
 
             //inssin liikkeiden vektoreita
             inssi_kohta = new Vector2(400, 300);
@@ -66,8 +67,6 @@ namespace InssiParty.Games
                 (int)(inssi_kohta.Y - inssi.Height / 2), inssi.Width, inssi.Height);
 
             atj_kohta = new Vector2(600, 400);
-            atj_alue = new Rectangle((int)(atj_kohta.X - atj.Width / 2),
-                (int)(atj_kohta.Y - atj.Height / 2), atj.Width, atj.Height);
             
         }
 
@@ -85,9 +84,11 @@ namespace InssiParty.Games
          * 
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
+
         public override void Update(GameTime gameTime)
         {
-            //value--;
+
+            value--;
 
 
             //    sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
@@ -136,7 +137,7 @@ namespace InssiParty.Games
                 inssi_kohta.Y = 600 - 32;
             }
 
-         
+
 
             if (inssi_alue.Intersects(atj_alue))
             {
@@ -155,6 +156,14 @@ namespace InssiParty.Games
             {
                 CloseGame(true);
             }
+
+        
+        //    atj.Update(value);
+
+        //    foreach (ATJ item in ATJs)
+        //    {
+        //        item.Update(gameTime);
+        //    }
         }
         /**
          * Pelkkä piirtäminen
@@ -170,7 +179,6 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(inssi, inssi_kohta, Color.White);
-            spriteBatch.Draw(atj, atj_kohta, Color.White);
         }
 
     }
