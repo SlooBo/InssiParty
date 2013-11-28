@@ -126,10 +126,11 @@ namespace InssiParty.Games
 
             if (collisionRect.Intersects(collisionRect2))
             {
-                CloseGame(true);
+                CloseGame(false);
             }
-            if (collisionRect.Intersects(new Rectangle(300,300,0,0)));
+            if (collisionRect.Intersects(new Rectangle(750, 300, 8, 8)))
             {
+                CloseGame(true);
             }
         }
 
@@ -148,6 +149,7 @@ namespace InssiParty.Games
             //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
             spriteBatch.Draw(este, new Vector2(250, 400), Color.White);
+            spriteBatch.Draw(este, new Vector2(750, 300), Color.White);
             Console.WriteLine(inssi_movement);
             Console.WriteLine(collisionRect);
         }
