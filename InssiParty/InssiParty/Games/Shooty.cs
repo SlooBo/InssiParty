@@ -32,6 +32,11 @@ namespace InssiParty.Games
      * Ammu nyancattia turretilla.
      * 
      * By: Taneli
+     * 
+     * Todo:
+     * Äänet
+     * Barrelgraf revamp
+     * 
      */
     class Shooty : GameBase
     {
@@ -59,7 +64,9 @@ namespace InssiParty.Games
         private Texture2D backgroundTexture;
         private Texture2D turretTexture;
 
-        List<Cannonball> cannonballs = new List<Cannonball>();
+        List<Cannonball> cannonballs;
+
+
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -86,7 +93,8 @@ namespace InssiParty.Games
             PI = 3.14159;
             cannonBarrelRect = new Rectangle(84, 418, cannonbarrel.Width, cannonbarrel.Height);
             origin.X = cannonBarrelRect.Width / 2;
-            origin.Y = cannonBarrelRect.Height / 2;
+            origin.Y = cannonBarrelRect.Height / 2; 
+            cannonballs = new List<Cannonball>();
         }
 
         /**
@@ -94,7 +102,7 @@ namespace InssiParty.Games
          */
         public override void Stop()
         {
-
+            cannonballs = null;
         }
 
         /**
@@ -109,6 +117,7 @@ namespace InssiParty.Games
             nyancat_pos+=2;
             NyancatRect = new Rectangle((int)nyancat_pos, (int)10,
                 Nyancat.Bounds.Width, Nyancat.Bounds.Height);
+            angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X));
 
             var mouseState = Mouse.GetState();
             targetRect.X = mouseState.X;
@@ -130,14 +139,10 @@ namespace InssiParty.Games
             }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && mousestate)
             {
-                angle = Math.Atan((barrelhp.Y - targetRect.Y) / (targetRect.X - barrelhp.X));
                 initX = Math.Cos(angle) * 6; 
                 initY = Math.Sin(angle) * 6;
                 cbSpeed = new Vector2((float)initX, (float)initY);
                 cannonballs.Add(new Cannonball(cannonballTexture, barrelhp, cbSpeed));
-                Console.WriteLine(angle);
-                Console.WriteLine(initX);
-                Console.WriteLine(initY);
                 mousestate = false;
 
             }
