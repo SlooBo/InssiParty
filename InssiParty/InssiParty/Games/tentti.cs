@@ -92,33 +92,34 @@ namespace InssiParty.Games
             {
                 if (k_state.IsKeyDown(Keys.Space))
                 {
-                    spriteBatch.Draw(inssi_mid, render, Color.White);
+                    spriteBatch.Draw(inssi_end, render, Color.White);
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
                        value++;
+                       spriteBatch.Draw(inssi_mid, render, new Color(255, 255, 255));
+                       particleManager.setGravity(new Vector2(0, -0.2f));
+                       particleManager.AddParticle(
+                       blood,                                       // Texture
+                       new Vector2(390, 275),                        // Position
+                       new Vector2(20, -5),                         // Min speed on x / y axis
+                       new Vector2(10, 5),                           // Max speed on x / y axis
+                       50,                                          // Min time to live
+                       100,                                         // Max time to live
+                       100); 
                     }
                  }          
      
                 else if (k_state_old.IsKeyDown(Keys.Space))
                 {
-                    spriteBatch.Draw(inssi_end, render, new Color (255,255,255));
-                    particleManager.setGravity(new Vector2(0, -0.2f));
-                    particleManager.AddParticle(
-                    blood,                                       // Texture
-                    new Vector2(390,275),                        // Position
-                    new Vector2(20, -5),                         // Min speed on x / y axis
-                    new Vector2(10, 5),                           // Max speed on x / y axis
-                    50,                                          // Min time to live
-                    100,                                         // Max time to live
-                    100);                                         // Particle amount
+                                        // Particle amount
                 }
                 k_state_old = k_state;
                 spriteBatch.Draw(barTexture, timerBar, Color.Purple);
             }
 
-            Console.WriteLine("Valiluonnin iskut" + value);
-            Console.WriteLine("kuvat" + picture);
-            Console.WriteLine(timer);
+            //Console.WriteLine("Valiluonnin iskut" + value);
+            //Console.WriteLine("kuvat" + picture);
+            //Console.WriteLine(timer);
         }
 
     }

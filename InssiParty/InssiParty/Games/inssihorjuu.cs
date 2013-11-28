@@ -37,10 +37,13 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
         private int forward = 0;
-        private double inssi_movement;
+        private int inssi_movement;
+        private Rectangle collisionRect;
+        private Rectangle collisionRect2;
         Random random;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi;
+        private Texture2D este;
 
 
         /**
@@ -53,6 +56,8 @@ namespace InssiParty.Games
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             inssi = Content.Load<Texture2D>("obj");
             random = new Random();
+            este = Content.Load<Texture2D>("palikka");
+            collisionRect2 = new Rectangle(250, 400, 8, 8);
         }
 
         /**
@@ -85,7 +90,7 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-
+            collisionRect = new Rectangle(forward, inssi_movement, 64, 64);
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.W))
             {
@@ -119,9 +124,12 @@ namespace InssiParty.Games
                 inssi_movement -= random.Next(1, 4);
             }
 
-            if (value < 0)
+            if (collisionRect.Intersects(collisionRect2))
             {
                 CloseGame(true);
+            }
+            if (collisionRect.Intersects(new Rectangle(300,300,0,0)));
+            {
             }
         }
 
@@ -138,8 +146,10 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(inssi, new Vector2(forward, (float)inssi_movement), Color.White);
+            spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
+            spriteBatch.Draw(este, new Vector2(250, 400), Color.White);
             Console.WriteLine(inssi_movement);
+            Console.WriteLine(collisionRect);
         }
     }
 
