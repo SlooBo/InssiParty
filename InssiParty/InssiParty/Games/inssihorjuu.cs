@@ -40,31 +40,23 @@ namespace InssiParty.Games
         private int inssi_movement;
         private Rectangle collisionRect;
         private Rectangle collisionRect2;
+        private Rectangle windowBounds;
+
         Random random;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi;
         private Texture2D este;
 
 
-        /**
-         * Lataa tekstuureihin itse data.
-         * 
-         * Ajetaan kun koko ohjelma käynnistyy.
-         */
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             inssi = Content.Load<Texture2D>("obj");
             random = new Random();
             este = Content.Load<Texture2D>("palikka");
             collisionRect2 = new Rectangle(250, 400, 8, 8);
+            windowBounds = new Rectangle(0,0,800,600);
         }
-
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
         public override void Start()
         {
             forward = 0;
@@ -73,21 +65,10 @@ namespace InssiParty.Games
             value = 500;
 
         }
-
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
-
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Update(GameTime gameTime)
         {
             collisionRect = new Rectangle(forward, inssi_movement, 64, 64);
@@ -124,6 +105,23 @@ namespace InssiParty.Games
                 inssi_movement -= random.Next(1, 4);
             }
 
+            if (forward < 0)
+            {
+                forward = 0;
+            }
+            if (inssi_movement < 0)
+            {
+                inssi_movement = 0;
+            }
+            if (forward > windowBounds.Width)
+            {
+                forward = windowBounds.Width;
+            }
+            if (inssi_movement > windowBounds.Height - inssi.Bounds.Height)
+            {
+                inssi_movement = windowBounds.Height - inssi.Bounds.Height;
+            }
+
             if (collisionRect.Intersects(collisionRect2))
             {
                 CloseGame(false);
@@ -133,14 +131,6 @@ namespace InssiParty.Games
                 CloseGame(true);
             }
         }
-
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
 

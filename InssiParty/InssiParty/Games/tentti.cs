@@ -83,6 +83,7 @@ namespace InssiParty.Games
                     if (!k_state_old.IsKeyDown(Keys.Space))
                     {
                         value++;
+                        //partikkelit
                         particleManager.setGravity(new Vector2(0, -0.2f));
                         particleManager.AddParticle(
                         blood,                                       // Texture
