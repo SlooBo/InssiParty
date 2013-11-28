@@ -51,7 +51,7 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {            
-            sprite.HandleSpriteMovement(gameTime);
+            sprite.anykeyMovement(gameTime);
             sprite.Animate(gameTime);
             
             if (value < 0)

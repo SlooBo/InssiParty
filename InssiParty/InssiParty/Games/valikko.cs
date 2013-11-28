@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace InssiParty.Games
 {
-    class valikko_demo : GameBase
+    class valikko : GameBase
     {
         //variaabelit
         private int value;

@@ -12,7 +12,7 @@ namespace InssiParty.Games
     {
         Texture2D spriteTexture;
         float timer = 0f;
-        float interval = 200f;
+        float interval = 100f;
         int spriteSpeed = 2;
         int currentFrame = 0;
         int spriteWidht = 296;
@@ -76,21 +76,21 @@ namespace InssiParty.Games
             this.spriteHeight = spriteHeight;
         }
 
-        public void HandleSpriteMovement(GameTime gameTime)
+        public void anykeyMovement(GameTime gameTime)
         {
-            sourceRect = new Rectangle(currentFrame * spriteWidht, 0, spriteWidht, spriteHeight); 
+            sourceRect = new Rectangle(0, currentFrame * spriteHeight, spriteWidht, spriteHeight); 
 
             if (currentFrame > 55)
             {
                 currentFrame = 0;
             }
-
+                        
             Animate(gameTime);
-            if (position.Y < 42) 
+            if (position.Y < 0) 
             {
                 position.Y += spriteSpeed;
             }
-
+            
             origin = new Vector2(sourceRect.Width / 2, sourceRect.Height / 2);
         }
 
