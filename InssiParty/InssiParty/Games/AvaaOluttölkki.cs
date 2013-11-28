@@ -43,10 +43,6 @@ namespace InssiParty.Games
         Random rnd = new Random();
         private string syöte;
         int painettava;
-        Rectangle Tölkki = new Rectangle(292, 180, 184, 180);
-        Rectangle tausta = new Rectangle(0, 0, 800, 600);
-        private bool voitto = false;
-        private bool gameOver = false;
 
         //Esitellään tekstuurit
         private Texture2D Can;
@@ -113,12 +109,8 @@ namespace InssiParty.Games
             while(success_counter<6||fail_counter<4)
             {
                 
-                
-                
-              
-                syöte = Convert.ToString(Keyboard.GetState());
-                Keyboard.GetState();
-               
+                Keyboard.GetState().GetPressedKeys();
+
                 if (syöte == numValues[painettava])
                 {
                     success_counter++;
@@ -130,26 +122,26 @@ namespace InssiParty.Games
                     
                 }
 
-                if (success_counter < 3 && fail_counter == 0)
-                {
-                    Can = OpeningCan;
-                }
+               }
+            if (success_counter < 3 && fail_counter == 0)
+            {
+                Can = OpeningCan;
+            }
 
-                else if (success_counter == 5)
-                {
-                    OpeningCan = EmptyCan;
-                    voitto = true;
-                    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                    CloseGame(true);
-                }
+            else if (success_counter == 5)
+            {
+                OpeningCan = EmptyCan;
 
-                else if (fail_counter == 3)
-                {
-                    gameOver = true;
-                    OpeningCan = gameover;
-                    CloseGame(true);
+                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                CloseGame(true);
+            }
 
-                }
+            else if (fail_counter == 3)
+            {
+
+                OpeningCan = gameover;
+                CloseGame(false);
+
             }
         }
 
