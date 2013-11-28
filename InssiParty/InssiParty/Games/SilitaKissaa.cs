@@ -102,14 +102,14 @@ namespace InssiParty.Games
 
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            //Console.WriteLine("Starting hello world");
 
             value = 500;
         }
 
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+            //Console.WriteLine("Closing hello world");
         }
 
         public override void Update(GameTime gameTime)
@@ -184,23 +184,35 @@ namespace InssiParty.Games
             if (silityskerrat == 5)
             {
                 voitto = true;
+                //CloseGame(true);
             }
 
-            if (silitysvirhe == 5 || value == 50)
+            if (silitysvirhe == 5 || value == 50 && voitto == false)
             {
                 gameOver = true;
+                //CloseGame(false);
             }
 
-            if (value < 0 )
+            if (silityskerrat == 5 && value == 0)
             {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
             }
+
+            if (silitysvirhe == 5 && value == 50)
+            {
+                CloseGame(false);
+            }
+
+            //if (value < 0 )
+            //{
+            //    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+            //    CloseGame(true);
+            //}
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            //Console.WriteLine("Draw " + value);
 
             if (voitto == false || gameOver == false)
             {
@@ -212,10 +224,12 @@ namespace InssiParty.Games
             if (voitto == true)
             {
                 spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
+                spriteBatch.DrawString(fontti, "Aaw, kissa nukahti. Voitit pelin!", new Vector2(80, 200), Color.Aquamarine);
             }
             if (gameOver == true)
             {
                 spriteBatch.Draw(kissaGameOver, taustakissa, Color.White);
+                spriteBatch.DrawString(fontti, "Suututit kissan >:(. Hävisit pelin!", new Vector2(400, 200), Color.Aquamarine);
             }
             spriteBatch.DrawString(fontti, "Silityksia: " + silityskerrat.ToString() + "Virheelliset: " + silitysvirhe.ToString(),
                 new Vector2(10, 10), Color.Turquoise);

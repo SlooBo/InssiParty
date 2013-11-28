@@ -143,12 +143,12 @@ namespace InssiParty
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Miika 'Toopala' Saastamoinen");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true, "Creator missing!");
             addGame(new rollibyrintti(), "rollaile labyrintissa", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Creator missing!");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Annika Veteli");
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Creator missing!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Miika 'Toopala' Saastamoinen");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
-            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Creator missing!");
+            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Annika Veteli");
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
             addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");
 
