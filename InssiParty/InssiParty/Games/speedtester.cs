@@ -224,13 +224,22 @@ namespace InssiParty.Games
                     gameRunning = false;
                 }
             }
-         
 
-            if (value < 0)
+            if (value == 0 && win == true && gameover == false)
             {
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
             }
+
+            if (gameover == true && win == false && value == 0)
+            {
+                CloseGame(false);
+            }
+
+            //if (value < 0)
+            //{
+            //    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+            //    CloseGame(true);
+            //}
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
