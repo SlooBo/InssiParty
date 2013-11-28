@@ -21,22 +21,24 @@ namespace InssiParty.Games
     class tentti : GameBase
     {
         //Muuttujat
-        private int timer = 0;
-        private int value = 0;
-        private int cycle = 0;
+        private int timer, value, cycle, soundTrigger;
+        private float timerBarCount;
         private KeyboardState k_state_old;
         private Rectangle background = new Rectangle(0, 0, 800, 600);
         private Rectangle render = new Rectangle(0, 0, 800, 600);
-        private Rectangle timerBar = new Rectangle(0, 580, 800, 200);
-        private SpriteFont font;
         //Tekstuurit
         private Texture2D inssi_start;
         private Texture2D inssi_mid;
         private Texture2D inssi_end;
         private Texture2D blood;
         private Texture2D barTexture;
-        //äänet
-        SoundEffect hakkaus;
+        //Äänet
+        private SoundEffectInstance depressionInstance;
+        private SoundEffect hitting;
+        private SoundEffect depression;
+
+
+
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -45,22 +47,22 @@ namespace InssiParty.Games
             inssi_mid = Content.Load<Texture2D>("inssi_mid position");
             inssi_end = Content.Load<Texture2D>("inssi_end position");
             blood = Content.Load<Texture2D>("veritippa");
-            barTexture = new Texture2D(GraphicsDevice, 1, 1);
-            barTexture.SetData(new Color[] { Color.Purple });
-            font = Content.Load<SpriteFont>("DefaultFont");
+            barTexture = Content.Load<Texture2D>("timer_bar");
             k_state_old = Keyboard.GetState();
 
-            hakkaus = Content.Load<SoundEffect>("päänhakkaus_edit");
+            hitting = Content.Load<SoundEffect>("päänhakkaus_edit");
+            depression = Content.Load<SoundEffect>("tenttiähinää2_edit");
+            depressionInstance = depression.CreateInstance();
         }
 
         public override void Start()
         {
             Console.WriteLine("Start game");
-            //voitto laskuri
             value = 0;
-            timerBar.Width = 800;
             timer = 0;
             cycle = 0;
+            soundTrigger = 0;
+            timerBarCount = 0;
         }
 
         public override void Stop()
@@ -91,7 +93,12 @@ namespace InssiParty.Games
                         100,                                         // Max time to live
                         100);
                         cycle++;
-                        hakkaus.Play(1, 0, 0);
+                        soundTrigger++;
+                        hitting.Play(1, 0, 0);
+                        if (soundTrigger == 1)
+                        {
+                            depression.Play(1, 0, 0);
+                        }
                     }
                 }
 
@@ -102,17 +109,19 @@ namespace InssiParty.Games
                 k_state_old = k_state;
                 do
                 {
-                    timerBar.Width = timerBar.Width - timer;
+                    timerBarCount -= 0.27f;
                 }
-                while (timerBar.Width == 0);
+                while (timerBarCount == 0);
                 {
                     if (value == 45)
                     {
+                        depressionInstance.Stop();
                         //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                         CloseGame(true);
                     }
-                    if (timer == 250)
+                    if (timer == 300)
                     {
+                        depressionInstance.Stop();
                         CloseGame(false);
                     }
                 }
@@ -121,7 +130,6 @@ namespace InssiParty.Games
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(inssi_start, background, new Color(255, 255, 255));
-            spriteBatch.Draw(barTexture, timerBar, Color.Purple);            
             if(cycle==1)
             {
              spriteBatch.Draw(inssi_end, render, Color.White);
@@ -131,6 +139,7 @@ namespace InssiParty.Games
              spriteBatch.Draw(inssi_mid, render, new Color(255, 255, 255));
              cycle = 0;
             }
+            spriteBatch.Draw(barTexture, new Vector2(timerBarCount, 575), Color.Purple);
 
             //Console.WriteLine("Valiluonnin iskut" + value);
             //Console.WriteLine("kuvat" + picture);
