@@ -44,7 +44,6 @@ namespace InssiParty
         //EngineSystems
         private ParticleManager particleManager;
         private TipManager tipManager;
-        private StoryManager storyManager;
 
         //Global resources
         private SpriteFont font;
@@ -72,6 +71,16 @@ namespace InssiParty
         //Game objects
         private List<GameBase> games;
 
+        //Story mode stuff
+        private int HP;
+        private int points;
+
+        private List<GameBase> playableGames;
+        private List<GameBase> gamesPlayed;
+
+        //Random stuff
+        Random random;
+
         public InssiGame()
         {
             soundsLoaded = false;
@@ -82,10 +91,11 @@ namespace InssiParty
             Content.RootDirectory = "Content";
 
             games = new List<GameBase>();
+            gamesPlayed = new List<GameBase>();
+            playableGames = new List<GameBase>();
 
             particleManager = new ParticleManager();
             tipManager = new TipManager();
-            storyManager = new StoryManager();
 
             gameActive = false;
             cursorPosition = new Vector2(0, 0);
@@ -94,6 +104,8 @@ namespace InssiParty
             graphics.PreferredBackBufferHeight = 600;
 
             currentTip = "failed to load tips.";
+
+            random = new Random();
         }
 
        
@@ -160,12 +172,17 @@ namespace InssiParty
             Console.WriteLine("# " + GameHelpers.finalGameCount(games) + " finished games, " + (games.Count - GameHelpers.finalGameCount(games)) + " games under development");
             //startGame(games[2]);
 
-            storyManager.LoadGames(games);
-
             TipList.InitTipList(tipManager);
 
             //Choose random tip for the main menu
             currentTip = "Protip: " + tipManager.getRandomTip();
+
+            //Fill up the "playeable games" list
+            for (int i = 0; i < games.Count; ++i)
+            {
+                if (games[i].FinalVersion)
+                    playableGames.Add(games[i]);
+            }
         }
 
         protected override void UnloadContent()
@@ -329,7 +346,7 @@ namespace InssiParty
             if (currentGameMode == GameMode.StoryMode)
             {
                 //Start next game, if game is not lost.
-                storyManager.StoryNextGame(currentGame.IsVictory);
+                StoryNextGame(currentGame.IsVictory);
                 return;
             }
         }
@@ -377,7 +394,7 @@ namespace InssiParty
                 {
                     Console.WriteLine("Start the story mode!");
                     currentGameMode = GameMode.StoryMode;
-                    storyManager.StartStory();
+                    StartStory();
                 }
 
                 if (cursorPosition.Y > 140 && cursorPosition.Y < 160)
@@ -447,5 +464,75 @@ namespace InssiParty
             spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
         }
 
+
+        /**#########################
+         * STORYMODE RELATED STUFF
+         *#########################*/
+
+        public void StopStory()
+        {
+            Console.WriteLine("[StoryManager] Story stop forced.");
+        }
+
+        public void StartStory()
+        {
+            Console.WriteLine("[StoryManager] Starting story...");
+            points = 0;
+            HP = 0;
+
+            StartNextGame();
+        }
+
+        private void StartNextGame()
+        {
+            bool gameSelected = false;
+            int id = 0;
+            int missCount = -1;
+
+            if (gamesPlayed.Count == games.Count)
+            {
+                //All games have been played! Give extra +5 points and clear the list.
+                points += 5;
+
+                gamesPlayed.Clear();
+                Console.WriteLine("[StoryManager] All games played! +5 points and clearing list");
+            }
+
+            while (gameSelected == false)
+            {
+                id = random.Next(0, games.Count);
+                gameSelected = true;
+
+                //check if it has been already played
+                for (int i = 0; i < gamesPlayed.Count; ++i)
+                {
+                    if (games[id] == gamesPlayed[i])
+                        gameSelected = false; //The game was already played.
+                }
+
+                ++missCount;
+            }
+
+            Console.WriteLine("[StoryManager] " + games[id].Name + " chosen. (" + missCount + ") miss count on randoming.");
+
+            gamesPlayed.Add(games[id]);
+        }
+
+
+        public void StoryNextGame(bool victoryState)
+        {
+            if (victoryState == true)
+            {
+                ++points;
+                Console.WriteLine("[StoryManager] +1 point for victory");
+            }
+            else
+            {
+                --HP;
+                Console.WriteLine("[StoryManager] -1 hp for failure");
+            }
+
+            //TODO: Randomize next game.
+        }
     }
 }

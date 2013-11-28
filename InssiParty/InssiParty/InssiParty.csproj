@@ -114,7 +114,6 @@
     <Compile Include="Engine\GameHelpers.cs" />
     <Compile Include="Engine\InputManager.cs" />
     <Compile Include="Engine\ParticleManager.cs" />
-    <Compile Include="Engine\StoryManager.cs" />
     <Compile Include="Engine\TipManager.cs" />
     <Compile Include="Games\valikko.cs" />
     <Compile Include="Games\valikko_demo.cs" />
