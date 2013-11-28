@@ -26,14 +26,8 @@ namespace InssiParty.Games
         private Vector2 HandPos;
 
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D backround_texture;
-        private Texture2D box;
-        private Texture2D handu;
-        private Texture2D win;
-        private Texture2D lose;
-        private Texture2D poison;
-        private Texture2D ruoka;
-        private Texture2D testi;
+        private Texture2D backround_texture, box, handu, win, lose;
+        private Texture2D poison,ruoka,testi;
         private Texture2D Ajastin;
 
         SoundEffect open, eat, drink, die;
@@ -43,8 +37,6 @@ namespace InssiParty.Games
 
         private Rectangle timer_bar;
         Rectangle HandRect = new Rectangle(0, 0, 4, 4);
-        //Rectangle TestiRect = new Rectangle(0, 0, 200, 300);
-        //Rectangle TestiRect2 = new Rectangle(650, 0, 100, 300);
         /**
          * Lataa tekstuureihin itse data.
          * 
@@ -110,7 +102,42 @@ namespace InssiParty.Games
 
             temp = new Kaappi();
             temp.auki = false;
-            temp.sijainti = new Vector2(500, 0);
+            temp.sijainti = new Vector2(0, 472);
+            temp.koko = new Vector2(128, 128);
+            temp.tavara_id = RandomTavara(rand);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.auki = false;
+            temp.sijainti = new Vector2(128, 472);
+            temp.koko = new Vector2(128, 128);
+            temp.tavara_id = RandomTavara(rand);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.auki = false;
+            temp.sijainti = new Vector2(256, 472);
+            temp.koko = new Vector2(128, 128);
+            temp.tavara_id = RandomTavara(rand);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.auki = false;
+            temp.sijainti = new Vector2(384, 0);
+            temp.koko = new Vector2(128, 128);
+            temp.tavara_id = RandomTavara(rand);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.auki = false;
+            temp.sijainti = new Vector2(512, 0);
+            temp.koko = new Vector2(128, 128);
+            temp.tavara_id = RandomTavara(rand);
+            kaapit.Add(temp);
+
+            temp = new Kaappi();
+            temp.auki = false;
+            temp.sijainti = new Vector2(672, 472);
             temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
@@ -121,7 +148,7 @@ namespace InssiParty.Games
 
         private int RandomTavara(Random rand)
         {
-            int luku = rand.Next(0, 4);
+            int luku = rand.Next(0, 8);
             bool lukuOk = false;
             while (lukuOk == false)
             {
@@ -131,7 +158,7 @@ namespace InssiParty.Games
                     if (luku == kaapit[i].tavara_id)
                     {
                         //Tavara löyty kaapista, uusi random
-                        luku = rand.Next(0, 2);
+                        luku = rand.Next(0, 8);
                         lukuOk = false; //Uusi luku asetettu, pitää kaikki chekata läpi
                     }
                 }
@@ -215,12 +242,12 @@ namespace InssiParty.Games
                 --timer2;
             }
 
-            if (timer == 0 || elossa ==false && timer2==0)
+            if (timer == 800 || elossa ==false && timer2==0)
             {
                 CloseGame(false);
             }
 
-            if (timer == 0 && hungry == false)
+            if (timer == 800 && hungry == false)
             {
                 CloseGame(true);
             }
