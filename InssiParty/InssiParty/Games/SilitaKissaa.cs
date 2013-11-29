@@ -93,7 +93,7 @@ namespace InssiParty.Games
             try
             {
                 //ladataan kissaääniä
-                murukehrays = Content.Load<SoundEffect>("kehräys");
+                murukehrays = Content.Load<SoundEffect>("KehräysCutVersion");
                 muruvihainen = Content.Load<SoundEffect>("vihaisempi");
                 murupaaosuma = Content.Load<SoundEffect>("silmäänosu");
 
