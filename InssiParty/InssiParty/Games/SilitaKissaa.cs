@@ -62,6 +62,8 @@ namespace InssiParty.Games
         private bool voitto = false;
         private bool gameOver = false;
 
+        Texture2D insinööri;
+
 
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
@@ -82,6 +84,8 @@ namespace InssiParty.Games
 
             //ladataan fontti
             fontti = Content.Load<SpriteFont>("DefaultFont");
+
+            insinööri = Content.Load<Texture2D>("aawinsinööri");
 
             try
             {
@@ -214,13 +218,19 @@ namespace InssiParty.Games
         {
             Console.WriteLine("Draw " + value);
 
-            if (voitto == false || gameOver == false)
+            if (voitto == false && gameOver == false)
             {
 
                 spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
                 spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
                         Mouse.GetState().Y - 100), Color.White);
             }
+
+            if (voitto == false && gameOver == false && value > 400)
+            {
+                spriteBatch.Draw(insinööri, new Vector2(0, 100), Color.White);
+            }
+
             if (voitto == true)
             {
                 spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
