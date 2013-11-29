@@ -14,7 +14,8 @@ namespace InssiParty.Games
     /**
      * Speedtester
      * 
-     * Selitys pelistä
+     * Painele A, D, K ja L -näppäimiä syttyvien "valojen" mukaisesti. Jos painat huti, häviät pelin. 
+     * Jos taas selviät tietyn ajan, olet voittaja.
      * 
      * By: Annika Veteli
      */
