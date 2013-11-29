@@ -211,7 +211,7 @@ namespace InssiParty.Games
             {
                 CloseGame(true);
             }
-            else if (value == 50 && voitto == false)
+            else if (value == 90 && voitto == false)
             {
                 häviö = true;
             }
@@ -233,7 +233,7 @@ namespace InssiParty.Games
 
             spriteBatch.Draw(taustakuva, new Rectangle(0, 0, 800, 600), Color.White);
 
-            spriteBatch.Draw(insinöörikommentoi, new Vector2(715, 125), Color.White);
+            spriteBatch.Draw(insinöörikommentoi, new Vector2(710, 125), Color.White);
             spriteBatch.Draw(puhekuplaEmpty, new Vector2(525, 35), Color.White);
 
             if (voitto == false && häviö == false)
@@ -292,7 +292,7 @@ namespace InssiParty.Games
                 spriteBatch.DrawString(fontti, "Vihdoinkin!", new Vector2(545, 50), Color.Red);
             }
 
-            if (voitto == false && häviö == true || value < 100)
+            if (voitto == false && häviö == true)
             {
                 spriteBatch.DrawString(fontti, "Sinä saatanan", new Vector2(545, 50), Color.Red);
                 spriteBatch.DrawString(fontti, "kelvoton insinööri", new Vector2(535, 75), Color.Red);
