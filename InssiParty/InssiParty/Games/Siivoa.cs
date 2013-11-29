@@ -29,6 +29,7 @@ namespace InssiParty.Games
     {
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
+
         Texture2D taustakuva;
         Texture2D kuvaJuissi;
         Texture2D käsi;
@@ -37,6 +38,10 @@ namespace InssiParty.Games
         Texture2D kaukosäädin;
         Texture2D äänisäädin;
         Texture2D sytkäri;
+        Texture2D insinöörikommentoi;
+        Texture2D puhekuplaEmpty;
+
+        SpriteFont fontti;
 
         private Rectangle juissi_alue;
         private Vector2 juissi_vektori;
@@ -63,7 +68,6 @@ namespace InssiParty.Games
         bool äänisäädinOlemassa = true;
         bool sytkäriOlemassa = true;
 
-        bool GameEnd = false;
         bool voitto = false;
         bool häviö = false;
 
@@ -81,6 +85,9 @@ namespace InssiParty.Games
             kaukosäädin = Content.Load<Texture2D>("tvkaukosäädin");
             äänisäädin = Content.Load<Texture2D>("äänisäädin");
             sytkäri = Content.Load<Texture2D>("sytkäri");
+            insinöörikommentoi = Content.Load<Texture2D>("insinööricopy");
+            puhekuplaEmpty = Content.Load<Texture2D>("puhekupla");
+            fontti = Content.Load<SpriteFont>("DefaultFont");
             
         }
 
@@ -92,7 +99,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             Console.WriteLine("Starting hello world");
-            juissi_vektori = new Vector2(500, 80);
+            juissi_vektori = new Vector2(500, 125);
             juissi_alue = new Rectangle((int)juissi_vektori.X, (int)juissi_vektori.Y, kuvaJuissi.Width, kuvaJuissi.Height);
 
             ohjain_vektori = new Vector2(260, 90);
@@ -107,8 +114,8 @@ namespace InssiParty.Games
             äänisäädin_vektori = new Vector2(200, 250);
             äänisäädin_alue = new Rectangle((int)äänisäädin_vektori.X, (int)äänisäädin_vektori.Y, äänisäädin.Width, äänisäädin.Height);
 
-            sytkäri_vektori = new Vector2(700, 300);
-            sytkäri_alue = new Rectangle((int)sytkäri_vektori.X, (int)sytkäri_vektori.Y, sytkäri.Width + 50, sytkäri.Height + 20);
+            sytkäri_vektori = new Vector2(115, 350);
+            sytkäri_alue = new Rectangle((int)sytkäri_vektori.X, (int)sytkäri_vektori.Y, sytkäri.Width + 90, sytkäri.Height + 20);
            
             value = 500;
         }
@@ -137,10 +144,6 @@ namespace InssiParty.Games
             lastMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
 
-           
-
-         
-
                 if (juissi_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -149,6 +152,7 @@ namespace InssiParty.Games
                         juissiOlemassa = false;
                     }
                 }
+
                 if (ohjain_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -157,6 +161,7 @@ namespace InssiParty.Games
                         ohjainOlemassa = false;
                     }
                 }
+
                 if (alkomahooli_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -166,6 +171,7 @@ namespace InssiParty.Games
                     }
 
                 }
+
                 if (kaukosäädin_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -175,6 +181,7 @@ namespace InssiParty.Games
                     }
 
                 }
+
                 if (äänisäädin_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -183,6 +190,7 @@ namespace InssiParty.Games
                         äänisäädinOlemassa = false;
                     }
                 }
+
                 if (sytkäri_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -225,9 +233,11 @@ namespace InssiParty.Games
 
             spriteBatch.Draw(taustakuva, new Rectangle(0, 0, 800, 600), Color.White);
 
+            spriteBatch.Draw(insinöörikommentoi, new Vector2(715, 125), Color.White);
+            spriteBatch.Draw(puhekuplaEmpty, new Vector2(525, 35), Color.White);
+
             if (voitto == false && häviö == false)
             {
-
                 if (juissiOlemassa == true)
                 {
                     spriteBatch.Draw(kuvaJuissi, juissi_vektori, Color.White);
@@ -253,10 +263,40 @@ namespace InssiParty.Games
                 {
                     spriteBatch.Draw(sytkäri, sytkäri_vektori, Color.White);
                 }
-
+                if (value < 500 && value > 400)
+                {
+                    spriteBatch.DrawString(fontti, "HopiHopi !!", new Vector2(545, 50), Color.Red);
+                }
+                else if (value < 400 && value > 300)
+                {
+                    spriteBatch.DrawString(fontti, "Ei tässä ole", new Vector2(545, 50), Color.Red);
+                    spriteBatch.DrawString(fontti, "koko päivää aikaa", new Vector2(535, 75), Color.Red);
+                }
+                else if (value < 300 && value > 200)
+                {
+                    spriteBatch.DrawString(fontti, "Yrittäisit nyt", new Vector2(545, 50), Color.Red);
+                    spriteBatch.DrawString(fontti, "...", new Vector2(560, 75), Color.Red);
+                }
+                else if (value < 200 && value > 100)
+                {
+                    spriteBatch.DrawString(fontti, "Ei tsiisus", new Vector2(545, 50), Color.Red);
+                    spriteBatch.DrawString(fontti, "...", new Vector2(560, 75), Color.Red);
+                }
                 spriteBatch.Draw(käsi, new Vector2(Mouse.GetState().X - 100, Mouse.GetState().Y - 100), Color.White);
-            } 
-            
+             
+            }
+           
+
+            if (voitto == true && häviö == false)
+            {
+                spriteBatch.DrawString(fontti, "Vihdoinkin!", new Vector2(545, 50), Color.Red);
+            }
+
+            if (voitto == false && häviö == true || value < 100)
+            {
+                spriteBatch.DrawString(fontti, "Sinä saatanan", new Vector2(545, 50), Color.Red);
+                spriteBatch.DrawString(fontti, "kelvoton insinööri", new Vector2(535, 75), Color.Red);
+            }
         }
 
     }
