@@ -62,8 +62,10 @@ namespace InssiParty.Games
         private bool voitto = false;
         private bool gameOver = false;
 
+        //insinöörin muuttujat
         Texture2D insinööri;
-
+        Vector2 inssinopeus = new Vector2(110.0f, 0f);
+        Vector2 inssiposition = new Vector2(0, 100);
 
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
@@ -85,6 +87,7 @@ namespace InssiParty.Games
             //ladataan fontti
             fontti = Content.Load<SpriteFont>("DefaultFont");
 
+            //ladataan insinöörinkuva
             insinööri = Content.Load<Texture2D>("aawinsinööri");
 
             try
@@ -107,8 +110,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             //Console.WriteLine("Starting hello world");
-
-            value = 500;
+            value = 500;    
         }
 
         public override void Stop()
@@ -120,6 +122,16 @@ namespace InssiParty.Games
         {
             var MouseState = Mouse.GetState(); //Määritetään hiiri
             var MousePosition = new Point(MouseState.X, MouseState.Y); // hiiren sijainti ruudulla koordinaatteina
+
+            //lisätty insinöörikuvan liikkuminen pois ruudulta
+            int MaxX = 0;
+            inssiposition += inssinopeus * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (inssiposition.X >= MaxX)
+            {
+                inssinopeus *= -1;
+                inssiposition.X = MaxX;
+                inssiposition.Y = 100;
+            }
 
             //hiiren määrityksiä yhdelle klikkaukselle
             lastMouseState = currentMouseState;
@@ -188,13 +200,11 @@ namespace InssiParty.Games
             if (silityskerrat == 5)
             {
                 voitto = true;
-                //CloseGame(true);
             }
 
             if (silitysvirhe == 5 || value == 50 && voitto == false)
             {
                 gameOver = true;
-                //CloseGame(false);
             }
 
             if (silityskerrat == 5 && value == 0)
@@ -216,7 +226,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            //Console.WriteLine("Draw " + value);
 
             if (voitto == false && gameOver == false)
             {
@@ -226,9 +236,9 @@ namespace InssiParty.Games
                         Mouse.GetState().Y - 100), Color.White);
             }
 
-            if (voitto == false && gameOver == false && value > 400)
+            if (voitto == false && gameOver == false && value > 395)
             {
-                spriteBatch.Draw(insinööri, new Vector2(0, 100), Color.White);
+                spriteBatch.Draw(insinööri, inssiposition, Color.White);
             }
 
             if (voitto == true)
