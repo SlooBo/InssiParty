@@ -41,6 +41,7 @@ namespace InssiParty.Games
         private Texture2D[] pythonImages;
 
         private Texture2D cursorTexture;
+        private Texture2D barTexture;
 
         private SpriteFont font;
 
@@ -50,6 +51,7 @@ namespace InssiParty.Games
         //Player needs 5 points to win
         private int points;
         private int errors;
+        private int timer;
 
         /* True for cpp, false for python! */
         private bool leftOption;
@@ -87,6 +89,9 @@ namespace InssiParty.Games
             cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
             cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
 
+            barTexture = new Texture2D(GraphicsDevice, 1, 1);
+            barTexture.SetData(new Color[] { Color.White });
+
             try
             {
                 soundWrong = Content.Load<SoundEffect>("SpotTheLanguage/wrongFinal");
@@ -114,12 +119,16 @@ namespace InssiParty.Games
             rightID = 0;
 
             resetLanguages();
+            timer = 800;
         }
 
         public override void Stop() { }
 
         public override void Update(GameTime gameTime)
         {
+            timer = timer - 2;
+            timerBar.Width = timer;
+
             //get a button click "event"
             if (Mouse.GetState().LeftButton != lastMouseState && Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
@@ -158,6 +167,9 @@ namespace InssiParty.Games
 
             if (points > POINTS_TO_WIN)
                 CloseGame(true);
+
+            if (timer < 0)
+                CloseGame(false);
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
@@ -187,6 +199,10 @@ namespace InssiParty.Games
 
             //Draw current status
 
+            //Timer
+            spriteBatch.Draw(barTexture, timerBar, Color.White);
+
+            //Scores and errors
             spriteBatch.DrawString(font, "Points: " + points + " " + " Errors: " + errors, new Vector2(0, 580), Color.Green);
         }
 
