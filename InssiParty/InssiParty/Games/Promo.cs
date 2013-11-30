@@ -22,7 +22,7 @@ namespace InssiParty.Games
     class Promo : GameBase
     {
         SpriteBatch spritebatch;
-        
+
         //variablesit
         private int value;
         private bool osuma = false;
@@ -31,21 +31,25 @@ namespace InssiParty.Games
         private Vector2 atj_kohta;
         private List<ATJ> ATJs = new List<ATJ>();
         private Random random = new Random();
+        ATJ atj;
 
         float spawn = 0;
         //Tekstuurit
-        
+
         private Texture2D inssi;
-        private ATJ atj;
+        private Texture2D atj_tex;
 
         private Rectangle inssi_alue;
         private Rectangle atj_alue;
-                                 
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             spritebatch = new SpriteBatch(GraphicsDevice);
             inssi = Content.Load<Texture2D>("Nyancat");
+            atj_tex = Content.Load<Texture2D>("propelli");
+            atj = new ATJ(atj_tex, atj_kohta);
+
         }
 
         /**
@@ -56,7 +60,7 @@ namespace InssiParty.Games
         public override void Start()
         {
             Console.WriteLine("Starting Väistä ATJ-Promoja");
-            
+
             value = 1000;
 
             //inssin liikkeiden vektoreita
@@ -67,7 +71,7 @@ namespace InssiParty.Games
                 (int)(inssi_kohta.Y - inssi.Height / 2), inssi.Width, inssi.Height);
 
             atj_kohta = new Vector2(600, 400);
-            
+
         }
 
         /**
@@ -152,18 +156,42 @@ namespace InssiParty.Games
             atj_alue.X = (int)atj_kohta.X;
             atj_alue.Y = (int)atj_kohta.Y;
 
+            spawn += (float)gameTime.ElapsedGameTime.Seconds;
+
+            //foreach(ATJ ATJ in ATJs)
+            //{
+            //    ATJ.Update();
+            //}
+
             if (value < 0)
             {
                 CloseGame(true);
             }
 
-        
-        //    atj.Update(value);
 
-        //    foreach (ATJ item in ATJs)
-        //    {
-        //        item.Update(gameTime);
-        //    }
+        }
+
+        public void LoadATJ()
+        {
+            if (spawn >= 1)
+            {
+                if (ATJs.Count() > 4)
+                {
+                    spawn = 0;
+                    ATJs.Add(new ATJ(atj_tex, new Vector2(900, random.Next(100, 500))));
+                    Console.WriteLine("ATJt:" + ATJs.Count);
+                }
+
+            }
+
+            for (int i = 0; i < ATJs.Count; i++)
+            {
+                if (!ATJs[i].Visible)
+                {
+                    ATJs.RemoveAt(i);
+                    i--;
+                }
+            }
         }
         /**
          * Pelkkä piirtäminen
@@ -174,12 +202,16 @@ namespace InssiParty.Games
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            foreach (ATJ ATJ in ATJs)
+            {
+                //ATJ.Update(spritebatch
+                Console.WriteLine("Draw " + value);
 
-            //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            //Palikka piirretään y akselilla, valuen kohtaan
-            spriteBatch.Draw(inssi, inssi_kohta, Color.White);
+                //spriteBatch.Draw funktiolla voit piirtää ruudulle.
+                //Palikka piirretään y akselilla, valuen kohtaan
+                spriteBatch.Draw(inssi, inssi_kohta, Color.White);
+            }
+
         }
-
     }
 }

@@ -23,7 +23,7 @@ namespace InssiParty.Games
             tekstuuri = newTex;
             kohta = newPos;
 
-            randX = random.Next(-4, 4);
+            randX = random.Next(1, 4);
             randY = random.Next(-4, 4);
 
             nopeus = new Vector2(randX, randY);
