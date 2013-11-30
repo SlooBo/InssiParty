@@ -15,6 +15,8 @@ namespace InssiParty.Games
     // * Timers
     // * Epic sound effects
     // * Ending triggers
+    // * +1 and -1 floating texts
+    // * Actual images
 
 
     /**
@@ -35,6 +37,8 @@ namespace InssiParty.Games
         private Texture2D[] pythonImages;
 
         private Texture2D cursorTexture;
+
+        private SpriteFont font;
 
         //Player needs 5 points to win
         private int points;
@@ -60,6 +64,8 @@ namespace InssiParty.Games
             cppImages = new Texture2D[LANG_CPP_COUNT];
 
             cursorTexture = Content.Load<Texture2D>("palikka");
+
+            font = Content.Load<SpriteFont>("DefaultFont");
 
             //Load the images
             pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
@@ -150,6 +156,10 @@ namespace InssiParty.Games
             }
 
             spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
+
+            //Draw current status
+
+            spriteBatch.DrawString(font, "Points: " + points + " " + " Errors: " + errors, new Vector2(0, 580), Color.Green);
         }
 
         /**
