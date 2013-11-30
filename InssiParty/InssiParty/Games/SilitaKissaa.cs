@@ -207,12 +207,12 @@ namespace InssiParty.Games
                 gameOver = true;
             }
 
-            if (silityskerrat == 5 && value == 0)
+            if (silityskerrat == 5 && value == 0 && voitto == true)
             {
                 CloseGame(true);
             }
 
-            if (silitysvirhe == 5 && value == 50)
+            if ( value == 0 && voitto == false)
             {
                 CloseGame(false);
             }
@@ -226,7 +226,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //Console.WriteLine("Draw " + value);
+            Console.WriteLine("Draw " + value);
 
             if (voitto == false && gameOver == false)
             {

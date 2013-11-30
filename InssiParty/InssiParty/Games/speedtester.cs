@@ -24,9 +24,6 @@ namespace InssiParty.Games
         //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
         //ladattavat kuvat
         Texture2D taustakuva; //esitellään taustakuva
         Texture2D haaleanappikuva; //esitellään nappikuva
@@ -100,24 +97,14 @@ namespace InssiParty.Games
             value = 500;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Update(GameTime gameTime)
         {
             value--;
-
 
             if (gameRunning == true)
             {
@@ -138,7 +125,7 @@ namespace InssiParty.Games
             }
 
             //määritykset yhdelle painallukselle
-            previous = keys; //
+            previous = keys; 
             keys = Keyboard.GetState();
 
             if ( gameRunning == true)
@@ -151,7 +138,7 @@ namespace InssiParty.Games
                     {
                         nappi = random.Next(1, 5);
                         pisteet = pisteet + 1; //lisätään pisteitä
-                        aika = +1; // aika on nolla?
+                        aika = +1; 
                     }
                     else
                     {

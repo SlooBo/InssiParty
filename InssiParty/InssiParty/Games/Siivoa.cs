@@ -11,17 +11,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
-
-    /**
-     * Uuden pelin luominen
-     * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostoss
-
     /**
      * Siivoa insinöörin kämppä
      * 
-     * Selitys pelistä
+     * Klikkaile hiiren vasemmalla painikkeella kaikki tavarat pois pöydältä ennen kuin aika loppuu
      * 
      * By: Annika Veteli
      */
@@ -120,20 +113,11 @@ namespace InssiParty.Games
             value = 500;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
             Console.WriteLine("Closing hello world");
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Update(GameTime gameTime)
         {
             value--;
