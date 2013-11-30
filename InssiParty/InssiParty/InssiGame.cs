@@ -14,12 +14,11 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
-    // -> Schedule timing for this project
     // -> transition screens
     // -> Better menu screen
     // -> Point / Life counters for the gameplay.
     // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
-    // -> stats/achievement system ?!?
+    // -> HelloWorld starts for no good reason when closing a game!
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {

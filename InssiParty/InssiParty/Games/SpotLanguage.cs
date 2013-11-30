@@ -30,6 +30,9 @@ namespace InssiParty.Games
     {
         Random random;
 
+        private const int MAX_ERRORS = 3;
+        private const int POINTS_TO_WIN = 10;
+
         private const int LANG_CPP_COUNT = 3;
         private const int LANG_PYTHON_COUNT = 3;
 
@@ -55,6 +58,8 @@ namespace InssiParty.Games
         private ButtonState lastMouseState;
         private Vector2 cursorPos;
 
+        Rectangle timerBar;
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             random = new Random();
@@ -66,6 +71,8 @@ namespace InssiParty.Games
             cursorTexture = Content.Load<Texture2D>("palikka");
 
             font = Content.Load<SpriteFont>("DefaultFont");
+
+            timerBar = new Rectangle(0, 580, 800, 20);
 
             //Load the images
             pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
@@ -131,12 +138,18 @@ namespace InssiParty.Games
 
             lastMouseState = Mouse.GetState().LeftButton;
 
-            cursorPos.X = Mouse.GetState().X;
-            cursorPos.Y = Mouse.GetState().Y;
+            if (errors > MAX_ERRORS)
+                CloseGame(false);
+
+            if (points > POINTS_TO_WIN)
+                CloseGame(true);
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            cursorPos.X = Mouse.GetState().X;
+            cursorPos.Y = Mouse.GetState().Y;
+
             if (leftOption == true)
             {
                 spriteBatch.Draw(cppImages[leftID], new Vector2(0, 0), Color.White);
@@ -198,13 +211,13 @@ namespace InssiParty.Games
 
 
             particleManager.AddParticle(
-                cursorTexture,                                         // Texture
-                new Vector2(Mouse.GetState().X, Mouse.GetState().Y),   // Position
-                new Vector2(-200, -200),                                 // Min speed on x / y axis
-                new Vector2(200, 200),                                   // Max speed on x / y axis
-                10,                                                    // Min time to live
-                70,                                                    // Max time to live
-                500);                                                   // Count of the particles
+                cursorTexture,                                        // Texture
+                new Vector2(215, 590),   // Position
+                new Vector2(-50, -50),                                // Min speed on x / y axis
+                new Vector2(50, 50),                                  // Max speed on x / y axis
+                2,                                                    // Min time to live
+                5,                                                    // Max time to live
+                10);                                                  // Count of the particles
         }
     }
 }
