@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
@@ -42,6 +43,9 @@ namespace InssiParty.Games
         private Texture2D cursorTexture;
 
         private SpriteFont font;
+
+        private bool soundOk;
+        private SoundEffect soundWrong;
 
         //Player needs 5 points to win
         private int points;
@@ -82,6 +86,17 @@ namespace InssiParty.Games
             cppImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
             cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
             cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+
+            try
+            {
+                soundWrong = Content.Load<SoundEffect>("SpotTheLanguage/wrongFinal");
+                soundOk = true;
+            }
+            catch (Exception eeek)
+            {
+                Console.WriteLine(eeek.Message);
+                soundOk = false;
+            }
 
             //Create objects
 
@@ -201,6 +216,17 @@ namespace InssiParty.Games
             points++;
             resetLanguages();
             Console.WriteLine("Correct choice!");
+
+            particleManager.AddParticle(
+                cursorTexture, //TODO: Change this to green something or "+1" image.
+                new Vector2(215, 590),                                // Position
+                new Vector2(-50, -50),                                // Min speed on x / y axis
+                new Vector2(50, 50),                                  // Max speed on x / y axis
+                2,                                                    // Min time to live
+                5,                                                    // Max time to live
+                10);                                                  // Count of the particles
+
+            //TODO: add sound here
         }
 
         private void invalidChoice()
@@ -212,12 +238,14 @@ namespace InssiParty.Games
 
             particleManager.AddParticle(
                 cursorTexture,                                        // Texture
-                new Vector2(215, 590),   // Position
+                new Vector2(215, 590),                                // Position
                 new Vector2(-50, -50),                                // Min speed on x / y axis
                 new Vector2(50, 50),                                  // Max speed on x / y axis
                 2,                                                    // Min time to live
                 5,                                                    // Max time to live
                 10);                                                  // Count of the particles
+
+            soundWrong.Play();
         }
     }
 }
