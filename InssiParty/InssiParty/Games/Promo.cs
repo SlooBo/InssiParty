@@ -38,7 +38,9 @@ namespace InssiParty.Games
 
         private Texture2D inssi;
         private Texture2D atj_tex;
+        private Texture2D background;
 
+        //rectanglet
         private Rectangle inssi_alue;
         private Rectangle atj_alue;
 
@@ -158,7 +160,7 @@ namespace InssiParty.Games
 
             spawn += (float)gameTime.ElapsedGameTime.Seconds;
 
-            //foreach(ATJ ATJ in ATJs)
+            //foreach (ATJ ATJ in ATJs)
             //{
             //    ATJ.Update();
             //}
@@ -204,14 +206,12 @@ namespace InssiParty.Games
         {
             foreach (ATJ ATJ in ATJs)
             {
-                //ATJ.Update(spritebatch
-                Console.WriteLine("Draw " + value);
-
-                //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-                //Palikka piirretään y akselilla, valuen kohtaan
-                spriteBatch.Draw(inssi, inssi_kohta, Color.White);
+                ATJ.Draw(spriteBatch);               
             }
-
+            
+            Console.WriteLine("Draw " + value);
+            spriteBatch.Draw(inssi, inssi_kohta, Color.White);
+                   
         }
     }
 }
