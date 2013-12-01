@@ -96,13 +96,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpotTheLanguage\spot_cpp1.png">
-      <Name>spot_cpp1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="SpotTheLanguage\spot_python1.png">
-      <Name>spot_python1</Name>
+    <Compile Include="SpotTheLanguage\spot_right1.png">
+      <Name>spot_right1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -755,6 +750,20 @@
   <ItemGroup>
     <Compile Include="SpotTheLanguage\wrongFinal.wav">
       <Name>wrongFinal</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SpotTheLanguage\spot_wrong1.png">
+      <Name>spot_wrong1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SpotTheLanguage\rightFinal.wav">
+      <Name>rightFinal</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

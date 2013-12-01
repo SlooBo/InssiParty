@@ -47,6 +47,7 @@ namespace InssiParty.Games
 
         private bool soundOk;
         private SoundEffect soundWrong;
+        private SoundEffect soundRight;
 
         //Player needs 5 points to win
         private int points;
@@ -81,13 +82,13 @@ namespace InssiParty.Games
             timerBar = new Rectangle(0, 580, 800, 20);
 
             //Load the images
-            pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
-            pythonImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
-            pythonImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_python1");
+            pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
+            pythonImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
+            pythonImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
 
-            cppImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
-            cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
-            cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_cpp1");
+            cppImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
+            cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
+            cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
 
             barTexture = new Texture2D(GraphicsDevice, 1, 1);
             barTexture.SetData(new Color[] { Color.White });
@@ -95,6 +96,7 @@ namespace InssiParty.Games
             try
             {
                 soundWrong = Content.Load<SoundEffect>("SpotTheLanguage/wrongFinal");
+                soundRight = Content.Load<SoundEffect>("SpotTheLanguage/rightFinal");
                 soundOk = true;
             }
             catch (Exception eeek)
@@ -126,7 +128,7 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
-            timer = timer - 2;
+            timer = timer - 1;
             timerBar.Width = timer;
 
             //get a button click "event"
@@ -242,7 +244,8 @@ namespace InssiParty.Games
                 5,                                                    // Max time to live
                 10);                                                  // Count of the particles
 
-            //TODO: add sound here
+            if (soundOk)
+                soundRight.Play();
         }
 
         private void invalidChoice()
@@ -261,7 +264,8 @@ namespace InssiParty.Games
                 5,                                                    // Max time to live
                 10);                                                  // Count of the particles
 
-            soundWrong.Play();
+            if(soundOk)
+                soundWrong.Play();
         }
     }
 }

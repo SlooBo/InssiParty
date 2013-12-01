@@ -167,7 +167,7 @@ namespace InssiParty
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
-            addGame(new SpotLanguage(), "Spot the real coding language", "Valitse oikea ohjelmointi kieli.", false, "Lauri Mäkinen");
+            addGame(new SpotLanguage(), "Spot the real coding language", "Tunnista ohjelmointi-kielie, skripti-kielistä.", false, "Lauri Mäkinen");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false, "Creator missing!");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false, "Creator missing!");
