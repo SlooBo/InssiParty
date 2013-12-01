@@ -31,8 +31,8 @@ namespace InssiParty.Games
     {
         Random random;
 
-        private const int MAX_ERRORS = 3;
-        private const int POINTS_TO_WIN = 10;
+        private const int MAX_ERRORS = 2;
+        private const int POINTS_TO_WIN = 7;
 
         private const int LANG_CPP_COUNT = 3;
         private const int LANG_PYTHON_COUNT = 3;
@@ -83,12 +83,12 @@ namespace InssiParty.Games
 
             //Load the images
             pythonImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
-            pythonImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
-            pythonImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong1");
+            pythonImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong2");
+            pythonImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_wrong3");
 
             cppImages[0] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
-            cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
-            cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_right1");
+            cppImages[1] = Content.Load<Texture2D>("SpotTheLanguage/spot_right2");
+            cppImages[2] = Content.Load<Texture2D>("SpotTheLanguage/spot_right3");
 
             barTexture = new Texture2D(GraphicsDevice, 1, 1);
             barTexture.SetData(new Color[] { Color.White });
