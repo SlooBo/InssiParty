@@ -53,6 +53,9 @@ namespace InssiParty.Games
             {
                 randX = random.Next(-4, -1);
             }
+
+            if (kohta.X < 0 - tekstuuri.Width)
+                Visible = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)

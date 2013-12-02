@@ -21,6 +21,7 @@ namespace InssiParty.Games
      */
     class Promo : GameBase
     {
+        GraphicsDevice graphics;
         SpriteBatch spritebatch;
 
         //variablesit
@@ -28,12 +29,10 @@ namespace InssiParty.Games
         private bool osuma = false;
 
         private Vector2 inssi_kohta, inssi_nopeus, inssi_vauhti;
-        private Vector2 atj_kohta;
-        private List<ATJ> ATJs = new List<ATJ>();
+        private List<ATJ> ATJs;
         private Random random = new Random();
-        ATJ atj;
+        private float spawn = 0;
 
-        float spawn = 0;
         //Tekstuurit
 
         private Texture2D inssi;
@@ -50,8 +49,6 @@ namespace InssiParty.Games
             spritebatch = new SpriteBatch(GraphicsDevice);
             inssi = Content.Load<Texture2D>("Nyancat");
             atj_tex = Content.Load<Texture2D>("propelli");
-            atj = new ATJ(atj_tex, atj_kohta);
-
         }
 
         /**
@@ -72,8 +69,7 @@ namespace InssiParty.Games
             inssi_alue = new Rectangle((int)(inssi_kohta.X - inssi.Width / 2),
                 (int)(inssi_kohta.Y - inssi.Height / 2), inssi.Width, inssi.Height);
 
-            atj_kohta = new Vector2(600, 400);
-
+            ATJs = new List<ATJ>();
         }
 
         /**
@@ -82,6 +78,8 @@ namespace InssiParty.Games
         public override void Stop()
         {
             Console.WriteLine("Closing Väistä ATJ-Promoja");
+
+            ATJs = null;
         }
 
         /**
@@ -155,15 +153,12 @@ namespace InssiParty.Games
             inssi_alue.X = (int)inssi_kohta.X;
             inssi_alue.Y = (int)inssi_kohta.Y;
 
-            atj_alue.X = (int)atj_kohta.X;
-            atj_alue.Y = (int)atj_kohta.Y;
-
             spawn += (float)gameTime.ElapsedGameTime.Seconds;
 
-            //foreach (ATJ ATJ in ATJs)
-            //{
-            //    ATJ.Update();
-            //}
+            foreach (ATJ ATJ in ATJs)
+            {
+                ATJ.Update(graphics);
+            }
 
             if (value < 0)
             {
@@ -173,14 +168,18 @@ namespace InssiParty.Games
 
         }
 
+        //vihollisten spawnaaminen
         public void LoadATJ()
         {
+
+            int randY = random.Next(100, 400);
+
             if (spawn >= 1)
             {
                 if (ATJs.Count() > 4)
                 {
                     spawn = 0;
-                    ATJs.Add(new ATJ(atj_tex, new Vector2(900, random.Next(100, 500))));
+                    ATJs.Add(new ATJ(atj_tex, new Vector2(500, randY)));
                     Console.WriteLine("ATJt:" + ATJs.Count);
                 }
 
@@ -195,13 +194,7 @@ namespace InssiParty.Games
                 }
             }
         }
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
+
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             foreach (ATJ ATJ in ATJs)
