@@ -137,13 +137,13 @@ namespace InssiParty.Games
             {
                 inssi_kohta.Y = 0;
             }
-            if (inssi_kohta.X > 800 - 32)
+            if (inssi_kohta.X > 800 - inssi.Width / 2)
             {
-                inssi_kohta.X = 800 - 32;
+                inssi_kohta.X = 800 - inssi.Width / 2;
             }
-            if (inssi_kohta.Y > 600 - 32)
+            if (inssi_kohta.Y > 600 - inssi.Height / 2)
             {
-                inssi_kohta.Y = 600 - 32;
+                inssi_kohta.Y = 600 - inssi.Height / 2;
             }
 
 

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace InssiParty.Games
 {
-    class ATJ
+    public class ATJ
     {
         protected Texture2D tekstuuri;
         protected Vector2 nopeus;

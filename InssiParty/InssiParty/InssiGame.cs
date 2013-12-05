@@ -177,7 +177,7 @@ namespace InssiParty
             //addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", false, "Jouni Friman");
             addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Annika Veteli");
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
-            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Creator missing!");
+            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Toni Sarvela!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Miika 'Toopala' Saastamoinen");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Annika Veteli");
