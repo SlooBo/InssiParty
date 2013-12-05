@@ -38,7 +38,7 @@ namespace InssiParty.Games
         //Esitellään muuttujat
         int nappi;
         private int value;
-        private string [] numValues;
+        private string[] numValues;
         private int fail_counter;
         private int success_counter;
         Random random;
@@ -60,7 +60,7 @@ namespace InssiParty.Games
         //bool gameover = false;  //samaa muuttujaa alustat kaksi kertaa
         bool win = false;
         bool gameRunning = true;
-        
+
         /**
          * 
          * 
@@ -92,10 +92,10 @@ namespace InssiParty.Games
             Console.WriteLine("Starting hello world");
 
             random = new Random();
-            
-            fail_counter=0;
 
-            success_counter=0;
+            fail_counter = 0;
+
+            success_counter = 0;
 
             painettava = random.Next(1, 4); //määritellään random nappi
 
@@ -237,7 +237,7 @@ namespace InssiParty.Games
             {
                 CloseGame(false);
             }
-            
+
 
             if (success_counter == 5)
             {
@@ -271,7 +271,7 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
 
-            spriteBatch.DrawString(font, "Paina: " + numValues[painettava],new Vector2(10, 10), Color.Turquoise);
+            spriteBatch.DrawString(font, "Paina: " + numValues[painettava], new Vector2(10, 10), Color.Turquoise);
 
             spriteBatch.Draw(backround_texture, new Vector2(100, 100), Color.White);
 
@@ -281,11 +281,11 @@ namespace InssiParty.Games
 
             spriteBatch.Draw(OpeningCan, new Vector2(100, 100), Color.White);
 
-            spriteBatch.Draw(EmptyCan, new Vector2(100,100), Color.White);
+            spriteBatch.Draw(EmptyCan, new Vector2(100, 100), Color.White);
 
-            
 
-         
+
+
 
 
 
