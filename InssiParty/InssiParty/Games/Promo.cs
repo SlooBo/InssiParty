@@ -120,7 +120,12 @@ namespace InssiParty.Games
             {
                 inssi_vauhti.Y = -inssi_nopeus.Y;
             }
+            int randY = random.Next(100, 400);
+            if (keyboard.IsKeyDown(Keys.Space))
+            {
 
+                ATJs.Add(new ATJ(atj_tex, new Vector2(500, randY)));
+            }
             //rajaa pelaajan liikkumisen ruudun sisään
             inssi_kohta += inssi_vauhti;
 
