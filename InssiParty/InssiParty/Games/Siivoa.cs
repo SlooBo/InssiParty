@@ -278,8 +278,9 @@ namespace InssiParty.Games
 
             if (voitto == false && häviö == true)
             {
-                spriteBatch.DrawString(fontti, "Sinä saatanan", new Vector2(545, 50), Color.Red);
-                spriteBatch.DrawString(fontti, "kelvoton insinööri", new Vector2(535, 75), Color.Red);
+                spriteBatch.DrawString(fontti, "Sinä saatanan", new Vector2(545, 45), Color.Red);
+                spriteBatch.DrawString(fontti, "kelvoton", new Vector2(539, 60), Color.Red);
+                spriteBatch.DrawString(fontti, "insinööri", new Vector2(545, 79), Color.Red);
             }
         }
 

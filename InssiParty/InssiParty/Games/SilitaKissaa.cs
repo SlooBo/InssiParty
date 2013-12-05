@@ -226,7 +226,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            //Console.WriteLine("Draw " + value);
 
             if (voitto == false && gameOver == false)
             {
