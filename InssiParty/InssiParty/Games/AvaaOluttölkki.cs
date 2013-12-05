@@ -57,7 +57,7 @@ namespace InssiParty.Games
         private Texture2D backround_texture;
         private Texture2D gameover;
 
-        bool gameover = false;
+        //bool gameover = false;  //samaa muuttujaa alustat kaksi kertaa
         bool win = false;
         bool gameRunning = true;
         
@@ -74,7 +74,8 @@ namespace InssiParty.Games
             EmptyCan = Content.Load<Texture2D>("Can-Empty");
             font = Content.Load<SpriteFont>("DefaultFont");
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
-            gameover = Content.Load<Texture2D>("gameover");
+           // gameover = Content.Load<Texture2D>("gameover");
+            //Boolean johonka laitetaan tekstuuria jota myöhemmin käytetään äänenä ?!?
         }
 
         /**
@@ -117,6 +118,7 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
+            /*
             value--;
 
             if (gameRunning == true)
@@ -252,6 +254,7 @@ namespace InssiParty.Games
                 CloseGame(false);
 
             }
+              */
         }
 
         /**
