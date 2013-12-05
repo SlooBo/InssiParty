@@ -36,13 +36,18 @@ namespace InssiParty.Games
     class Olut : GameBase
     {
         //Esitellään muuttujat
+        int nappi;
         private int value;
         private string [] numValues;
         private int fail_counter;
         private int success_counter;
-        Random rnd = new Random();
+        Random random;
         private string syöte;
         int painettava;
+        int aika;
+
+        KeyboardState keys;
+        KeyboardState previous;
 
         //Esitellään tekstuurit
         private Texture2D Can;
@@ -51,6 +56,10 @@ namespace InssiParty.Games
         SpriteFont font;
         private Texture2D backround_texture;
         private Texture2D gameover;
+
+        bool gameover = false;
+        bool win = false;
+        bool gameRunning = true;
         
         /**
          * 
@@ -79,13 +88,15 @@ namespace InssiParty.Games
 
             value = 500;
 
-            numValues = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            Console.WriteLine("Starting hello world");
+
+            random = new Random();
             
             fail_counter=0;
 
             success_counter=0;
 
-            painettava = rnd.Next(27);
+            painettava = random.Next(1, 4); //määritellään random nappi
 
             backround_texture = Can;
         }
@@ -106,29 +117,127 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            while(success_counter<6||fail_counter<4)
+            value--;
+
+            if (gameRunning == true)
             {
-                
-                Keyboard.GetState().GetPressedKeys();
-
-                if (syöte == numValues[painettava])
+                aika = aika + 1;
+                if (aika >= 60)
                 {
-                    success_counter++;
-                }
+                    aika = 0;
+                    nappi = random.Next(1, 5);
+                    pisteet = pisteet - 1; //vähennetään pisteitä
+                    gameRunning = false;
+                    gameover = true;
 
-                else if (syöte != numValues[painettava])
-                {
-                    fail_counter++;
-                    
+                    if (soundLoaded)
+                    {
+                        Gameover.Play();
+                    }
                 }
-
-               }
-            if (success_counter < 3 && fail_counter == 0)
-            {
-                Can = OpeningCan;
             }
 
-            else if (success_counter == 5)
+            //määritykset yhdelle painallukselle
+            previous = keys;
+            keys = Keyboard.GetState();
+
+            if (gameRunning == true)
+            {
+
+                //Määritetään A-näppäin ja pistelaskuri
+                if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) //jos A-näppäin on painettuna alas
+                {
+                    if (nappi == 1) //ja jos nappi on yksi
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1; //lisätään pisteitä
+                        aika = +1;
+                    }
+                    else
+                    {
+                        gameover = true; //jos ei paineta gameover true
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+
+                if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))//määritetään jos s-näppäin on pohjassa
+                {
+                    if (nappi == 2) // jos nappi on 2
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1; // lisätään piste
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+                if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
+                {
+                    if (nappi == 3)
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1;
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+                if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
+                {
+                    if (nappi == 4)
+                    {
+                        nappi = random.Next(1, 5);
+                        pisteet = pisteet + 1;
+                        aika = 0;
+                    }
+                    else
+                    {
+                        gameover = true;
+                        gameRunning = false;
+                        if (soundLoaded)
+                        {
+                            Gameover.Play();
+                        }
+                    }
+                }
+
+                if (value == 100)
+                {
+                    win = true;
+                    gameRunning = false;
+                }
+            }
+
+            if (value == 0 && win == true && gameover == false)
+            {
+                CloseGame(true);
+            }
+
+            if (gameover == true && win == false && value == 0)
+            {
+                CloseGame(false);
+            }
+            
+
+            if (success_counter == 5)
             {
                 OpeningCan = EmptyCan;
 
