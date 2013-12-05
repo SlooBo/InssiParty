@@ -181,7 +181,7 @@ namespace InssiParty
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Miika 'Toopala' Saastamoinen");
             addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Annika Veteli");
-            addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
+            //addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
             addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");
             addGame(new valikko(), "valikko:demo", "valikko:demo", false, "Creator missing!");
             addGame(new Siivoa(), "Siivoa insinöörin kämppä","klikkaile hiirellä tavarat pois", false, "Annika Veteli");
