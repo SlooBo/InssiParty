@@ -12,7 +12,7 @@ namespace InssiParty.Games
     class valikko_demo : GameBase
     {
         //variaabelit
-        private int value;
+        private int value, value2, scaleX, scaleY, moveX, moveY;
 
         //Tekstuurit
         Texture2D backgroundTexture, logoTexture, koodiTexture;
@@ -21,7 +21,8 @@ namespace InssiParty.Games
         //rektanglet
         Rectangle background = new Rectangle(0, 0, 800, 600);
         Rectangle logoRect = new Rectangle(130, 50, 561, 299);
-        Rectangle koodiRect = new Rectangle(-1502+800, 0, 1502, 2985);
+        Vector2 koodiVector = new Vector2();
+        Vector2 logoVector = new Vector2();
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -38,8 +39,16 @@ namespace InssiParty.Games
         public override void Start()
         {
             Console.WriteLine("Starting hello world");
-            
+            koodiVector.Y = 0;
+            koodiVector.X = -1502 + 800;
+            logoVector.X = 0;
+            logoVector.Y = 0;
+            scaleX = 8;
+            scaleY = 8;
+            moveX = -4;
+            moveY = -4;
             value = 0;
+            value2 = 0;
         }
 
         /**
@@ -52,22 +61,65 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
+            value++;
+            //anykey hallinta
             sprite.anykeyMovement(gameTime);
             sprite.Animate(gameTime);
-            
+
+            //koodivektori hallinta
+            koodiVector.Y -= 5;
+            koodiVector.X += 1.81f;
+
+            if (koodiVector.X > 107) 
+            {
+                koodiVector.X = -1502 + 800;
+                koodiVector.Y = 0;
+            }
+
+            //logo hallinta
+
+            if (value > 100)
+            {
+                logoRect.Width += scaleX;
+                logoRect.Height += scaleY;
+                logoRect.X += moveX;
+                logoRect.Y += moveY;
+
+                if (logoRect.Height > 400)
+                {
+                    scaleX = -8;
+                    scaleY = -8;
+                    moveX = 4;
+                    moveY = 4;
+                }
+                if (logoRect.Height < 300)
+                {
+                    scaleX = 8;
+                    scaleY = 8;
+                    moveX = -4;
+                    moveY = -4;
+                    value2++;
+                }
+                
+            }
+            if (value2 > 2 || value2 == 2) 
+            {
+                value = 0;
+                value2 = 0;
+            }
+
             if (value < 0)
             {
                 CloseGame(true);
             }
-            koodiRect.X += 1;
-            koodiRect.Y -= 5;
+
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
-            spriteBatch.Draw(koodiTexture, koodiRect, Color.White);
-            spriteBatch.Draw(logoTexture, logoRect, Color.White);
+            spriteBatch.Draw(koodiTexture,koodiVector, Color.White);
+            spriteBatch.Draw(logoTexture,logoRect, Color.White);
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect, Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.None, 0);
         }
 
