@@ -12,6 +12,7 @@ namespace InssiParty.Games
         protected Texture2D tekstuuri;
         protected Vector2 nopeus;
         protected Vector2 kohta;
+        protected Rectangle atj_alue { get; private set; }
 
         public bool Visible = true;
 
@@ -23,38 +24,24 @@ namespace InssiParty.Games
             tekstuuri = newTex;
             kohta = newPos;
 
-            randX = random.Next(1, 4);
+            randX = random.Next(-4,-1);
             randY = random.Next(-4, 4);
 
             nopeus = new Vector2(randX, randY);
-
         }
 
-        public void Update(GraphicsDevice graphics)
+        public void Update()
         {
             kohta += nopeus;
 
-            if(kohta.Y <= graphics.Viewport.Height / 2)
+            if(kohta.Y <= 0 || kohta.Y >= 600 - tekstuuri.Height )
             {
-                randY = random.Next(1, 4);
+                nopeus.Y = -nopeus.Y;
             }
+
+            atj_alue = new Rectangle((int)kohta.X, (int)kohta.Y, tekstuuri.Width, tekstuuri.Height);
             
-            if(kohta.Y >= graphics.Viewport.Height / 2)
-            {
-                randY = random.Next(-4, 1);
-            }
-
-            if(kohta.X <= graphics.Viewport.Width - tekstuuri.Width)
-            {
-                randX = random.Next(1, 4);
-            }
-
-            if (kohta.X >= graphics.Viewport.Width + tekstuuri.Width)
-            {
-                randX = random.Next(-4, -1);
-            }
-
-            if (kohta.X < 0 - tekstuuri.Width)
+            if (kohta.X < 100 - tekstuuri.Width)
                 Visible = false;
         }
 
