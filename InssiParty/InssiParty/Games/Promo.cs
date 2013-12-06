@@ -25,12 +25,13 @@ namespace InssiParty.Games
 
         //variablesit
         private int value;
-        private bool osuma = false;
-
+        int randY;
+  
         private Vector2 inssi_kohta, inssi_nopeus, inssi_vauhti;
         private List<ATJ> ATJs;
         private Random random = new Random();
-        private float timer = 0;
+        private float timer;
+        private int health = 3;
 
         //Tekstuurit
 
@@ -38,10 +39,9 @@ namespace InssiParty.Games
         private Texture2D atj_tex;
         private Texture2D background;
 
-        //rectanglet
+        //rectangle
         private Rectangle inssi_alue;
-        private Rectangle atj_alue;
-
+    
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
@@ -62,6 +62,7 @@ namespace InssiParty.Games
             inssi_nopeus = new Vector2(5, 5);
             inssi_alue = new Rectangle((int)(inssi_kohta.X - inssi.Width / 2),
                 (int)(inssi_kohta.Y - inssi.Height / 2), inssi.Width, inssi.Height);
+            randY = random.Next(100, 500);
 
             ATJs = new List<ATJ>();
         }
@@ -77,8 +78,6 @@ namespace InssiParty.Games
         {
 
             value--;
-
-
             //    sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
 
             //liikkumistoiminnot
@@ -105,12 +104,6 @@ namespace InssiParty.Games
                 inssi_vauhti.Y = -inssi_nopeus.Y;
             }
 
-            int randY = random.Next(100, 500);
-            if (keyboard.IsKeyDown(Keys.Space))
-            {
-
-                ATJs.Add(new ATJ(atj_tex, new Vector2(900, randY)));
-            }
             //rajaa pelaajan liikkumisen ruudun sisään
             inssi_kohta += inssi_vauhti;
 
@@ -135,10 +128,6 @@ namespace InssiParty.Games
             inssi_alue.X = (int)inssi_kohta.X;
             inssi_alue.Y = (int)inssi_kohta.Y;
 
-            //if(ATJs.atj_alue.Intersects(inssi_alue)
-            //{
-
-            //}
             timer++;
 
             //vihollisten spawnaus
@@ -160,14 +149,33 @@ namespace InssiParty.Games
             foreach (ATJ ATJ in ATJs)
             {
                 ATJ.Update();
+
+                if (ATJ.atj_alue.Intersects(inssi_alue))
+                {
+                    health--;
+                    ATJ.Hit = false;
+                }
+                
+            }
+
+            for (int i = 0; i < ATJs.Count; i++)
+            {
+                if (!ATJs[i].Hit)
+                {
+                    ATJs.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            if (health == 0)
+            {
+                CloseGame(false);
             }
 
             if (value < 0)
             {
                 CloseGame(true);
             }
-
-
         }
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)

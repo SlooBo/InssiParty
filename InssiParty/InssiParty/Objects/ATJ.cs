@@ -12,9 +12,10 @@ namespace InssiParty.Games
         protected Texture2D tekstuuri;
         protected Vector2 nopeus;
         protected Vector2 kohta;
-        protected Rectangle atj_alue { get; private set; }
+        public Rectangle atj_alue { get; private set;}
 
         public bool Visible = true;
+        public bool Hit = true;
 
         Random random = new Random();
         int randX, randY;
