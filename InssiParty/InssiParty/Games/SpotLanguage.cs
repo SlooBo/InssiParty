@@ -233,7 +233,7 @@ namespace InssiParty.Games
         {
             points++;
             resetLanguages();
-            Console.WriteLine("Correct choice!");
+            Console.WriteLine("[SpotTheLanguage] Correct choice!");
 
             particleManager.AddParticle(
                 cursorTexture, //TODO: Change this to green something or "+1" image.
@@ -252,7 +252,7 @@ namespace InssiParty.Games
         {
             errors++;
             resetLanguages();
-            Console.WriteLine("Invalid!");
+            Console.WriteLine("[SpotTheLanguage] Invalid choice!");
 
 
             particleManager.AddParticle(
