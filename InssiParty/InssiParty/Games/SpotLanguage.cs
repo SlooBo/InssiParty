@@ -13,11 +13,7 @@ namespace InssiParty.Games
 {
 
     //TODO:
-    // * Timers
-    // * Epic sound effects
-    // * Ending triggers
-    // * +1 and -1 floating texts
-    // * Actual images
+    // * DONT ALLOW TWO SAME CODES IN A ROW!
 
 
     /**

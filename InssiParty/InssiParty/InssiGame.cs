@@ -27,7 +27,9 @@ namespace InssiParty
          * Main menu has selection if story,arcade and exit
          * Gamelist is before the arcade mode.
          */
-        private enum MenuState { IntroScreen, MainMenu, GameList }
+        private enum MenuState { IntroScreen, MainMenu, GameList, TransitionMode }
+
+        //Yes, this is getting really ugly, but the project just doesn't have enough time to do it on a proper scale.
 
         /**
          * In storymode next game and transitions are played automatically.
@@ -87,6 +89,21 @@ namespace InssiParty
 
         private List<GameBase> playableGames;
         private List<GameBase> gamesPlayed;
+
+        //Transition stuff
+        //variaabelit
+        private int TRANSITION_value, TRANSITION_moveX;
+
+        //Tekstuurit
+        Texture2D TRANSITION_backgroundTexture, TRANSITION_valiTexture, TRANSITION_sydanTexture, TRANSITION_tekstiTexture;
+
+        //rektanglet
+        Rectangle TRANSITION_background = new Rectangle(0, 0, 800, 600);
+        Rectangle TRANSITION_keskipalkki = new Rectangle(0, 180, 800, 220);
+        Rectangle TRANSITION_sydanRect = new Rectangle(136, 236, 128, 128);
+        Rectangle TRANSITION_sydanRect2 = new Rectangle(336, 236, 128, 128);
+        Rectangle TRANSITION_sydanRect3 = new Rectangle(536, 236, 128, 128);
+        Rectangle TRANSITION_tekstiRect = new Rectangle(-500, 290, 147, 21);
 
         //Random stuff
         Random random;
@@ -157,6 +174,11 @@ namespace InssiParty
 
             sprite.Position = new Vector2(400, 450);
 
+            //Transition stuff
+            TRANSITION_backgroundTexture = Content.Load<Texture2D>("tausta");
+            TRANSITION_valiTexture = Content.Load<Texture2D>("trans_palkit");
+            TRANSITION_sydanTexture = Content.Load<Texture2D>("sydan");
+            TRANSITION_tekstiTexture = Content.Load<Texture2D>("storymode");
             
             //Lisää pelisi tähän listaan!
             /* ############ */
@@ -272,6 +294,9 @@ namespace InssiParty
                     case MenuState.GameList:
                         GameListUpdate();
                         break;
+                    case MenuState.TransitionMode:
+                        TransitionUpdate();
+                        break;
                 }
 
             }
@@ -282,7 +307,7 @@ namespace InssiParty
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
             if (gameActive == true)
             {
@@ -306,6 +331,9 @@ namespace InssiParty
                         break;
                     case MenuState.GameList:
                         GameListDraw();
+                        break;
+                    case MenuState.TransitionMode:
+                        TransitionModeDraw();
                         break;
                 }
 
@@ -580,14 +608,68 @@ namespace InssiParty
             Console.WriteLine("[StoryManager] Points: " + points);
             Console.WriteLine("[StoryManager] HP    : " + HP);
 
+            //Stop games while the transition goes
+
             if (HP > 0)
             {
-                StartNextGame();
+                //start the transition, it will start the next game when needed
+                ResetTransition();
+                menuState = MenuState.TransitionMode;
             }
             else
             {
                 StopStory();
             }
         }
+
+
+        private void TransitionUpdate()
+        {
+            TRANSITION_value++;
+
+            TRANSITION_sydanRect.X += TRANSITION_moveX; TRANSITION_sydanRect2.X += TRANSITION_moveX; TRANSITION_sydanRect3.X += TRANSITION_moveX; TRANSITION_tekstiRect.X += TRANSITION_moveX;
+
+            if (TRANSITION_value > 150)
+            {
+                TRANSITION_moveX = 20;
+
+                if (TRANSITION_tekstiRect.X > 300 && TRANSITION_value < 400) //muuta
+                {
+                    TRANSITION_moveX = 0;
+                }
+            }
+            if (TRANSITION_value > 450)
+            {
+                //Transition has ended, now start the next game.
+                StartNextGame();
+            }
+        }
+
+
+        private void TransitionModeDraw()
+        {
+            spriteBatch.Draw(TRANSITION_backgroundTexture, TRANSITION_background, Color.White);
+            spriteBatch.Draw(TRANSITION_valiTexture, TRANSITION_keskipalkki, Color.White);
+            //TODO: only render the correct count of hearts
+            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect, Color.White);
+            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect2, Color.White);
+            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect3, Color.White);
+            spriteBatch.Draw(TRANSITION_tekstiTexture, TRANSITION_tekstiRect, Color.White);
+        }
+
+        private void ResetTransition()
+        {
+            //rektanglet
+            TRANSITION_background = new Rectangle(0, 0, 800, 600);
+            TRANSITION_keskipalkki = new Rectangle(0, 180, 800, 220);
+            TRANSITION_sydanRect = new Rectangle(136, 236, 128, 128);
+            TRANSITION_sydanRect2 = new Rectangle(336, 236, 128, 128);
+            TRANSITION_sydanRect3 = new Rectangle(536, 236, 128, 128);
+            TRANSITION_tekstiRect = new Rectangle(-500, 290, 147, 21);
+
+            TRANSITION_moveX = 0;
+            TRANSITION_value = 0;
+        }
+
     }
 }
