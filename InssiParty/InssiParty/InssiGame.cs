@@ -166,8 +166,6 @@ namespace InssiParty
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Miika 'Toopala' Saastamoinen");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true, "Creator missing!");
 
-            addGame(new SampleGame(), "Sample Game", "Pohjapeli",false,"Lauri Mäkinen");
-            addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false,"Lauri Mäkinen");
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
@@ -179,13 +177,22 @@ namespace InssiParty
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Toni Sarvela!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Miika 'Toopala' Saastamoinen");
-            addGame(new vali(), "demodemodemodemo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Annika Veteli");
-            //addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");
-            addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");
-            addGame(new valikko(), "valikko:demo", "valikko:demo", false, "Creator missing!");
+            //addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");   //This game is buggy
             addGame(new Siivoa(), "Siivoa insinöörin kämppä","klikkaile hiirellä tavarat pois", false, "Annika Veteli");
             addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", false,"Marko Sydänmaa");
+
+            //### Games to be implemented outside the game system:
+            addGame(new vali(), "Transition demo", "ASFJOPASFJOPASJOPF", false, "Creator missing!");
+            addGame(new valikko(), "valikko:demo", "valikko:demo", false, "Creator missing!");
+
+            //### Games to be dropped:
+            //    addGame(new valikko_demo(), "demodmeo2", "demodmeo2", false, "Creator missing!");    // Intro menu has been implemented.
+
+            // Example games for development:
+
+            //addGame(new SampleGame(), "Sample Game", "Pohjapeli", false, "Lauri Mäkinen");
+            //addGame(new HelloWorld(), "Hello World", "HelloWorld esimerkki", false, "Lauri Mäkinen");
 
             /* ############ */
 
