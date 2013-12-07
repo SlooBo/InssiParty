@@ -6,6 +6,7 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
@@ -31,14 +32,14 @@ namespace InssiParty.Games
             logoTexture = Content.Load<Texture2D>("logo_rotate");
             koodiTexture = Content.Load<Texture2D>("koodit_rotate");
 
+            //animaatio
             sprite = new AnimatedSprite(Content.Load<Texture2D>("anykey60f"), 0, 296, 42);
-
             sprite.Position = new Vector2(400,450);
         }
 
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            //alustukset
             koodiVector.Y = 0;
             koodiVector.X = -1502 + 800;
             logoVector.X = 0;
@@ -51,9 +52,6 @@ namespace InssiParty.Games
             value2 = 0;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
             Console.WriteLine("Closing hello world");
@@ -61,7 +59,9 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
+            //value/gametime
             value++;
+
             //anykey hallinta
             sprite.anykeyMovement(gameTime);
             sprite.Animate(gameTime);
