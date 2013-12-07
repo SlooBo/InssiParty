@@ -211,7 +211,7 @@ namespace InssiParty.Games
 
             value--;
 
-            if (silityskerrat == 5)
+            if (silityskerrat == 10)
             {
                 voitto = true;
             }
@@ -221,7 +221,7 @@ namespace InssiParty.Games
                 gameOver = true;
             }
 
-            if (silityskerrat == 5 && value == 0 && voitto == true)
+            if (silityskerrat == 10 && value == 0 && voitto == true)
             {
                 CloseGame(true);
             }

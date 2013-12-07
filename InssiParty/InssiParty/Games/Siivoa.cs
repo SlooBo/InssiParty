@@ -20,9 +20,9 @@ namespace InssiParty.Games
      */
     class Siivoa : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
-
+        
+        //tekstuureja
         Texture2D taustakuva;
         Texture2D kuvaJuissi;
         Texture2D käsi;
@@ -34,8 +34,10 @@ namespace InssiParty.Games
         Texture2D insinöörikommentoi;
         Texture2D puhekuplaEmpty;
 
+        //fontti
         SpriteFont fontti;
 
+        //rectanglet ja vektorit
         private Rectangle juissi_alue;
         private Vector2 juissi_vektori;
 
@@ -54,6 +56,7 @@ namespace InssiParty.Games
         private Rectangle sytkäri_alue;
         private Vector2 sytkäri_vektori;
 
+        //boolit
         bool juissiOlemassa;
         bool ohjainOlemassa;
         bool alkomahooliOlemassa;
@@ -64,12 +67,12 @@ namespace InssiParty.Games
         bool voitto;
         bool häviö;
 
+        //hiiri
         MouseState currentMouseState;
         MouseState lastMouseState;
       
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
             taustakuva = Content.Load<Texture2D>("pöytä");
             kuvaJuissi = Content.Load<Texture2D>("juissi");
             käsi = Content.Load<Texture2D>("aloituskasi");
@@ -88,6 +91,7 @@ namespace InssiParty.Games
         {
             //Console.WriteLine("Starting hello world");
 
+            //alustukset tavaroiden sijainneille ja rectangleille
             juissi_vektori = new Vector2(500, 125);
             juissi_alue = new Rectangle((int)juissi_vektori.X, (int)juissi_vektori.Y, kuvaJuissi.Width, kuvaJuissi.Height);
 
@@ -108,6 +112,7 @@ namespace InssiParty.Games
            
             value = 500;
 
+           //alustukset tavatoiden olemassa ololle 
            juissiOlemassa = true;
            ohjainOlemassa = true;
            alkomahooliOlemassa = true;
@@ -115,8 +120,9 @@ namespace InssiParty.Games
            äänisäädinOlemassa = true;
            sytkäriOlemassa = true;
 
-            voitto = false;
-            häviö = false;
+           //alustukset voitolle ja häviölle
+           voitto = false;
+           häviö = false;
         }
 
         public override void Stop()
@@ -134,6 +140,7 @@ namespace InssiParty.Games
             lastMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
 
+            //tarkistuksia onko hiiri tavaran alueella ja onko hiiren vasen klikattuna, jos on tavaran olemassaolo on false -> tavara häviää
                 if (juissi_alue.Contains(MousePosition))
                 {
                     if (lastMouseState.LeftButton == ButtonState.Released &&
@@ -190,23 +197,27 @@ namespace InssiParty.Games
                     }
                 }
             
-
+            //tarkistus voitolle, kaikkien tavaroiden tulee olla olemassaololtaan falseja
             if (juissiOlemassa == false && ohjainOlemassa == false && alkomahooliOlemassa == false &&
                     sytkäriOlemassa == false && kaukosäädinOlemassa == false && äänisäädinOlemassa == false)
             {
                 voitto = true;
             }
 
-            if (voitto == true && value == 0)
+            //sammutetaan peli truena jos voitto on tosi ja value on 0
+            if (voitto == true && value == 0 && häviö == false)
             {
                 CloseGame(true);
             }
-            else if (value == 90 && voitto == false)
+
+            //jos value on 90 ja voitto false -> häviö muuttuu todeksi
+            if (value == 90 && voitto == false)
             {
                 häviö = true;
             }
 
-            if (value == 0 && voitto == false)
+            //sammutetaan peli falsena, jos value on 0 ja voitto false ja häviö true
+            if (value == 0 && voitto == false && häviö == true)
             {
                 CloseGame(false);
             }
@@ -226,7 +237,7 @@ namespace InssiParty.Games
             spriteBatch.Draw(insinöörikommentoi, new Vector2(710, 125), Color.White);
             spriteBatch.Draw(puhekuplaEmpty, new Vector2(525, 35), Color.White);
 
-            if (voitto == false && häviö == false)
+            if (voitto == false && häviö == false) //tarkistetaan ettei häviötä/voittoa ole tapahtunut
             {
                 if (juissiOlemassa == true)
                 {
@@ -277,12 +288,12 @@ namespace InssiParty.Games
             }
            
 
-            if (voitto == true && häviö == false)
+            if (voitto == true && häviö == false) // voittokommentti
             {
                 spriteBatch.DrawString(fontti, "Vihdoinkin!", new Vector2(545, 50), Color.Red);
             }
 
-            if (voitto == false && häviö == true)
+            if (voitto == false && häviö == true) //häviökommentti
             {
                 spriteBatch.DrawString(fontti, "Sinä saatanan", new Vector2(545, 45), Color.Red);
                 spriteBatch.DrawString(fontti, "kelvoton", new Vector2(539, 60), Color.Red);

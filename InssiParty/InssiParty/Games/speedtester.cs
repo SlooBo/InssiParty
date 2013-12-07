@@ -21,7 +21,6 @@ namespace InssiParty.Games
      */
     class speedtester : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private int value;
 
         //ladattavat kuvat
@@ -56,7 +55,7 @@ namespace InssiParty.Games
         int animation_frame_count = 5; // animaation kehysten määrä
         int gameanimation_frame = 3; //oma kehysten määrä gameoverille
 
-        //gameover tarkistus
+        //bool muuttujat
         bool gameover;
         bool win;
         bool gameRunning;
@@ -82,11 +81,6 @@ namespace InssiParty.Games
             
         }
 
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
         public override void Start()
         {
             //Console.WriteLine("Starting hello world");
