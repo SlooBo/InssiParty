@@ -67,7 +67,7 @@ namespace InssiParty.Games
 
         public override void Stop()
         {
-            Console.WriteLine("End of game");
+            //Console.WriteLine("End of game");
         }
 
         //update looppi

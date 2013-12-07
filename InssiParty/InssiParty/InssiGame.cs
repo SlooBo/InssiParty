@@ -254,7 +254,8 @@ namespace InssiParty
 
                 if (currentGame.IsRunning == false)
                 {
-                    startGame(games[1]);
+                    //Running of game has been stopped. Lets stop it from the engine side also.
+                    stopGame();
                 }
             }
             else
@@ -363,7 +364,6 @@ namespace InssiParty
 
             gameActive = false;
             currentGame.IsRunning = false;
-            currentGame.Stop();
 
             if (currentGameMode == GameMode.ArcadeMode)
             {
@@ -511,6 +511,9 @@ namespace InssiParty
 
         public void StopStory()
         {
+            menuState = MenuState.IntroScreen;
+            gamesPlayed.Clear();
+            gameActive = false;
             Console.WriteLine("[StoryManager] Story stop forced.");
         }
 
@@ -518,7 +521,8 @@ namespace InssiParty
         {
             Console.WriteLine("[StoryManager] Starting story...");
             points = 0;
-            HP = 0;
+            HP = 3;
+            gamesPlayed.Clear();
 
             StartNextGame();
         }
@@ -573,8 +577,17 @@ namespace InssiParty
                 Console.WriteLine("[StoryManager] -1 hp for failure");
             }
 
-            //TODO: Randomize next game.
-            StartNextGame();
+            Console.WriteLine("[StoryManager] Points: " + points);
+            Console.WriteLine("[StoryManager] HP    : " + HP);
+
+            if (HP > 0)
+            {
+                StartNextGame();
+            }
+            else
+            {
+                StopStory();
+            }
         }
     }
 }
