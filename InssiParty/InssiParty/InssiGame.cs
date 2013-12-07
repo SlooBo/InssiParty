@@ -187,6 +187,9 @@ namespace InssiParty
             addGame(new SpotLanguage(), "Spot the real coding language", "Tunnista ohjelmointi-kielie, skripti-kielistä.", true, "Lauri Mäkinen");
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Miika 'Toopala' Saastamoinen");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Shoot the Nyancat!", true, "Creator missing!");
+            addGame(new Siivoa(), "Siivoa insinöörin kämppä", "klikkaile hiirellä tavarat pois", true, "Annika Veteli");
+            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", true, "Annika Veteli");
+            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", true, "Annika Veteli");
 
             addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
@@ -195,13 +198,10 @@ namespace InssiParty
             addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false, "Creator missing!");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false, "Creator missing!");
             //addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", false, "Jouni Friman");
-            addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", false, "Annika Veteli");
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Toni Sarvela!");
             addGame(new inssihorjuu(), "Auta inssi kotiin", "Auta huojuva inssi kämpille", false, "Miika 'Toopala' Saastamoinen");
-            addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", false, "Annika Veteli");
             //addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Creator missing!");   //This game is buggy
-            addGame(new Siivoa(), "Siivoa insinöörin kämppä","klikkaile hiirellä tavarat pois", false, "Annika Veteli");
             addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä", false,"Marko Sydänmaa");
 
             //### Games to be implemented outside the game system:

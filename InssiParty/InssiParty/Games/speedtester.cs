@@ -57,9 +57,9 @@ namespace InssiParty.Games
         int gameanimation_frame = 3; //oma kehysten määrä gameoverille
 
         //gameover tarkistus
-        bool gameover = false;
-        bool win = false;
-        bool gameRunning = true;
+        bool gameover;
+        bool win;
+        bool gameRunning;
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -89,17 +89,21 @@ namespace InssiParty.Games
          */
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            //Console.WriteLine("Starting hello world");
 
             random = new Random();
             nappi = random.Next(1, 4); //määritellään random nappi
+            gameover = false;
+            win = false;
+            gameRunning = true;
+            pisteet = 0;
 
             value = 500;
         }
 
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+            //Console.WriteLine("Closing hello world");
         }
 
         public override void Update(GameTime gameTime)
@@ -232,7 +236,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            //Console.WriteLine("Draw " + value);
 
             animation_timer += 0.08f;
             int currentFrame = (int)(animation_timer % animation_frame_count);

@@ -54,15 +54,15 @@ namespace InssiParty.Games
         private Rectangle sytkäri_alue;
         private Vector2 sytkäri_vektori;
 
-        bool juissiOlemassa = true;
-        bool ohjainOlemassa = true;
-        bool alkomahooliOlemassa = true;
-        bool kaukosäädinOlemassa = true;
-        bool äänisäädinOlemassa = true;
-        bool sytkäriOlemassa = true;
+        bool juissiOlemassa;
+        bool ohjainOlemassa;
+        bool alkomahooliOlemassa;
+        bool kaukosäädinOlemassa;
+        bool äänisäädinOlemassa;
+        bool sytkäriOlemassa ;
 
-        bool voitto = false;
-        bool häviö = false;
+        bool voitto;
+        bool häviö;
 
         MouseState currentMouseState;
         MouseState lastMouseState;
@@ -84,14 +84,10 @@ namespace InssiParty.Games
             
         }
 
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
         public override void Start()
         {
-            Console.WriteLine("Starting hello world");
+            //Console.WriteLine("Starting hello world");
+
             juissi_vektori = new Vector2(500, 125);
             juissi_alue = new Rectangle((int)juissi_vektori.X, (int)juissi_vektori.Y, kuvaJuissi.Width, kuvaJuissi.Height);
 
@@ -111,11 +107,21 @@ namespace InssiParty.Games
             sytkäri_alue = new Rectangle((int)sytkäri_vektori.X, (int)sytkäri_vektori.Y, sytkäri.Width + 90, sytkäri.Height + 20);
            
             value = 500;
+
+           juissiOlemassa = true;
+           ohjainOlemassa = true;
+           alkomahooliOlemassa = true;
+           kaukosäädinOlemassa = true;
+           äänisäädinOlemassa = true;
+           sytkäriOlemassa = true;
+
+            voitto = false;
+            häviö = false;
         }
 
         public override void Stop()
         {
-            Console.WriteLine("Closing hello world");
+            //Console.WriteLine("Closing hello world");
         }
 
         public override void Update(GameTime gameTime)
@@ -213,7 +219,7 @@ namespace InssiParty.Games
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Console.WriteLine("Draw " + value);
+            //Console.WriteLine("Draw " + value);
 
             spriteBatch.Draw(taustakuva, new Rectangle(0, 0, 800, 600), Color.White);
 

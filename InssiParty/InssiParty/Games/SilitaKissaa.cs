@@ -35,6 +35,7 @@ namespace InssiParty.Games
         Texture2D kissatextuuriIloinen;
         Texture2D kissavoittokuva;
         Texture2D kissaGameOver;
+        Texture2D kissatextuuri1;
 
         //käsikuvat
         Texture2D kasialku; //aloituskäsikuva
@@ -59,13 +60,14 @@ namespace InssiParty.Games
         SoundEffect murukehrays;
         SoundEffect murupaaosuma;
 
-        private bool voitto = false;
-        private bool gameOver = false;
+        private bool voitto;
+        private bool gameOver;
 
         //insinöörin muuttujat
         Texture2D insinööri;
-        Vector2 inssinopeus = new Vector2(110.0f, 0f);
-        Vector2 inssiposition = new Vector2(0, 100);
+        Vector2 inssinopeus;
+        Vector2 inssiposition;
+        int MaxX;
 
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
@@ -77,6 +79,7 @@ namespace InssiParty.Games
             kissatextuuriIloinen = Content.Load<Texture2D>("muruiloinenpää");
             kissavoittokuva = Content.Load<Texture2D>("nukkuvamurucopy");
             kissaGameOver = Content.Load<Texture2D>("gameovermurucopy");
+            kissatextuuri1 = Content.Load<Texture2D>("aloitusmurucopy");
 
             //ladataan kasikuvia
             kasialku = Content.Load<Texture2D>("aloituskasi");
@@ -111,6 +114,16 @@ namespace InssiParty.Games
         {
             //Console.WriteLine("Starting hello world");
             value = 500;    
+            voitto = false;
+            gameOver = false;
+            silityskerrat = 0;
+            silitysvirhe = 0;
+            MaxX = 0;
+
+            kissatextuuri = kissatextuuri1;
+
+            inssinopeus = new Vector2(110.0f, 0f);
+            inssiposition = new Vector2(0, 100);
         }
 
         public override void Stop()
@@ -124,7 +137,6 @@ namespace InssiParty.Games
             var MousePosition = new Point(MouseState.X, MouseState.Y); // hiiren sijainti ruudulla koordinaatteina
 
             //lisätty insinöörikuvan liikkuminen pois ruudulta
-            int MaxX = 0;
             inssiposition += inssinopeus * (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (inssiposition.X >= MaxX)
             {
@@ -137,7 +149,9 @@ namespace InssiParty.Games
             lastMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
 
-            if (vartalonelio.Contains(MousePosition)) //tarkistetaan onko hiiri vartaloaluella
+
+
+            if (vartalonelio.Contains(MousePosition) && gameOver == false && voitto == false) //tarkistetaan onko hiiri vartaloaluella
             {
                 if (lastMouseState.LeftButton == ButtonState.Released &&
                         currentMouseState.LeftButton == ButtonState.Pressed)
@@ -167,7 +181,7 @@ namespace InssiParty.Games
                     silitysvirhe++; //lisätään silitysvirhe   
                 }
             }
-            else if (paanelio.Contains(MousePosition))
+            else if (paanelio.Contains(MousePosition) && gameOver == false && voitto == false)
             {
                 if (lastMouseState.LeftButton == ButtonState.Released &&
                         currentMouseState.LeftButton == ButtonState.Pressed)
@@ -230,7 +244,6 @@ namespace InssiParty.Games
 
             if (voitto == false && gameOver == false)
             {
-
                 spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
                 spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
                         Mouse.GetState().Y - 100), Color.White);
@@ -241,12 +254,12 @@ namespace InssiParty.Games
                 spriteBatch.Draw(insinööri, inssiposition, Color.White);
             }
 
-            if (voitto == true)
+            if (voitto == true && gameOver == false)
             {
                 spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
                 spriteBatch.DrawString(fontti, "Aaw, kissa nukahti. Voitit pelin!", new Vector2(80, 200), Color.Aquamarine);
             }
-            if (gameOver == true)
+            if (gameOver == true && voitto == false)
             {
                 spriteBatch.Draw(kissaGameOver, taustakissa, Color.White);
                 spriteBatch.DrawString(fontti, "Suututit kissan >:(. Hävisit pelin!", new Vector2(400, 200), Color.Aquamarine);
