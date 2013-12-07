@@ -651,9 +651,15 @@ namespace InssiParty
             spriteBatch.Draw(TRANSITION_backgroundTexture, TRANSITION_background, Color.White);
             spriteBatch.Draw(TRANSITION_valiTexture, TRANSITION_keskipalkki, Color.White);
             //TODO: only render the correct count of hearts
-            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect, Color.White);
-            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect2, Color.White);
-            spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect3, Color.White);
+            if(HP > 0)
+                spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect, Color.White);
+
+            if(HP > 1)
+                spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect2, Color.White);
+
+            if(HP > 2)
+                spriteBatch.Draw(TRANSITION_sydanTexture, TRANSITION_sydanRect3, Color.White);
+
             spriteBatch.Draw(TRANSITION_tekstiTexture, TRANSITION_tekstiRect, Color.White);
         }
 
