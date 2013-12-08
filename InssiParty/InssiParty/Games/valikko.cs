@@ -6,6 +6,7 @@ using InssiParty.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace InssiParty.Games
 {
@@ -13,6 +14,7 @@ namespace InssiParty.Games
     {
         //variaabelit
         private int value, value2, scaleX, scaleY, moveX, moveY;
+        bool valikkoState;
 
         //Tekstuurit
         Texture2D backgroundTexture, logoTexture, koodiTexture, arcadeTexture, exitTexture, storyTexture;
@@ -23,6 +25,10 @@ namespace InssiParty.Games
         Rectangle arcadeRect = new Rectangle(353, 400, 85, 21);
         Rectangle exitRect = new Rectangle(368, 450, 50, 21);
         Rectangle storyRect = new Rectangle(325, 350, 147, 21);
+        Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
+
+        //vektorit
+        private Vector2 cursorPos;
         Vector2 koodiVector = new Vector2();
         Vector2 logoVector = new Vector2();
 
@@ -62,6 +68,12 @@ namespace InssiParty.Games
             //value/gametime
             value++;
 
+            //Hiiri
+            var mouseState = Mouse.GetState();
+            cursorRect.X = mouseState.X;
+            cursorRect.Y = mouseState.Y;
+            cursorPos = new Vector2(mouseState.X, mouseState.Y);
+
             //koodivektori hallinta
             koodiVector.Y -= 5;
             koodiVector.X += 1.81f;
@@ -73,7 +85,6 @@ namespace InssiParty.Games
             }
 
             //logo hallinta
-
             if (value > 100)
             {
                 logoRect.Width += scaleX;
@@ -103,7 +114,29 @@ namespace InssiParty.Games
                 value = 0;
                 value2 = 0;
             }
+            
+            //valikkokohteet
 
+            // Work in progress
+/*
+            valikkoState = false;
+
+            if (exitRect.Intersects(cursorRect))
+            {
+                exitRect.Width = 0;
+                exitRect.Height = 0;
+                valikkoState = true;
+            }
+
+            else
+            {
+                if (valikkoState == false)
+                {
+                    exitRect.Height = 21;
+                    exitRect.Width = 50;
+                }
+            }
+*/
             if (value < 0)
             {
                 CloseGame(true);
