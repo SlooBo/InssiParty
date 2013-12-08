@@ -23,7 +23,7 @@ namespace InssiParty.Games
         private int joku;
 
         Rectangle kori = new Rectangle(330, 520, 100, 75);
-        Rectangle ballo = new Rectangle(350, 0, 45, 45);
+        Rectangle ballo = new Rectangle(350, -90, 45, 45);
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -40,6 +40,7 @@ namespace InssiParty.Games
             //alustus
             Random random = new Random();
             joku = random.Next(-10, 10);
+            
 
         }
 
@@ -50,28 +51,74 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
-            ballo.Y += 5;
-            if (value == 0)
+            
+            ballo.Y += 1;
+            if(joku > 0)
             {
-                ballo.X += joku;
-            }
-            else
-            {
-                ballo.X -= -joku;
-            }
+                if (value == 0)
+                {
+                    ballo.X += joku;
+                }
+
+                else
+                {
+                    ballo.X -= joku;
+                }
 
 
-            if (ballo.X + 22 < 0)
-            {
-                value = 0;
+                if (ballo.X < 0)
+                {
+                    value = 0;
+                }
+                if (ballo.X > 755)
+                {
+                    value = 1;
+                }
             }
-            if (ballo.X + 22 > 755)
+
+            if (joku < 0)
             {
-                value = 1;
+                if (value == 0)
+                {
+                    ballo.X += joku;
+                }
+
+                else
+                {
+                    ballo.X -= joku;
+                }
+
+                if (ballo.X > 755)
+                {
+                    value = 0;
+                }
+                
+                if (ballo.X < 0)
+                {
+                    value = 1;
+                }
+
+                
             }
+            
+            /*if()
+            {
+                ballo*/
+            
+            
             if (ballo.Y > 600)
             {
                 CloseGame(false);
+            }
+
+            if (kori.X < 0)
+            {
+                kori.X = 0;
+            }
+
+            if (kori.X > 690)
+            {
+                kori.X = 690;
             }
             KeyboardState keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Keys.A))
