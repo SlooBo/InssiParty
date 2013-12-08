@@ -14,19 +14,6 @@ namespace InssiParty.Games
 {
 
     /**
-     * Uuden pelin luominen
-     * 
-     * -> kopio tämä filu, ja nimeä se ja classin nimi uusiksi
-     * -> lisää listaan InssiGame.cs tiedostossa
-     * 
-     */
-
-    /**
-     * Classin nimi pitää vaihtaa, mieluiten sama kuin tiedoston nimi.
-     * IGameBase pitää jättää semmoiseksi
-     */
-
-    /**
      * Avaa oluttölkki
      * 
      * Auta inssiä avaamaan oluttölkki ja välttämään janoon kuoleminen.
@@ -42,9 +29,7 @@ namespace InssiParty.Games
         private int fail_counter;
         private int success_counter;
         Random random;
-        private string syöte;
-        int painettava;
-        int aika;
+
 
         KeyboardState keys;
         KeyboardState previous;
@@ -53,13 +38,13 @@ namespace InssiParty.Games
         private Texture2D Can;
         private Texture2D OpeningCan;
         private Texture2D EmptyCan;
-        SpriteFont font;
         private Texture2D backround_texture;
-        private Texture2D gameover;
+        SpriteFont font;
 
-        //bool gameover = false;  //samaa muuttujaa alustat kaksi kertaa
+        bool gameover = false;
         bool win = false;
         bool gameRunning = true;
+
         
         /**
          * 
@@ -74,8 +59,6 @@ namespace InssiParty.Games
             EmptyCan = Content.Load<Texture2D>("Can-Empty");
             font = Content.Load<SpriteFont>("DefaultFont");
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
-           // gameover = Content.Load<Texture2D>("gameover");
-            //Boolean johonka laitetaan tekstuuria jota myöhemmin käytetään äänenä ?!?
         }
 
         /**
@@ -97,7 +80,7 @@ namespace InssiParty.Games
 
             success_counter=0;
 
-            painettava = random.Next(1, 4); //määritellään random nappi
+            nappi = random.Next(1, 4); //määritellään random nappi
 
             backround_texture = Can;
         }
@@ -118,24 +101,20 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            /*
+            
             value--;
 
             if (gameRunning == true)
             {
-                aika = aika + 1;
-                if (aika >= 60)
+                
+                if (success_counter !=0)
                 {
-                    aika = 0;
+                    success_counter = 0;
                     nappi = random.Next(1, 5);
-                    pisteet = pisteet - 1; //vähennetään pisteitä
                     gameRunning = false;
                     gameover = true;
 
-                    if (soundLoaded)
-                    {
-                        Gameover.Play();
-                    }
+                   
                 }
             }
 
@@ -152,17 +131,14 @@ namespace InssiParty.Games
                     if (nappi == 1) //ja jos nappi on yksi
                     {
                         nappi = random.Next(1, 5);
-                        pisteet = pisteet + 1; //lisätään pisteitä
-                        aika = +1;
+                        success_counter = success_counter + 1; //lisätään pisteitä
+                        
                     }
                     else
                     {
                         gameover = true; //jos ei paineta gameover true
                         gameRunning = false;
-                        if (soundLoaded)
-                        {
-                            Gameover.Play();
-                        }
+                       
                     }
                 }
 
@@ -170,18 +146,15 @@ namespace InssiParty.Games
                 {
                     if (nappi == 2) // jos nappi on 2
                     {
-                        nappi = random.Next(1, 5);
-                        pisteet = pisteet + 1; // lisätään piste
-                        aika = 0;
+                        nappi =  random.Next(1, 5);
+                        success_counter = success_counter + 1; // lisätään piste
+                      
                     }
                     else
                     {
                         gameover = true;
                         gameRunning = false;
-                        if (soundLoaded)
-                        {
-                            Gameover.Play();
-                        }
+                       
                     }
                 }
                 if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
@@ -189,35 +162,29 @@ namespace InssiParty.Games
                     if (nappi == 3)
                     {
                         nappi = random.Next(1, 5);
-                        pisteet = pisteet + 1;
-                        aika = 0;
+                        success_counter = success_counter + 1;
+                        
                     }
                     else
                     {
                         gameover = true;
                         gameRunning = false;
-                        if (soundLoaded)
-                        {
-                            Gameover.Play();
-                        }
+                      
                     }
                 }
                 if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
                 {
                     if (nappi == 4)
                     {
-                        nappi = random.Next(1, 5);
-                        pisteet = pisteet + 1;
-                        aika = 0;
+                        nappi =  random.Next(1, 5);
+                       success_counter = success_counter + 1;
+                       
                     }
                     else
                     {
                         gameover = true;
                         gameRunning = false;
-                        if (soundLoaded)
-                        {
-                            Gameover.Play();
-                        }
+                       
                     }
                 }
 
@@ -248,13 +215,10 @@ namespace InssiParty.Games
             }
 
             else if (fail_counter == 3)
-            {
-
-                OpeningCan = gameover;
-                CloseGame(false);
-
+            {             
+                    CloseGame(false);
             }
-              */
+              
         }
 
         /**
@@ -271,13 +235,11 @@ namespace InssiParty.Games
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
 
-            spriteBatch.DrawString(font, "Paina: " + numValues[painettava],new Vector2(10, 10), Color.Turquoise);
+            spriteBatch.DrawString(font, "Paina: " + nappi,new Vector2(10, 10), Color.Turquoise);
 
             spriteBatch.Draw(backround_texture, new Vector2(100, 100), Color.White);
 
             spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
-
-            spriteBatch.DrawString(font, numValues[painettava], new Vector2(100, 100), Color.White);
 
             spriteBatch.Draw(OpeningCan, new Vector2(100, 100), Color.White);
 
