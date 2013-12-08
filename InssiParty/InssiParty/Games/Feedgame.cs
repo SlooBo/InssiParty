@@ -48,7 +48,7 @@ namespace InssiParty.Games
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
             box = Content.Load<Texture2D>("kaappi");
-            box_open = Content.Load<Texture2D>("Auki");
+            box_open = Content.Load<Texture2D>("Pullo"); //              # CHANGED FROM "Auki" to "Pullo" because the build was broken.
             handu = Content.Load<Texture2D>("hand");
             win = Content.Load<Texture2D>("You_won");
             lose = Content.Load<Texture2D>("hävisit");
