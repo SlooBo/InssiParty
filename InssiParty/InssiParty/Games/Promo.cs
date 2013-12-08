@@ -31,20 +31,20 @@ namespace InssiParty.Games
         private List<ATJ> ATJs;
         private Random random = new Random();
         private float timer;
-        private int health = 3;
+        private int health;
 
         //Tekstuurit
 
         private Texture2D inssi;
         private Texture2D atj_tex;
-        private Texture2D background;
+        private Texture2D back_tex;
 
         //rectangle
         private Rectangle inssi_alue;
+        private Rectangle background;
     
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             spritebatch = new SpriteBatch(GraphicsDevice);
             inssi = Content.Load<Texture2D>("Nyancat");
             atj_tex = Content.Load<Texture2D>("propelli");
@@ -63,8 +63,9 @@ namespace InssiParty.Games
             inssi_alue = new Rectangle((int)(inssi_kohta.X - inssi.Width / 2),
                 (int)(inssi_kohta.Y - inssi.Height / 2), inssi.Width, inssi.Height);
             randY = random.Next(100, 500);
-
             ATJs = new List<ATJ>();
+            health = 3;
+            timer = 0;
         }
 
         public override void Stop()
@@ -78,7 +79,6 @@ namespace InssiParty.Games
         {
 
             value--;
-            //    sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
 
             //liikkumistoiminnot
             inssi_vauhti = Vector2.Zero;
@@ -146,6 +146,7 @@ namespace InssiParty.Games
                 }
             }
 
+            //ATJ objektien ja inssin collsioncheck
             foreach (ATJ ATJ in ATJs)
             {
                 ATJ.Update();
@@ -158,6 +159,7 @@ namespace InssiParty.Games
                 
             }
 
+            //poistaa objektin jos se osuu pelaajaan
             for (int i = 0; i < ATJs.Count; i++)
             {
                 if (!ATJs[i].Hit)
@@ -167,6 +169,7 @@ namespace InssiParty.Games
                 }
             }
 
+            //lopettaa pelin jos inssin hp menee nollaan
             if (health == 0)
             {
                 CloseGame(false);
@@ -186,8 +189,7 @@ namespace InssiParty.Games
             }
             
             Console.WriteLine("Draw " + value);
-            spriteBatch.Draw(inssi, inssi_kohta, Color.White);
-                   
+            spriteBatch.Draw(inssi, inssi_kohta, Color.White);                 
         }
     }
 }
