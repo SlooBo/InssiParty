@@ -26,12 +26,12 @@ namespace InssiParty.Games
         private Vector2 HandPos;
 
         //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D backround_texture, box, handu, win, lose;
+        private Texture2D backround_texture, box,box_open, handu, win, lose;
         private Texture2D poison,ruoka,testi;
         private Texture2D Ajastin;
         private Texture2D dildo, kopteri, oil, grenade;
 
-        SoundEffect open, eat, drink, die;
+        SoundEffect open, eat, drink, die, escape,explosion;
 
         private bool elossa,hungry;
         private int timer,timer2;
@@ -48,6 +48,7 @@ namespace InssiParty.Games
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
             box = Content.Load<Texture2D>("kaappi");
+            box_open = Content.Load<Texture2D>("Auki");
             handu = Content.Load<Texture2D>("hand");
             win = Content.Load<Texture2D>("You_won");
             lose = Content.Load<Texture2D>("hävisit");
@@ -67,8 +68,9 @@ namespace InssiParty.Games
             {
                 open = Content.Load<SoundEffect>("kaappi_auki");
                 eat = Content.Load<SoundEffect>("eat_food");
-
+                escape = Content.Load<SoundEffect>("Choppaa");
                 drink = Content.Load<SoundEffect>("drink_and_die");
+                explosion = Content.Load<SoundEffect>("Xplosion");
             }
             catch(Exception eek)
             {
@@ -210,6 +212,26 @@ namespace InssiParty.Games
                         elossa = false;
                     }
 
+                    if (kaapit[i].tavara_id == 2)
+                    {
+                        Console.WriteLine("Pelastuit");
+                        if (elossa == true)
+                        {
+                            escape.Play();
+                        }
+                        hungry = false;
+                    }
+
+                    else if (kaapit[i].tavara_id == 3)
+                    {
+                        Console.WriteLine("You Die!!!");
+                        if (elossa == true)
+                        {
+                            drink.Play();
+                        }
+                        elossa = false;
+                    }
+
                     else if (kaapit[i].tavara_id == 1)
                     {
                         Console.WriteLine("Wololooo");
@@ -224,6 +246,16 @@ namespace InssiParty.Games
                         }
                         hungry = false;
                     }
+                    else if (kaapit[i].tavara_id == 5)
+                    {
+                        Console.WriteLine("You Die!!!");
+                        if (elossa == true)
+                        {
+                            explosion.Play();
+                        }
+                        elossa = false;
+                    }
+
                     
                 }
 
@@ -281,13 +313,14 @@ namespace InssiParty.Games
                 spriteBatch.Draw(box, kaapit[i].sijainti, Color.White);
                 if (kaapit[i].auki == true)
                 {
+                    spriteBatch.Draw(box_open, kaapit[i].sijainti, Color.White);
                     if (kaapit[i].tavara_id == 0)
                     {
                         spriteBatch.Draw(poison, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
                     else if (kaapit[i].tavara_id == 1)
                     {
-                        spriteBatch.Draw(testi, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(ruoka, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
 
                     else if (kaapit[i].tavara_id == 2)
