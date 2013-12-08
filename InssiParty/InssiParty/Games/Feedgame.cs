@@ -29,6 +29,7 @@ namespace InssiParty.Games
         private Texture2D backround_texture, box, handu, win, lose;
         private Texture2D poison,ruoka,testi;
         private Texture2D Ajastin;
+        private Texture2D dildo, kopteri, oil, grenade;
 
         SoundEffect open, eat, drink, die;
 
@@ -53,6 +54,10 @@ namespace InssiParty.Games
             poison = Content.Load<Texture2D>("Pullo");
             ruoka = Content.Load<Texture2D>("ruoka");
             testi = Content.Load<Texture2D>("testi_item");
+            dildo = Content.Load<Texture2D>("Dildo");
+            oil = Content.Load<Texture2D>("Oil");
+            kopteri = Content.Load<Texture2D>("Kopteri");
+            grenade = Content.Load<Texture2D>("Kranu");
             Ajastin = new Texture2D(GraphicsDevice, 1, 1);
             Ajastin.SetData(new Color[] {Color.Wheat});
 
@@ -200,7 +205,7 @@ namespace InssiParty.Games
                         Console.WriteLine("You Die!!!");
                         if (elossa == true)
                         { 
-                            //drink.Play(); 
+                            drink.Play(); 
                         }
                         elossa = false;
                     }
@@ -215,7 +220,7 @@ namespace InssiParty.Games
                         Console.WriteLine("Selvisit hengissä!");
                         if (hungry == true)
                         {
-                            //eat.Play();
+                            eat.Play();
                         }
                         hungry = false;
                     }
@@ -228,7 +233,7 @@ namespace InssiParty.Games
                     {
                         Console.WriteLine("Hand hits the cupboard");
                         kaapit[i].auki = true;
-                        //open.Play();
+                        open.Play();
 
                     }
 
@@ -287,7 +292,19 @@ namespace InssiParty.Games
 
                     else if (kaapit[i].tavara_id == 2)
                     {
-                        spriteBatch.Draw(ruoka, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(kopteri, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                    }
+                    else if (kaapit[i].tavara_id == 3)
+                    {
+                        spriteBatch.Draw(oil, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                    }
+                    else if (kaapit[i].tavara_id == 4)
+                    {
+                        spriteBatch.Draw(dildo, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                    }
+                    else if (kaapit[i].tavara_id == 5)
+                    {
+                        spriteBatch.Draw(grenade, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
                     }
                 }
             
