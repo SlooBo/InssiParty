@@ -76,7 +76,13 @@ namespace InssiParty
         private bool soundsLoaded;
         private SoundEffect introThemeMusic;
         private SoundEffectInstance introThemeMusicInstance;
-        
+        private SoundEffect MENU_SoundEffect;
+
+        //Menu soundeffect check
+        private bool MENU_SoundCheck;
+        private bool MENU_SoundCheck2;
+        private bool MENU_SoundCheck3;
+
         //Transition stuff
         private int transitionTimer;
 
@@ -104,7 +110,7 @@ namespace InssiParty
         Rectangle TRANSITION_sydanRect2 = new Rectangle(336, 236, 128, 128);
         Rectangle TRANSITION_sydanRect3 = new Rectangle(536, 236, 128, 128);
         Rectangle TRANSITION_tekstiRect = new Rectangle(-500, 290, 135, 21);
-
+        
         //Random stuff
         Random random;
 
@@ -160,6 +166,7 @@ namespace InssiParty
             try
             {
                 introThemeMusic = Content.Load<SoundEffect>("InssiPartyOpenTheme");
+                MENU_SoundEffect = Content.Load<SoundEffect>("plop");
                 soundsLoaded = true;
 
                 //DEBUG: Music disabled for debugging 
@@ -542,33 +549,69 @@ namespace InssiParty
                 MENU_value = 0;
                 MENU_value2 = 0;
             }
-            
+
             //Hover effect
             if (MENU_storyRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
             {
+                if (MENU_SoundCheck == false)
+                {
+                    MENU_SoundEffect.Play();
+                    MENU_SoundCheck = true;
+                }
                 MENU_storyRect.Height = 26;
+                MENU_storyRect.Width = 152;
+                MENU_storyRect.X = 322;
+                MENU_storyRect.Y = 347;
             }
             else
             {
+                MENU_storyRect.Width = 147;
                 MENU_storyRect.Height = 21;
+                MENU_storyRect.X = 325;
+                MENU_storyRect.Y = 350;
+                MENU_SoundCheck = false;
             }
 
             if (MENU_arcadeRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
             {
+                if (MENU_SoundCheck2 == false)
+                {
+                    MENU_SoundEffect.Play();
+                    MENU_SoundCheck2 = true;
+                }
                 MENU_arcadeRect.Height = 26;
+                MENU_arcadeRect.Width = 90;
+                MENU_arcadeRect.X = 350;
+                MENU_arcadeRect.Y = 398;
             }
             else
-            {
+            {                
+                MENU_arcadeRect.Width = 85;
                 MENU_arcadeRect.Height = 21;
+                MENU_arcadeRect.X = 353;
+                MENU_arcadeRect.Y = 400;
+                MENU_SoundCheck2 = false;
             }
 
             if (MENU_exitRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
             {
+                if (MENU_SoundCheck3 == false)
+                {
+                    MENU_SoundEffect.Play();
+                    MENU_SoundCheck3 = true;
+                }
                 MENU_exitRect.Height = 26;
+                MENU_exitRect.Width = 55;
+                MENU_exitRect.X = 365;
+                MENU_exitRect.Y = 448;
             }
             else
             {
+                MENU_exitRect.Width = 50;
                 MENU_exitRect.Height = 21;
+                MENU_exitRect.X = 368;
+                MENU_exitRect.Y = 450;
+                MENU_SoundCheck3 = false;
             }
 
             //Actual click
