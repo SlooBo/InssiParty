@@ -114,6 +114,10 @@ namespace InssiParty
         //Random stuff
         Random random;
 
+        //sounds
+        SoundEffect TRANSITION_Music;
+        SoundEffectInstance TRANSITION_MusicInstance;
+
         // ##############################################
         // MENU STUFF
         private int MENU_value, MENU_value2, MENU_scaleX, MENU_scaleY, MENU_moveX, MENU_moveY;
@@ -166,11 +170,13 @@ namespace InssiParty
             try
             {
                 introThemeMusic = Content.Load<SoundEffect>("InssiPartyOpenTheme");
+                TRANSITION_Music = Content.Load<SoundEffect>("transitio_musa");
                 MENU_SoundEffect = Content.Load<SoundEffect>("plop");
                 soundsLoaded = true;
 
                 //DEBUG: Music disabled for debugging 
                 introThemeMusicInstance = introThemeMusic.CreateInstance();
+                TRANSITION_MusicInstance = TRANSITION_Music.CreateInstance();
                 introThemeMusicInstance.Play();
             }
             catch (Exception eek)
@@ -781,11 +787,13 @@ namespace InssiParty
         //############################
         //  TRANSITION RELATED STUFF
         //############################
-
+        
         private void TransitionUpdate()
         {
             TRANSITION_value++;
 
+            TRANSITION_MusicInstance.Play();
+            
             TRANSITION_sydanRect.X += TRANSITION_moveX; TRANSITION_sydanRect2.X += TRANSITION_moveX; TRANSITION_sydanRect3.X += TRANSITION_moveX; TRANSITION_tekstiRect.X += TRANSITION_moveX;
             TRANSITION_sydanRect.Y += TRANSITION_moveY; TRANSITION_sydanRect2.Y += TRANSITION_moveY; TRANSITION_sydanRect3.Y += TRANSITION_moveY;
             TRANSITION_sydanRect.Height += TRANSITION_scaleY; TRANSITION_sydanRect.Width += TRANSITION_scaleX;
@@ -851,6 +859,7 @@ namespace InssiParty
             }
             if (TRANSITION_value > 300)
             {
+                TRANSITION_MusicInstance.Stop();
                 StartNextGame();
             }
         }

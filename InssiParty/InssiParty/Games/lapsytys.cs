@@ -20,6 +20,7 @@ namespace InssiParty.Games
 
         //äänet
         SoundEffect lapsy,murahdus, musa, raakasy;
+        SoundEffectInstance musaInstance;
 
         //Tekstuurit
         private Texture2D backgroundTexture, cursorTexture, Fade, teksti, sydan;
@@ -48,6 +49,7 @@ namespace InssiParty.Games
             murahdus = Content.Load<SoundEffect>("murahdus");
             musa = Content.Load<SoundEffect>("musa1");
             raakasy = Content.Load<SoundEffect>("raakasy");
+            musaInstance = musa.CreateInstance();
         }
 
         //peli alku
@@ -66,8 +68,8 @@ namespace InssiParty.Games
             objectRect.Y = 0;
             tekstiRect.Y = 200;
             tekstiRect.X = 1000;
-
-            musa.Play( 0.2f , 0 , 0 );
+            
+            musaInstance.Play();
             backgroundTexture = jari1;
             
         }
@@ -75,6 +77,7 @@ namespace InssiParty.Games
         //pelin loppu
         public override void Stop()
         {
+            musaInstance.Stop();
             Console.WriteLine("close game");
         }
 
