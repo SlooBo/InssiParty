@@ -92,7 +92,7 @@ namespace InssiParty
 
         //Transition stuff
         //variaabelit
-        private int TRANSITION_value, TRANSITION_moveX;
+        private int TRANSITION_value, TRANSITION_moveX, TRANSITION_moveY, TRANSITION_scaleY, TRANSITION_scaleX;
 
         //Tekstuurit
         Texture2D TRANSITION_backgroundTexture, TRANSITION_valiTexture, TRANSITION_sydanTexture, TRANSITION_tekstiTexture;
@@ -103,7 +103,7 @@ namespace InssiParty
         Rectangle TRANSITION_sydanRect = new Rectangle(136, 236, 128, 128);
         Rectangle TRANSITION_sydanRect2 = new Rectangle(336, 236, 128, 128);
         Rectangle TRANSITION_sydanRect3 = new Rectangle(536, 236, 128, 128);
-        Rectangle TRANSITION_tekstiRect = new Rectangle(-500, 290, 147, 21);
+        Rectangle TRANSITION_tekstiRect = new Rectangle(-500, 290, 135, 21);
 
         //Random stuff
         Random random;
@@ -622,25 +622,79 @@ namespace InssiParty
             }
         }
 
+        //############################
+        //  TRANSITION RELATED STUFF
+        //############################
 
         private void TransitionUpdate()
         {
             TRANSITION_value++;
 
             TRANSITION_sydanRect.X += TRANSITION_moveX; TRANSITION_sydanRect2.X += TRANSITION_moveX; TRANSITION_sydanRect3.X += TRANSITION_moveX; TRANSITION_tekstiRect.X += TRANSITION_moveX;
+            TRANSITION_sydanRect.Y += TRANSITION_moveY; TRANSITION_sydanRect2.Y += TRANSITION_moveY; TRANSITION_sydanRect3.Y += TRANSITION_moveY;
+            TRANSITION_sydanRect.Height += TRANSITION_scaleY; TRANSITION_sydanRect.Width += TRANSITION_scaleX;
+            TRANSITION_sydanRect2.Height += TRANSITION_scaleY; TRANSITION_sydanRect2.Width += TRANSITION_scaleX;
+            TRANSITION_sydanRect3.Height += TRANSITION_scaleY; TRANSITION_sydanRect3.Width += TRANSITION_scaleX;
+
+            if (TRANSITION_value > 0 && TRANSITION_value < 100)
+            {
+                if (TRANSITION_value == 30)
+                {
+                    TRANSITION_moveX = -3;
+                    TRANSITION_moveY = -6;
+                    TRANSITION_scaleX = 6;
+                    TRANSITION_scaleY = 6;
+                }
+
+                if (TRANSITION_value == 40)
+                {
+                    TRANSITION_moveX = 3;
+                    TRANSITION_moveY = 6;
+                    TRANSITION_scaleX = -6;
+                    TRANSITION_scaleY = -6;
+                }
+
+                if (TRANSITION_value == 50)
+                {
+                    TRANSITION_moveX = -3;
+                    TRANSITION_moveY = -6;
+                    TRANSITION_scaleX = 6;
+                    TRANSITION_scaleY = 6;
+                }
+
+                if (TRANSITION_value == 60)
+                {
+                    TRANSITION_moveX = 3;
+                    TRANSITION_moveY = 6;
+                    TRANSITION_scaleX = -6;
+                    TRANSITION_scaleY = -6;
+                }
+                if (TRANSITION_value == 70)
+                {
+                    TRANSITION_moveX = 0;
+                    TRANSITION_moveY = 0;
+                    TRANSITION_scaleY = 0;
+                    TRANSITION_scaleX = 0;
+                }
+
+            }
 
             if (TRANSITION_value > 150)
             {
                 TRANSITION_moveX = 20;
 
-                if (TRANSITION_tekstiRect.X > 300 && TRANSITION_value < 400) //muuta
+                if (TRANSITION_tekstiRect.X > 200 && TRANSITION_value < 400)
                 {
-                    TRANSITION_moveX = 0;
+                    TRANSITION_moveX = 4;
+                }
+
+                if (TRANSITION_tekstiRect.X > 400 && TRANSITION_value < 400)
+                {
+                    TRANSITION_moveX = 20;
                 }
             }
-            if (TRANSITION_value > 450)
+            if (TRANSITION_value > 300)
             {
-                //Transition has ended, now start the next game.
                 StartNextGame();
             }
         }
@@ -673,8 +727,15 @@ namespace InssiParty
             TRANSITION_sydanRect3 = new Rectangle(536, 236, 128, 128);
             TRANSITION_tekstiRect = new Rectangle(-500, 290, 147, 21);
 
-            TRANSITION_moveX = 0;
             TRANSITION_value = 0;
+            TRANSITION_moveX = 0;
+            TRANSITION_moveY = 0;
+            TRANSITION_scaleY = 0;
+            TRANSITION_scaleX = 0;
+            TRANSITION_sydanRect.X = 136; TRANSITION_sydanRect.Y = 236;
+            TRANSITION_sydanRect2.X = 336; TRANSITION_sydanRect2.Y = 236;
+            TRANSITION_sydanRect3.X = 536; TRANSITION_sydanRect3.Y = 236;
+            TRANSITION_tekstiRect.X = -500; TRANSITION_tekstiRect.Y = 290;
         }
 
     }
