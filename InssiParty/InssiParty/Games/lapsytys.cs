@@ -45,11 +45,18 @@ namespace InssiParty.Games
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
             sydan = Content.Load<Texture2D>("sydan");
-            lapsy = Content.Load<SoundEffect>("lapsy1");
-            murahdus = Content.Load<SoundEffect>("murahdus");
-            musa = Content.Load<SoundEffect>("musa1");
-            raakasy = Content.Load<SoundEffect>("raakasy");
-            musaInstance = musa.CreateInstance();
+            try
+            {
+                lapsy = Content.Load<SoundEffect>("lapsy1");
+                murahdus = Content.Load<SoundEffect>("murahdus");
+                musa = Content.Load<SoundEffect>("musa1");
+                raakasy = Content.Load<SoundEffect>("raakasy");
+                musaInstance = musa.CreateInstance();
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+            }
         }
 
         //peli alku

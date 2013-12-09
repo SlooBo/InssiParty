@@ -71,7 +71,7 @@ namespace InssiParty
         private bool gameActive;
         private GameBase currentGame;
         private GameMode currentGameMode;
-
+        
         //Music
         private bool soundsLoaded;
         private SoundEffect introThemeMusic;
@@ -230,8 +230,8 @@ namespace InssiParty
             addGame(new Siivoa(), "Siivoa insinöörin kämppä", "klikkaile hiirellä tavarat pois", true, "Annika Veteli");
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", true, "Annika Veteli");
             addGame(new SilitaKissaa(), "Silitä kissaa", "Silitä hiiren vasemmalla, töki oikealla", true, "Annika Veteli");
+            addGame(new lapsytys(), "Läpsytys", "Läpsi Jaria hiirellä!", true,"Henri Tiihonen");
 
-            addGame(new lapsytys(), "Läpsytys", "Päivitä ohje InssiGame.cs!", false,"Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
