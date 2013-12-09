@@ -41,19 +41,25 @@ namespace InssiParty.Games
         private Rectangle collisionRect;
         private Rectangle collisionRect2;
         private Rectangle windowBounds;
+        private Rectangle background = new Rectangle(0,0,800,600);
 
         Random random;
         //Tekstuurit pitää myös listata tässä kohdassa.
         private Texture2D inssi;
         private Texture2D este;
+        private Texture2D map;
 
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             inssi = Content.Load<Texture2D>("obj");
-            random = new Random();
             este = Content.Load<Texture2D>("palikka");
+            map = Content.Load<Texture2D>("horjuu_map");
+
+            random = new Random();
+
+
             collisionRect2 = new Rectangle(250, 400, 8, 8);
             windowBounds = new Rectangle(0,0,800,600);
         }
@@ -137,6 +143,7 @@ namespace InssiParty.Games
 
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
+            spriteBatch.Draw(map, background, new Color(255, 255, 255));
             spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
             spriteBatch.Draw(este, new Vector2(250, 400), Color.White);
             spriteBatch.Draw(este, new Vector2(750, 300), Color.White);
