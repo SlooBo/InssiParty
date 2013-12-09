@@ -164,7 +164,7 @@ namespace InssiParty
 
                 //DEBUG: Music disabled for debugging 
                 introThemeMusicInstance = introThemeMusic.CreateInstance();
-               // introThemeMusicInstance.Play();
+                introThemeMusicInstance.Play();
             }
             catch (Exception eek)
             {
