@@ -19,7 +19,7 @@ namespace InssiParty.Games
         private int i, k, a, alpha, fadeinc, win;
 
         //äänet
-        //SoundEffect lapsy,murahdus, musa, raakasy;
+        SoundEffect lapsy,murahdus, musa, raakasy;
 
         //Tekstuurit
         private Texture2D backgroundTexture, cursorTexture, Fade, teksti, sydan;
@@ -44,21 +44,10 @@ namespace InssiParty.Games
             Fade = Content.Load<Texture2D>("alphalayer");
             teksti = Content.Load<Texture2D>("lapsijari");
             sydan = Content.Load<Texture2D>("sydan");
-
-            //äänet
-            /*
-            try
-            {
-                lapsy = Content.Load<SoundEffect>("lapsy1");
-                murahdus = Content.Load<SoundEffect>("murahdus");
-                musa = Content.Load<SoundEffect>("musa1");
-                raakasy = Content.Load<SoundEffect>("raakasy");
-            }
-            catch (Exception eek)
-            {
-                Console.WriteLine(eek.Message);
-            }
-             */
+            lapsy = Content.Load<SoundEffect>("lapsy1");
+            murahdus = Content.Load<SoundEffect>("murahdus");
+            musa = Content.Load<SoundEffect>("musa1");
+            raakasy = Content.Load<SoundEffect>("raakasy");
         }
 
         //peli alku
@@ -78,7 +67,7 @@ namespace InssiParty.Games
             tekstiRect.Y = 200;
             tekstiRect.X = 1000;
 
-            // musa.Play( 0.2f , 0 , 0 );
+            musa.Play( 0.2f , 0 , 0 );
             backgroundTexture = jari1;
             
         }
@@ -127,7 +116,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 2;
-                //lapsy.Play();
+                lapsy.Play();
                 backgroundTexture = jari3;
             }
             //M1
@@ -147,7 +136,7 @@ namespace InssiParty.Games
                 i++;
                 Console.WriteLine("osuma: " + i);
                 k = 4;
-                //lapsy.Play();
+                lapsy.Play();
                 backgroundTexture = jari2;
             }
             //M2
@@ -163,24 +152,24 @@ namespace InssiParty.Games
             //murahtelu
             if (value == 30 || value == 60)
             {
-                //murahdus.Play();
+                murahdus.Play();
             }
 
             //Loppucheck
             if (value == 100)
             {
                 win = 1;
-                //raakasy.Play(1,0,0);
+                raakasy.Play(1,0,0);
                 value = 101;
                 backgroundTexture = jari4;
                 k = 0;
                 a = 0;
                 particleManager.AddParticle(sydan,
-                    new Vector2(400, 300),  //sijainti
-                    new Vector2(0.5f, -0.5f),    //min nopeus x/y
-                    new Vector2(2, -2),    //max nopeus x/y
-                    50, 500, 100);       // min/max live, amount
-            }
+                    new Vector2(400, 300),        //sijainti
+                    new Vector2(0.5f, -0.5f),     //min nopeus x/y
+                    new Vector2(2, -2),           //max nopeus x/y
+                    50, 500, 100);                // min/max live, amount
+            }   
             else if (a == 100 && value == 101) 
                 {
                     CloseGame(true);
