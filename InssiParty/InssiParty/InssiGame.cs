@@ -108,6 +108,21 @@ namespace InssiParty
         //Random stuff
         Random random;
 
+        // ##############################################
+        // MENU STUFF
+        private int MENU_value, MENU_value2, MENU_scaleX, MENU_scaleY, MENU_moveX, MENU_moveY;
+        Texture2D MENU_backgroundTexture, MENU_logoTexture, MENU_koodiTexture, MENU_arcadeTexture, MENU_exitTexture, MENU_storyTexture;
+        Rectangle MENU_background = new Rectangle(0, 0, 800, 600);
+        Rectangle MENU_logoRect = new Rectangle(130, 50, 561, 299);
+        Rectangle MENU_arcadeRect = new Rectangle(353, 400, 85, 21);
+        Rectangle MENU_exitRect = new Rectangle(368, 450, 50, 21);
+        Rectangle MENU_storyRect = new Rectangle(325, 350, 147, 21);
+        Rectangle MENU_cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
+        Vector2 MENU_koodiVector = new Vector2();
+        Vector2 MENU_logoVector = new Vector2();
+        Vector2 cursorPos;
+        // ##############################################
+
         public InssiGame()
         {
             soundsLoaded = false;
@@ -180,6 +195,19 @@ namespace InssiParty
             TRANSITION_sydanTexture = Content.Load<Texture2D>("sydan");
             TRANSITION_tekstiTexture = Content.Load<Texture2D>("storymode");
             
+            //MENU STUFF
+
+            //tekstuurit
+            MENU_backgroundTexture = Content.Load<Texture2D>("tausta");
+            MENU_logoTexture = Content.Load<Texture2D>("logo_rotate");
+            MENU_koodiTexture = Content.Load<Texture2D>("koodit_rotate");
+            MENU_arcadeTexture = Content.Load<Texture2D>("arcade");
+            MENU_exitTexture = Content.Load<Texture2D>("exit");
+            MENU_storyTexture = Content.Load<Texture2D>("storymode");
+
+
+
+
             //Lis‰‰ pelisi t‰h‰n listaan!
             /* ############ */
 
@@ -233,6 +261,23 @@ namespace InssiParty
                 if (games[i].FinalVersion)
                     playableGames.Add(games[i]);
             }
+
+            MenuReset();
+        }
+
+        private void MenuReset()
+        {
+            //alustukset
+            MENU_koodiVector.Y = 0;
+            MENU_koodiVector.X = -1502 + 800;
+            MENU_logoVector.X = 0;
+            MENU_logoVector.Y = 0;
+            MENU_scaleX = 8;
+            MENU_scaleY = 8;
+            MENU_moveX = -4;
+            MENU_moveY = -4;
+            MENU_value = 0;
+            MENU_value2 = 0;
         }
 
         protected override void UnloadContent()
@@ -262,6 +307,7 @@ namespace InssiParty
                 {
                     stopGame();
                     menuState = MenuState.MainMenu;
+                    MenuReset();
                 }
             }
 
@@ -421,6 +467,7 @@ namespace InssiParty
             if (value < 0)
             {
                 menuState = MenuState.MainMenu;
+                MenuReset();
             }
             koodiRect.X += 1;
             koodiRect.Y -= 5;
@@ -428,11 +475,13 @@ namespace InssiParty
             if (InputManager.IsMouseButton1Pressed())
             {
                 menuState = MenuState.MainMenu;
+                MenuReset();
             }
 
             if (Keyboard.GetState().GetPressedKeys().Length > 0)
             {
                 menuState = MenuState.MainMenu;
+                MenuReset();
             }
         }
 
@@ -446,13 +495,55 @@ namespace InssiParty
 
         private void MenuUpdate()
         {
-            /*
-                * 
-                * reference for the menu positions
-            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
-            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
-            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
-            */
+            //value/gametime
+            MENU_value++;
+
+            //Hiiri
+            var mouseState = Mouse.GetState();
+            MENU_cursorRect.X = mouseState.X;
+            MENU_cursorRect.Y = mouseState.Y;
+            cursorPos = new Vector2(mouseState.X, mouseState.Y);
+
+            //koodivektori hallinta
+            MENU_koodiVector.Y -= 5;
+            MENU_koodiVector.X += 1.81f;
+
+            if (MENU_koodiVector.X > 107)
+            {
+                MENU_koodiVector.X = -1502 + 800;
+                MENU_koodiVector.Y = 0;
+            }
+
+            //logo hallinta
+            if (MENU_value > 100)
+            {
+                MENU_logoRect.Width += MENU_scaleX;
+                MENU_logoRect.Height += MENU_scaleY;
+                MENU_logoRect.X += MENU_moveX;
+                MENU_logoRect.Y += MENU_moveY;
+
+                if (MENU_logoRect.Height > 400)
+                {
+                    MENU_scaleX = -8;
+                    MENU_scaleY = -8;
+                    MENU_moveX = 4;
+                    MENU_moveY = 4;
+                }
+                if (MENU_logoRect.Height < 300)
+                {
+                    MENU_scaleX = 8;
+                    MENU_scaleY = 8;
+                    MENU_moveX = -4;
+                    MENU_moveY = -4;
+                    MENU_value2++;
+                }
+
+            }
+            if (MENU_value2 > 2 || MENU_value2 == 2)
+            {
+                MENU_value = 0;
+                MENU_value2 = 0;
+            }
 
             if (InputManager.IsMouseButton1Pressed())
             {
@@ -481,17 +572,12 @@ namespace InssiParty
 
         private void MenuDraw()
         {
-            //Title
-            spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
-
-            spriteBatch.DrawString(font, "P‰‰valikko", new Vector2(20, 20), Color.Red);
-
-            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
-            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
-            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
-
-            //Draw the tip
-            spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
+            spriteBatch.Draw(MENU_backgroundTexture, MENU_background, Color.White);
+            spriteBatch.Draw(MENU_koodiTexture, MENU_koodiVector, Color.White);
+            spriteBatch.Draw(MENU_logoTexture, MENU_logoRect, Color.White);
+            spriteBatch.Draw(MENU_arcadeTexture, MENU_arcadeRect, Color.White);
+            spriteBatch.Draw(MENU_exitTexture, MENU_exitRect, Color.White);
+            spriteBatch.Draw(MENU_storyTexture, MENU_storyRect, Color.White);
         }
 
         private void GameListDraw()
