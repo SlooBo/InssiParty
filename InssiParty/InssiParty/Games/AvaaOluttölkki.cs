@@ -25,7 +25,6 @@ namespace InssiParty.Games
         //Esitellään muuttujat
         int nappi;
         private int value;
-        private string [] numValues;
         private int fail_counter;
         private int success_counter;
         Random random;
@@ -58,7 +57,6 @@ namespace InssiParty.Games
             OpeningCan = Content.Load<Texture2D>("Can-Hissing");
             EmptyCan = Content.Load<Texture2D>("Can-Empty");
             font = Content.Load<SpriteFont>("DefaultFont");
-            backround_texture = Content.Load<Texture2D>("FeedGame_background");
         }
 
         /**
@@ -93,12 +91,7 @@ namespace InssiParty.Games
             Console.WriteLine("Closing Avaa oluttölkki");
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
+     
         public override void Update(GameTime gameTime)
         {
             
@@ -107,14 +100,21 @@ namespace InssiParty.Games
             if (gameRunning == true)
             {
                 
-                if (success_counter !=0)
+                if (success_counter <=6)
                 {
                     success_counter = 0;
                     nappi = random.Next(1, 5);
-                    gameRunning = false;
-                    gameover = true;
+                    gameRunning = true;
+                    gameover = false;
 
                    
+                }
+                else if (fail_counter == 3)
+                {
+
+                    gameRunning = false;
+                    gameover = true;
+                
                 }
             }
 
@@ -124,9 +124,10 @@ namespace InssiParty.Games
 
             if (gameRunning == true)
             {
+                backround_texture = Can;
 
                 //Määritetään A-näppäin ja pistelaskuri
-                if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) //jos A-näppäin on painettuna alas
+                if (keys.IsKeyDown(Keys.Q) && previous.IsKeyUp(Keys.Q)) //jos A-näppäin on painettuna alas
                 {
                     if (nappi == 1) //ja jos nappi on yksi
                     {
@@ -134,15 +135,10 @@ namespace InssiParty.Games
                         success_counter = success_counter + 1; //lisätään pisteitä
                         
                     }
-                    else
-                    {
-                        gameover = true; //jos ei paineta gameover true
-                        gameRunning = false;
-                       
-                    }
+                    
                 }
 
-                if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))//määritetään jos s-näppäin on pohjassa
+                if (keys.IsKeyDown(Keys.F) && previous.IsKeyUp(Keys.F))//määritetään jos s-näppäin on pohjassa
                 {
                     if (nappi == 2) // jos nappi on 2
                     {
@@ -150,14 +146,10 @@ namespace InssiParty.Games
                         success_counter = success_counter + 1; // lisätään piste
                       
                     }
-                    else
-                    {
-                        gameover = true;
-                        gameRunning = false;
-                       
-                    }
+                    
                 }
-                if (keys.IsKeyDown(Keys.K) && previous.IsKeyUp(Keys.K))
+                
+                if (keys.IsKeyDown(Keys.T) && previous.IsKeyUp(Keys.T))
                 {
                     if (nappi == 3)
                     {
@@ -165,14 +157,10 @@ namespace InssiParty.Games
                         success_counter = success_counter + 1;
                         
                     }
-                    else
-                    {
-                        gameover = true;
-                        gameRunning = false;
-                      
-                    }
+                    
                 }
-                if (keys.IsKeyDown(Keys.L) && previous.IsKeyUp(Keys.L))
+                
+                if (keys.IsKeyDown(Keys.P) && previous.IsKeyUp(Keys.P))
                 {
                     if (nappi == 4)
                     {
@@ -180,19 +168,9 @@ namespace InssiParty.Games
                        success_counter = success_counter + 1;
                        
                     }
-                    else
-                    {
-                        gameover = true;
-                        gameRunning = false;
-                       
-                    }
+                  
                 }
 
-                if (value == 100)
-                {
-                    win = true;
-                    gameRunning = false;
-                }
             }
 
             if (value == 0 && win == true && gameover == false)
@@ -229,28 +207,15 @@ namespace InssiParty.Games
          * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
          */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            Console.WriteLine("Draw " + value);
-
+        {  
             //spriteBatch.Draw funktiolla voit piirtää ruudulle.
             //Palikka piirretään y akselilla, valuen kohtaan
+            
+            Console.WriteLine("Draw " + value);
 
             spriteBatch.DrawString(font, "Paina: " + nappi,new Vector2(10, 10), Color.Turquoise);
 
             spriteBatch.Draw(backround_texture, new Vector2(100, 100), Color.White);
-
-            spriteBatch.Draw(Can, new Vector2(100, 100), Color.White);
-
-            spriteBatch.Draw(OpeningCan, new Vector2(100, 100), Color.White);
-
-            spriteBatch.Draw(EmptyCan, new Vector2(100,100), Color.White);
-
-            
-
-         
-
-
-
 
         }
 
