@@ -98,7 +98,7 @@ namespace InssiParty.Games
                         hitting.Play(1, 0, 0);
                         if (soundTrigger == 1)
                         {
-                            depression.Play(1, 0, 0);
+                            depressionInstance.Play();
                         }
                     }
                 }
