@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 
 namespace InssiParty.Games
@@ -49,6 +50,7 @@ namespace InssiParty.Games
         Rectangle targetRect = new Rectangle(0, 0, 62, 62);
         Rectangle NyancatRect = new Rectangle(0, 0, 62, 37);
         Rectangle cannonBarrelRect; 
+
         private Vector2 targetPos;
         private Vector2 barrelhp;
         private Vector2 cbSpeed;
@@ -64,6 +66,9 @@ namespace InssiParty.Games
         private Texture2D backgroundTexture;
         private Texture2D turretTexture;
 
+        private SoundEffect Cannonshoot;
+        private SoundEffect Nyandeath;
+
         List<Cannonball> cannonballs;
 
 
@@ -78,6 +83,8 @@ namespace InssiParty.Games
             cannonballTexture = Content.Load<Texture2D>("cannonball");
             turretTexture = Content.Load<Texture2D>("playerturret");
             cannonbarrel = Content.Load<Texture2D>("cannonbarrel");
+            Nyandeath = Content.Load<SoundEffect>("Nyandeath");
+            Cannonshoot = Content.Load<SoundEffect>("Cannonshoot");
         }
 
         /**
@@ -139,6 +146,7 @@ namespace InssiParty.Games
             }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed && mousestate)
             {
+                Cannonshoot.Play();
                 initX = Math.Cos(angle) * 6; 
                 initY = Math.Sin(angle) * 6;
                 cbSpeed = new Vector2((float)initX, (float)initY);
@@ -189,6 +197,7 @@ namespace InssiParty.Games
             }
             if (health == 0)
             {
+                Nyandeath.Play();
                 //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
                 CloseGame(true);
             }
