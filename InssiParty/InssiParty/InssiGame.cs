@@ -120,7 +120,6 @@ namespace InssiParty
         Rectangle MENU_cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
         Vector2 MENU_koodiVector = new Vector2();
         Vector2 MENU_logoVector = new Vector2();
-        Vector2 cursorPos;
         // ##############################################
 
         public InssiGame()
@@ -502,7 +501,6 @@ namespace InssiParty
             var mouseState = Mouse.GetState();
             MENU_cursorRect.X = mouseState.X;
             MENU_cursorRect.Y = mouseState.Y;
-            cursorPos = new Vector2(mouseState.X, mouseState.Y);
 
             //koodivektori hallinta
             MENU_koodiVector.Y -= 5;
@@ -549,20 +547,20 @@ namespace InssiParty
             {
                 //The menu is only checked on the Y axis, because logic
 
-                if (cursorPosition.Y > 100 && cursorPosition.Y < 120)
+                if (MENU_storyRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
                 {
                     Console.WriteLine("Start the story mode!");
                     currentGameMode = GameMode.StoryMode;
                     StartStory();
                 }
 
-                if (cursorPosition.Y > 140 && cursorPosition.Y < 160)
+                if (MENU_arcadeRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
                 {
                     Console.WriteLine("Arcade Model selected!");
                     menuState = MenuState.GameList;
                 }
 
-                if (cursorPosition.Y > 180 && cursorPosition.Y < 200)
+                if (MENU_exitRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
                 {
                     //Exit the application
                     Exit();
