@@ -479,6 +479,21 @@ namespace InssiParty
             }
         }
 
+        private void MenuDraw()
+        {
+            //Title
+            spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
+
+            spriteBatch.DrawString(font, "P‰‰valikko", new Vector2(20, 20), Color.Red);
+
+            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
+            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
+            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
+
+            //Draw the tip
+            spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
+        }
+
         private void GameListDraw()
         {
             for (int i = 0; i < games.Count; ++i)
@@ -515,21 +530,6 @@ namespace InssiParty
                     }
                 }
             }
-        }
-
-        private void MenuDraw()
-        {
-            //Title
-            spriteBatch.DrawString(font, "InssiParty 2000!", new Vector2(0, 0), Color.Red);
-
-            spriteBatch.DrawString(font, "P‰‰valikko", new Vector2(20, 20), Color.Red);
-
-            spriteBatch.DrawString(font, "Story mode", new Vector2(20, 100), Color.Green);
-            spriteBatch.DrawString(font, "Arcade mode", new Vector2(20, 140), Color.Green);
-            spriteBatch.DrawString(font, "Exit", new Vector2(20, 180), Color.Green);
-
-            //Draw the tip
-            spriteBatch.DrawString(font, currentTip, new Vector2(5, 540), Color.White);
         }
 
 
