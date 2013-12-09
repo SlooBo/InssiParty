@@ -542,7 +542,36 @@ namespace InssiParty
                 MENU_value = 0;
                 MENU_value2 = 0;
             }
+            
+            //Hover effect
+            if (MENU_storyRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
+            {
+                MENU_storyRect.Height = 26;
+            }
+            else
+            {
+                MENU_storyRect.Height = 21;
+            }
 
+            if (MENU_arcadeRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
+            {
+                MENU_arcadeRect.Height = 26;
+            }
+            else
+            {
+                MENU_arcadeRect.Height = 21;
+            }
+
+            if (MENU_exitRect.Intersects(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 1, 1)))
+            {
+                MENU_exitRect.Height = 26;
+            }
+            else
+            {
+                MENU_exitRect.Height = 21;
+            }
+
+            //Actual click
             if (InputManager.IsMouseButton1Pressed())
             {
                 //The menu is only checked on the Y axis, because logic
