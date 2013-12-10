@@ -235,7 +235,7 @@ namespace InssiParty
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
-            addGame(new FeedGame(), "Ruokkimis-peli", "Find something to eat or die!", false, "Creator missing!");
+            addGame(new FeedGame(), "Ruokkimis-peli", "Löydä syötävää tai kuole!", true, "Hannu Salmi");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false, "Creator missing!");
             //addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", false, "Jouni Friman");
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");

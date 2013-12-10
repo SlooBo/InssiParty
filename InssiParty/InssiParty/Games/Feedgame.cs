@@ -14,44 +14,37 @@ namespace InssiParty.Games
 {
 
     /*
-     * Ruokkimi-speli
+     * Ruokkimis-peli
 
      * Löydä syötävää tai kuolet
      * By: Hannu
      */
     class FeedGame : GameBase
     {
-        //Mahdolliset variablet mitä tarvitset pelin aikana on hyvä listata tässä kohdassa.
         private List<Kaappi> kaapit;
         private Vector2 HandPos;
 
-        //Tekstuurit pitää myös listata tässä kohdassa.
-        private Texture2D backround_texture, box,box_open, handu, win, lose;
+        private Texture2D backround_texture, box,box_open;
+        private Texture2D handu, handu_aina, handu_avaus;
         private Texture2D poison,ruoka,testi;
         private Texture2D Ajastin;
         private Texture2D dildo, kopteri, oil, grenade;
 
-        SoundEffect open, eat, drink, die, escape,explosion;
+        SoundEffect open, eat, drink, heijari, escape,explosion;
 
         private bool elossa,hungry;
-        private int timer,timer2;
+        private int timer,timer2,timer3;
 
         private Rectangle timer_bar;
-        Rectangle HandRect = new Rectangle(0, 0, 4, 4);
-        /**
-         * Lataa tekstuureihin itse data.
-         * 
-         * Ajetaan kun koko ohjelma käynnistyy.
-         */
+        Rectangle HandRect = new Rectangle(0, 0, 32, 32);
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
             backround_texture = Content.Load<Texture2D>("FeedGame_background");
             box = Content.Load<Texture2D>("kaappi");
             box_open = Content.Load<Texture2D>("Auki");
-            handu = Content.Load<Texture2D>("hand");
-            win = Content.Load<Texture2D>("You_won");
-            lose = Content.Load<Texture2D>("hävisit");
+            handu_aina = Content.Load<Texture2D>("hand");
+            handu_avaus = Content.Load<Texture2D>("hand_open");
             poison = Content.Load<Texture2D>("Pullo");
             ruoka = Content.Load<Texture2D>("ruoka");
             testi = Content.Load<Texture2D>("testi_item");
@@ -60,8 +53,7 @@ namespace InssiParty.Games
             kopteri = Content.Load<Texture2D>("Kopteri");
             grenade = Content.Load<Texture2D>("Kranu");
             Ajastin = new Texture2D(GraphicsDevice, 1, 1);
-            Ajastin.SetData(new Color[] {Color.Wheat});
-
+            Ajastin.SetData(new Color[] {Color.Indigo});
             timer_bar = new Rectangle(0,580,800,20);
 
             try
@@ -71,6 +63,7 @@ namespace InssiParty.Games
                 escape = Content.Load<SoundEffect>("Choppaa");
                 drink = Content.Load<SoundEffect>("drink_and_die");
                 explosion = Content.Load<SoundEffect>("Xplosion");
+                heijari = Content.Load<SoundEffect>("Pingas");
             }
             catch(Exception eek)
             {
@@ -79,15 +72,12 @@ namespace InssiParty.Games
 
         }
 
-        /**
-         * Kaikki mitä pitää tehdä kun peli käynnistyy.
-         * 
-         * Esimerkiksi aseta muuttujat tarvittaviin arvoihin, tai käynnistä musiikki.
-         */
         public override void Start()
         {
+            handu = handu_aina;
             timer = 0;
-            timer2 = 100;
+            timer2 = 400;
+            timer3 = 250;
             elossa = true;
             hungry = true;
             Random rand = new Random();
@@ -109,21 +99,21 @@ namespace InssiParty.Games
 
             temp = new Kaappi();
             temp.auki = false;
-            temp.sijainti = new Vector2(0, 472);
+            temp.sijainti = new Vector2(0, 452);
             temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
-            temp.sijainti = new Vector2(128, 472);
+            temp.sijainti = new Vector2(128, 452);
             temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
 
             temp = new Kaappi();
             temp.auki = false;
-            temp.sijainti = new Vector2(256, 472);
+            temp.sijainti = new Vector2(256, 452);
             temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
@@ -144,7 +134,7 @@ namespace InssiParty.Games
 
             temp = new Kaappi();
             temp.auki = false;
-            temp.sijainti = new Vector2(672, 472);
+            temp.sijainti = new Vector2(672, 452);
             temp.koko = new Vector2(128, 128);
             temp.tavara_id = RandomTavara(rand);
             kaapit.Add(temp);
@@ -174,26 +164,25 @@ namespace InssiParty.Games
             return luku;
         }
 
-        /**
-         * Ajetaan kun peli sulkeutuu. Piilota äänet ja puhdista roskasi seuraavaa peliä varten.
-         */
         public override void Stop()
         {
-
         }
 
-        /**
-         * Ajetaan kun peliä pitää päivittää. Tänne menee itse pelin logiikka koodi,
-         * törmäys chekkaukset, pisteen laskut, yms.
-         * 
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Update(GameTime gameTime)
         {
             var mouseState = Mouse.GetState();
             HandRect.X = mouseState.X;
             HandRect.Y = mouseState.Y;
-            HandPos = new Vector2(mouseState.X, mouseState.Y);
+            HandPos = new Vector2(mouseState.X-32, mouseState.Y-32);
+
+            if(InputManager.IsMouseButton1Pressed() ==true)
+            {
+                handu = handu_avaus;
+            }
+            else
+            {
+                handu=handu_aina;
+            }
 
             for (int i = 0; i < kaapit.Count; i++)
             {
@@ -201,10 +190,8 @@ namespace InssiParty.Games
                         && InputManager.IsMouseButton1Pressed() == true 
                         && kaapit[i].auki == true)
                 {
-                    Console.WriteLine("Hand hits item");
-                    if (kaapit[i].tavara_id==0)
+                    if (kaapit[i].tavara_id == 0 || kaapit[i].tavara_id == 3)
                     {
-                        Console.WriteLine("You Die!!!");
                         if (elossa == true)
                         { 
                             drink.Play(); 
@@ -214,7 +201,6 @@ namespace InssiParty.Games
 
                     if (kaapit[i].tavara_id == 2)
                     {
-                        Console.WriteLine("Pelastuit");
                         if (elossa == true)
                         {
                             escape.Play();
@@ -222,24 +208,14 @@ namespace InssiParty.Games
                         hungry = false;
                     }
 
-                    else if (kaapit[i].tavara_id == 3)
-                    {
-                        Console.WriteLine("You Die!!!");
-                        if (elossa == true)
-                        {
-                            drink.Play();
-                        }
-                        elossa = false;
-                    }
 
                     else if (kaapit[i].tavara_id == 1)
                     {
-                        Console.WriteLine("Wololooo");
+                       heijari.Play();
                     }
 
-                    else if (kaapit[i].tavara_id == 2)
+                    else if (kaapit[i].tavara_id == 4)
                     {
-                        Console.WriteLine("Selvisit hengissä!");
                         if (hungry == true)
                         {
                             eat.Play();
@@ -248,7 +224,6 @@ namespace InssiParty.Games
                     }
                     else if (kaapit[i].tavara_id == 5)
                     {
-                        Console.WriteLine("You Die!!!");
                         if (elossa == true)
                         {
                             explosion.Play();
@@ -263,15 +238,13 @@ namespace InssiParty.Games
         && InputManager.IsMouseButton1Pressed() == true
         && kaapit[i].auki == false)
                     {
-                        Console.WriteLine("Hand hits the cupboard");
                         kaapit[i].auki = true;
                         open.Play();
-
                     }
-
             }
 
-            ++timer;
+            timer+=4;
+
 
             timer_bar.Width = 800 - timer;
             if (elossa == false)
@@ -279,65 +252,59 @@ namespace InssiParty.Games
                 --timer2;
             }
 
+            if (hungry == false)
+            {
+                --timer3;
+            }
+
             if (timer == 800 || elossa ==false && timer2==0)
             {
                 CloseGame(false);
             }
 
-            if (timer == 800 && hungry == false)
+            if (timer == 800 && hungry == false||timer3 == 0 && hungry == false)
             {
                 CloseGame(true);
             }
 
         }
 
-        /**
-         * Pelkkä piirtäminen
-         * 
-         * ELÄ sijoita pelilogiikkaa tänne.
-         *
-         * gameTime avulla voidaan synkata nopeus tasaikseksi vaikka framerate ei olisi tasainen.
-         */
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Console.WriteLine("Perkele");
 
-            //spriteBatch.Draw funktiolla voit piirtää ruudulle.
-            //Palikka piirretään y akselilla, valuen kohtaan
             spriteBatch.Draw(backround_texture, new Vector2(0, 0), Color.White);
 
-            //for loop the list
             for(int i=0; i< kaapit.Count;i++)
             {
-                //draw rectangle on kaappi.sijainti + koko
                 spriteBatch.Draw(box, kaapit[i].sijainti, Color.White);
                 if (kaapit[i].auki == true)
                 {
                     spriteBatch.Draw(box_open, kaapit[i].sijainti, Color.White);
                     if (kaapit[i].tavara_id == 0)
                     {
-                        spriteBatch.Draw(poison, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(poison, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
-                    else if (kaapit[i].tavara_id == 1)
+                    else if (kaapit[i].tavara_id == 4)
                     {
-                        spriteBatch.Draw(ruoka, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(ruoka, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
 
                     else if (kaapit[i].tavara_id == 2)
                     {
-                        spriteBatch.Draw(kopteri, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(kopteri, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
                     else if (kaapit[i].tavara_id == 3)
                     {
-                        spriteBatch.Draw(oil, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(oil, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
-                    else if (kaapit[i].tavara_id == 4)
+                    else if (kaapit[i].tavara_id == 1)
                     {
-                        spriteBatch.Draw(dildo, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(dildo, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
                     else if (kaapit[i].tavara_id == 5)
                     {
-                        spriteBatch.Draw(grenade, kaapit[i].sijainti + new Vector2(64, 64), Color.White);
+                        spriteBatch.Draw(grenade, kaapit[i].sijainti + new Vector2(60, 60), Color.White);
                     }
                 }
             
@@ -345,9 +312,7 @@ namespace InssiParty.Games
             spriteBatch.Draw(Ajastin,timer_bar,Color.White);
 
             spriteBatch.Draw(handu, HandPos, Color.White);
-            //    spriteBatch.Draw(win, new Vector2(0, 0), Color.White);
-            //spriteBatch.Draw(lose, new Vector2(0, 0), Color.White);
-        }
 
+        }
     }
 }
