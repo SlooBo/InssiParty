@@ -30,8 +30,7 @@ namespace InssiParty.Games
         Random random;
 
 
-        KeyboardState keys;
-        KeyboardState previous;
+        KeyboardState oldState;
 
         //Esitellään tekstuurit
         private Texture2D Can;
@@ -70,15 +69,15 @@ namespace InssiParty.Games
 
             value = 500;
 
+            oldState = Keyboard.GetState();
+
             Console.WriteLine("Starting hello world");
 
             random = new Random();
             
             fail_counter=0;
 
-            success_counter=0;
-
-            nappi = random.Next(1, 4); 
+            success_counter=0; 
 
             backround_texture = Can;
         }
@@ -100,10 +99,9 @@ namespace InssiParty.Games
             if (gameRunning == true)
             {
                 
-                if (success_counter <=6)
+                if (success_counter <6)
                 {
                     success_counter = 0;
-                    nappi = random.Next(1, 5);
                     gameRunning = true;
                     gameover = false;
 
@@ -118,57 +116,71 @@ namespace InssiParty.Games
                 }
             }
 
- 
-            previous = keys;
-            keys = Keyboard.GetState();
-
+            KeyboardState newState = Keyboard.GetState();
             if (gameRunning == true)
             {
                 backround_texture = Can;
 
-                if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) 
+                if (newState.IsKeyDown(Keys.A)) 
                 {
-                    if (nappi == 1)
+                    if (!oldState.IsKeyDown(Keys.A))
                     {
-                        nappi = random.Next(1, 5);
                         success_counter = success_counter + 1; 
                         
                     }
                     
                 }
-
-                if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))
-                {
-                    if (nappi == 2)
-                    {
-                        nappi =  random.Next(1, 5);
-                        success_counter = success_counter + 1;
-                      
-                    }
+                else if (oldState.IsKeyDown(Keys.A))
+                { 
                     
                 }
-                
-                if (keys.IsKeyDown(Keys.D) && previous.IsKeyUp(Keys.D))
+                oldState = newState;
+
+                if (newState.IsKeyDown(Keys.S)) 
                 {
-                    if (nappi == 3)
+                    if (!oldState.IsKeyDown(Keys.S))
                     {
-                        nappi = random.Next(1, 5);
-                        success_counter = success_counter + 1;
+                        success_counter = success_counter + 1; 
                         
                     }
                     
                 }
-                
-                if (keys.IsKeyDown(Keys.F) && previous.IsKeyUp(Keys.F))
-                {
-                    if (nappi == 4)
-                    {
-                        nappi =  random.Next(1, 5);
-                       success_counter = success_counter + 1;
-                       
-                    }
-                  
+                else if (oldState.IsKeyDown(Keys.S))
+                { 
+                    
                 }
+                oldState = newState;
+                
+
+                if (newState.IsKeyDown(Keys.D)) 
+                {
+                    if (!oldState.IsKeyDown(Keys.D))
+                    {
+                        success_counter = success_counter + 1; 
+                        
+                    }
+                    
+                }
+                else if (oldState.IsKeyDown(Keys.D))
+                { 
+                    
+                }
+                oldState = newState;
+
+                if (newState.IsKeyDown(Keys.F)) 
+                {
+                    if (!oldState.IsKeyDown(Keys.F))
+                    {
+                        success_counter = success_counter + 1; 
+                        
+                    }
+                    
+                }
+                else if (oldState.IsKeyDown(Keys.F))
+                { 
+                    
+                }
+                oldState = newState;
 
             }
             if (success_counter == 3 && success_counter < 5)
@@ -191,7 +203,6 @@ namespace InssiParty.Games
             {
                 win = false;
                 gameover = true;
-                OpeningCan = backround_texture;
 
                 CloseGame(false);
             }
@@ -223,8 +234,6 @@ namespace InssiParty.Games
             //Palikka piirretään y akselilla, valuen kohtaan
             
             Console.WriteLine("Draw " + value);
-
-            spriteBatch.DrawString(font, "Paina: " + nappi,new Vector2(10, 10), Color.Turquoise);
 
             spriteBatch.Draw(backround_texture, new Vector2(100, 100), Color.White);
 
