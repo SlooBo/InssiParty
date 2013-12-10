@@ -71,6 +71,14 @@ namespace InssiParty.Games
         Vector2 inssiposition;
         int MaxX;
 
+        //z-muuttujat
+        Texture2D Zkirjain;
+        Vector2 Znopeus;
+        Vector2 Zposition;
+        int ZmaxY;
+        float animation_timer = 0.0f; //animaation ajastus
+        int animation_frame_count = 2; // animaation kehysten määrä
+
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
             //ladataan kissakuvia :3
@@ -94,6 +102,9 @@ namespace InssiParty.Games
 
             //ladataan insinöörinkuva
             insinööri = Content.Load<Texture2D>("aawinsinööri");
+
+            //z
+            Zkirjain = Content.Load<Texture2D>("kirjaimet");
 
             try
             {
@@ -133,6 +144,11 @@ namespace InssiParty.Games
 
             inssinopeus = new Vector2(110.0f, 0f);
             inssiposition = new Vector2(0, 100);
+
+            //z
+            Znopeus = new Vector2(-20f, 50f);
+            Zposition = new Vector2(600, 300);
+            ZmaxY = 300;
         }
 
         public override void Stop()
@@ -153,6 +169,16 @@ namespace InssiParty.Games
                 inssinopeus *= -1;
                 inssiposition.X = MaxX;
                 inssiposition.Y = 100;
+            }
+
+            //z:tan liikkuminen
+            Zposition += Znopeus * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Zposition.Y >= ZmaxY)
+            {
+                Znopeus *= -1;
+                Zposition.X = 600;
+                Zposition.Y = ZmaxY;
+
             }
 
             //hiiren määrityksiä yhdelle klikkaukselle
@@ -257,11 +283,16 @@ namespace InssiParty.Games
         {
             //Console.WriteLine("Draw " + value);
 
+            animation_timer += 0.08f;
+            int currentFrame = (int)(animation_timer % animation_frame_count);
+
+
             if (voitto == false && gameOver == false)
             {
                 spriteBatch.Draw(kissatextuuri, taustakissa, Color.White);
                 spriteBatch.Draw(kasialku, new Vector2(Mouse.GetState().X - 100,
                         Mouse.GetState().Y - 100), Color.White);
+
             }
 
             if (voitto == false && gameOver == false && value > 395)
@@ -273,6 +304,10 @@ namespace InssiParty.Games
             {
                 spriteBatch.Draw(kissavoittokuva, taustakissa, Color.White);
                 spriteBatch.DrawString(fontti, "Aaw, kissa nukahti. Voitit pelin!", new Vector2(80, 200), Color.Aquamarine);
+
+                spriteBatch.Draw(Zkirjain, Zposition, new Rectangle(Zkirjain.Width / animation_frame_count * currentFrame, 0, Zkirjain.Width / animation_frame_count, Zkirjain.Height),
+              Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.0F);
+                //spriteBatch.Draw(Zkirjain, Zposition, Color.Wheat);
             }
             if (gameOver == true && voitto == false)
             {
