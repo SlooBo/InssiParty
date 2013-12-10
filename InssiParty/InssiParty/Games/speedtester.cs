@@ -28,7 +28,6 @@ namespace InssiParty.Games
         Texture2D haaleanappikuva; //esitellään nappikuva
         Texture2D gameOveranimaatio; // esitellään gameoverkuva
         Texture2D winwinAnimaatio;
-        Texture2D notevenmad;
        
         //fontti
         SpriteFont fontti; // esitellään fontti
@@ -68,7 +67,6 @@ namespace InssiParty.Games
             fontti = Content.Load<SpriteFont>("DefaultFont"); // ladataan fontti
             gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover animaatio
             winwinAnimaatio = Content.Load<Texture2D>("winwin");
-            notevenmad = Content.Load<Texture2D>("annikaonlaki");
 
             try
             {
@@ -267,13 +265,7 @@ namespace InssiParty.Games
                     {
                         button3 = Color.Red;
                     }
-                    if (value > 450)
-                    {
-
-                        spriteBatch.Draw(notevenmad, new Vector2(-10, 255), Color.White);
-                        spriteBatch.DrawString(fontti, "Nou thänks copypaste meininkiä, ", new Vector2(350, 400), Color.LimeGreen);
-                        spriteBatch.DrawString(fontti, "eri asia ottaa mallia jos tarvii", new Vector2(350, 450), Color.LimeGreen);
-                    }
+   
                     spriteBatch.Draw(haaleanappikuva, new Rectangle(i * 140, 200, 140, 160), button3 * savy);
                 }
             }
