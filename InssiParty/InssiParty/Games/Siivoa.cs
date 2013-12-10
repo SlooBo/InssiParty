@@ -67,9 +67,14 @@ namespace InssiParty.Games
         bool voitto;
         bool häviö;
 
+        private bool SoundLoaded;
+
         //hiiri
         MouseState currentMouseState;
         MouseState lastMouseState;
+
+        //ääni
+        SoundEffect piu;
       
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -84,6 +89,19 @@ namespace InssiParty.Games
             insinöörikommentoi = Content.Load<Texture2D>("insinööricopy");
             puhekuplaEmpty = Content.Load<Texture2D>("puhekupla");
             fontti = Content.Load<SpriteFont>("DefaultFont");
+
+            try
+            {
+                piu = Content.Load<SoundEffect>("PIUcut");
+                SoundLoaded = true;
+            }
+            catch (Exception eek)
+            {
+                Console.WriteLine(eek.Message);
+
+                SoundLoaded = false;
+            }
+            
             
         }
 
@@ -146,6 +164,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                             currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         juissiOlemassa = false;
                     }
                 }
@@ -155,6 +174,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                            currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         ohjainOlemassa = false;
                     }
                 }
@@ -164,6 +184,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                            currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         alkomahooliOlemassa = false;
                     }
 
@@ -174,6 +195,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                           currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         kaukosäädinOlemassa = false;
                     }
 
@@ -184,6 +206,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                             currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         äänisäädinOlemassa = false;
                     }
                 }
@@ -193,6 +216,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                         currentMouseState.LeftButton == ButtonState.Pressed)
                     {
+                        piu.Play();
                         sytkäriOlemassa = false;
                     }
                 }
