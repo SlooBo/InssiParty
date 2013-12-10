@@ -48,8 +48,8 @@ namespace InssiParty.Games
         MouseState lastMouseState;
 
         //alueet kissan päälle ja vartalolle erikseen, + ruudunkoko
-        Rectangle vartalonelio = new Rectangle(150, 200, 200, 200);
-        Rectangle paanelio = new Rectangle(500, 100, 100, 100);
+        Rectangle vartalonelio = new Rectangle(150, 200, 250, 200);
+        Rectangle paanelio = new Rectangle(450, 100, 150, 200);
         Rectangle taustakissa = new Rectangle(0, 0, 800, 600);
 
         // fontti
