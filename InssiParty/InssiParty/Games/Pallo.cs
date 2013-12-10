@@ -20,7 +20,7 @@ namespace InssiParty.Games
         private Texture2D Palkki;
 
         private int value = 0;
-        private int joku;
+        private int nopeus;
 
         Rectangle kori = new Rectangle(330, 520, 100, 75);
         Rectangle ballo = new Rectangle(350, -90, 45, 45);
@@ -39,7 +39,7 @@ namespace InssiParty.Games
             Console.WriteLine("Start Game");
             //alustus
             Random random = new Random();
-            joku = random.Next(-10, 10);
+            nopeus = random.Next(-10, 10);
             
 
         }
@@ -53,16 +53,16 @@ namespace InssiParty.Games
         {
             
             ballo.Y += 1;
-            if(joku > 0)
+            if(nopeus > 0)
             {
                 if (value == 0)
                 {
-                    ballo.X += joku;
+                    ballo.X += nopeus;
                 }
 
                 else
                 {
-                    ballo.X -= joku;
+                    ballo.X -= nopeus;
                 }
 
 
@@ -76,16 +76,16 @@ namespace InssiParty.Games
                 }
             }
 
-            if (joku < 0)
+            if (nopeus < 0)
             {
                 if (value == 0)
                 {
-                    ballo.X += joku;
+                    ballo.X += nopeus;
                 }
 
                 else
                 {
-                    ballo.X -= joku;
+                    ballo.X -= nopeus;
                 }
 
                 if (ballo.X > 755)
@@ -106,9 +106,27 @@ namespace InssiParty.Games
                 ballo*/
             
             
-            if (ballo.Y > 600)
+            if (ballo.Y > 500)
             {
-                CloseGame(false);
+                bool osui=false;
+
+                //CloseGame(false);
+                if (ballo.X+23 > kori.X)
+                {
+                    if (ballo.X+23 < kori.X+kori.Width)
+                    {
+                        osui = true;
+                    }
+
+                }
+                if (osui = true)
+                {
+                    CloseGame(true);
+                }
+                else
+                {
+
+                }
             }
 
             if (kori.X < 0)
