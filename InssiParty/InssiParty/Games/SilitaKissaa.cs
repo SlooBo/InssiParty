@@ -101,7 +101,7 @@ namespace InssiParty.Games
             fontti = Content.Load<SpriteFont>("DefaultFont");
 
             //ladataan insinöörinkuva
-            insinööri = Content.Load<Texture2D>("aawinsinööri");
+            insinööri = Content.Load<Texture2D>("insinöörianimaatio");
 
             //z
             Zkirjain = Content.Load<Texture2D>("kirjaimet");
@@ -133,7 +133,7 @@ namespace InssiParty.Games
             gameOver = false;
             silityskerrat = 0;
             silitysvirhe = 0;
-            MaxX = 0;
+            MaxX = -5;
 
             kissatextuuri = kissatextuuri1;
 
@@ -143,7 +143,7 @@ namespace InssiParty.Games
             }
 
             inssinopeus = new Vector2(110.0f, 0f);
-            inssiposition = new Vector2(0, 100);
+            inssiposition = new Vector2(-5, 100);
 
             //z
             Znopeus = new Vector2(-20f, 50f);
@@ -297,7 +297,9 @@ namespace InssiParty.Games
 
             if (voitto == false && gameOver == false && value > 395)
             {
-                spriteBatch.Draw(insinööri, inssiposition, Color.White);
+                //spriteBatch.Draw(insinööri, inssiposition, Color.White);
+                spriteBatch.Draw(insinööri, inssiposition, new Rectangle(insinööri.Width  / animation_frame_count * currentFrame, 0, insinööri.Width / animation_frame_count, insinööri.Height),
+              Color.White, 0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0F);
             }
 
             if (voitto == true && gameOver == false)
@@ -306,8 +308,7 @@ namespace InssiParty.Games
                 spriteBatch.DrawString(fontti, "Aaw, kissa nukahti. Voitit pelin!", new Vector2(80, 200), Color.Aquamarine);
 
                 spriteBatch.Draw(Zkirjain, Zposition, new Rectangle(Zkirjain.Width / animation_frame_count * currentFrame, 0, Zkirjain.Width / animation_frame_count, Zkirjain.Height),
-              Color.White, 0f, new Vector2(0,0), 1.0f, SpriteEffects.None, 0.0F);
-                //spriteBatch.Draw(Zkirjain, Zposition, Color.Wheat);
+              Color.White, 0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0F);
             }
             if (gameOver == true && voitto == false)
             {

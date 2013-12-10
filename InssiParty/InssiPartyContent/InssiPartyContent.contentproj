@@ -683,13 +683,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="aawinsinööri.png">
-      <Name>aawinsinööri</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="KehräysCutVersion.mp3">
       <Name>KehräysCutVersion</Name>
       <Importer>Mp3Importer</Importer>
@@ -926,6 +919,13 @@
   <ItemGroup>
     <Compile Include="kirjaimet.png">
       <Name>kirjaimet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="insinöörianimaatio.png">
+      <Name>insinöörianimaatio</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
