@@ -59,6 +59,8 @@ namespace InssiParty.Games
         SoundEffect muruvihainen;
         SoundEffect murukehrays;
         SoundEffect murupaaosuma;
+        SoundEffect murutaustalaulu;
+        SoundEffectInstance muru;
 
         private bool voitto;
         private bool gameOver;
@@ -99,6 +101,8 @@ namespace InssiParty.Games
                 murukehrays = Content.Load<SoundEffect>("KehräysCutVersion");
                 muruvihainen = Content.Load<SoundEffect>("vihaisempi");
                 murupaaosuma = Content.Load<SoundEffect>("silmäänosu");
+                murutaustalaulu = Content.Load<SoundEffect>("kokolaulu");
+                muru = murutaustalaulu.CreateInstance();
 
                 soundLoaded = true;
             }
@@ -122,6 +126,11 @@ namespace InssiParty.Games
 
             kissatextuuri = kissatextuuri1;
 
+            if (soundLoaded)
+            {
+                muru.Play();
+            }
+
             inssinopeus = new Vector2(110.0f, 0f);
             inssiposition = new Vector2(0, 100);
         }
@@ -129,6 +138,7 @@ namespace InssiParty.Games
         public override void Stop()
         {
             //Console.WriteLine("Closing hello world");
+            muru.Stop();
         }
 
         public override void Update(GameTime gameTime)
@@ -163,6 +173,7 @@ namespace InssiParty.Games
 
                     if (soundLoaded)
                     {
+                        muru.Pause();
                         murukehrays.Play();
                     }
                     silityskerrat++; // lisätään yksi piste silityskertoihin
@@ -176,6 +187,7 @@ namespace InssiParty.Games
                     kasialku = tokkaasormi; //vaihdetaan kuva tökkäämiskädeksi
                     if (soundLoaded)
                     {
+                        muru.Pause();
                         muruvihainen.Play();
                     }
                     silitysvirhe++; //lisätään silitysvirhe   
@@ -189,6 +201,7 @@ namespace InssiParty.Games
                     kissatextuuri = kissatextuuriSeriously;
                     if (soundLoaded)
                     {
+                        muru.Pause();
                         murupaaosuma.Play();
                     }
                     silitysvirhe++;
@@ -199,6 +212,7 @@ namespace InssiParty.Games
                     kasialku = tokkaasormi;
                     if (soundLoaded)
                     {
+                        muru.Pause();
                         murupaaosuma.Play();
                     }
                     silitysvirhe++;
@@ -206,6 +220,7 @@ namespace InssiParty.Games
             }
             else
             {
+                muru.Resume();
                 kasialku = kasialkutoinen;
             }
 
