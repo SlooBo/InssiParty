@@ -842,13 +842,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="annikaonlaki.jpg">
-      <Name>annikaonlaki</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Auki.png">
       <Name>Auki</Name>
       <Importer>TextureImporter</Importer>
