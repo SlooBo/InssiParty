@@ -896,13 +896,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="kokolaulu.mp3">
-      <Name>kokolaulu</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Pingas.mp3">
       <Name>Pingas</Name>
       <Importer>Mp3Importer</Importer>
@@ -914,6 +907,13 @@
       <Name>hand_open</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="meowsong.mp3">
+      <Name>meowsong</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

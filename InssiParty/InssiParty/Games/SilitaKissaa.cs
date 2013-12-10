@@ -101,7 +101,7 @@ namespace InssiParty.Games
                 murukehrays = Content.Load<SoundEffect>("KehräysCutVersion");
                 muruvihainen = Content.Load<SoundEffect>("vihaisempi");
                 murupaaosuma = Content.Load<SoundEffect>("silmäänosu");
-                murutaustalaulu = Content.Load<SoundEffect>("kokolaulu");
+                murutaustalaulu = Content.Load<SoundEffect>("meowsong");
                 muru = murutaustalaulu.CreateInstance();
 
                 soundLoaded = true;
