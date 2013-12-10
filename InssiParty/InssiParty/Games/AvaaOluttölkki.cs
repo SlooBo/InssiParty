@@ -78,7 +78,7 @@ namespace InssiParty.Games
 
             success_counter=0;
 
-            nappi = random.Next(1, 4); //määritellään random nappi
+            nappi = random.Next(1, 4); 
 
             backround_texture = Can;
         }
@@ -118,7 +118,7 @@ namespace InssiParty.Games
                 }
             }
 
-            //määritykset yhdelle painallukselle
+ 
             previous = keys;
             keys = Keyboard.GetState();
 
@@ -126,30 +126,29 @@ namespace InssiParty.Games
             {
                 backround_texture = Can;
 
-                //Määritetään A-näppäin ja pistelaskuri
-                if (keys.IsKeyDown(Keys.Q) && previous.IsKeyUp(Keys.Q)) //jos A-näppäin on painettuna alas
+                if (keys.IsKeyDown(Keys.A) && previous.IsKeyUp(Keys.A)) 
                 {
-                    if (nappi == 1) //ja jos nappi on yksi
+                    if (nappi == 1)
                     {
                         nappi = random.Next(1, 5);
-                        success_counter = success_counter + 1; //lisätään pisteitä
+                        success_counter = success_counter + 1; 
                         
                     }
                     
                 }
 
-                if (keys.IsKeyDown(Keys.F) && previous.IsKeyUp(Keys.F))//määritetään jos s-näppäin on pohjassa
+                if (keys.IsKeyDown(Keys.S) && previous.IsKeyUp(Keys.S))
                 {
-                    if (nappi == 2) // jos nappi on 2
+                    if (nappi == 2)
                     {
                         nappi =  random.Next(1, 5);
-                        success_counter = success_counter + 1; // lisätään piste
+                        success_counter = success_counter + 1;
                       
                     }
                     
                 }
                 
-                if (keys.IsKeyDown(Keys.T) && previous.IsKeyUp(Keys.T))
+                if (keys.IsKeyDown(Keys.D) && previous.IsKeyUp(Keys.D))
                 {
                     if (nappi == 3)
                     {
@@ -160,7 +159,7 @@ namespace InssiParty.Games
                     
                 }
                 
-                if (keys.IsKeyDown(Keys.P) && previous.IsKeyUp(Keys.P))
+                if (keys.IsKeyDown(Keys.F) && previous.IsKeyUp(Keys.F))
                 {
                     if (nappi == 4)
                     {
@@ -172,7 +171,30 @@ namespace InssiParty.Games
                 }
 
             }
+            if (success_counter == 3 && success_counter < 5)
+            {
+                Can = OpeningCan;
+            
+            }
 
+            else if (success_counter == 5)
+            {
+                OpeningCan = EmptyCan;
+
+                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
+                win = true;
+                gameover = false;
+                CloseGame(true);
+            }
+
+            else if (fail_counter == 3 || value == 0)
+            {
+                win = false;
+                gameover = true;
+                OpeningCan = backround_texture;
+
+                CloseGame(false);
+            }
             if (value == 0 && win == true && gameover == false)
             {
                 CloseGame(true);
@@ -184,18 +206,7 @@ namespace InssiParty.Games
             }
             
 
-            if (success_counter == 5)
-            {
-                OpeningCan = EmptyCan;
-
-                //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-                CloseGame(true);
-            }
-
-            else if (fail_counter == 3)
-            {             
-                    CloseGame(false);
-            }
+            
               
         }
 
