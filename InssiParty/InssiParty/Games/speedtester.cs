@@ -296,8 +296,8 @@ namespace InssiParty.Games
                  Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0F);
 
                 spriteBatch.Draw(puhekuplanen, new Vector2(245, 370), Color.White);
-                spriteBatch.DrawString(fontti, "Kappas et olekaan", new Vector2(255, 390), Color.SteelBlue);
-                spriteBatch.DrawString(fontti, "kädetön insinööri", new Vector2(255, 410), Color.SteelBlue);
+                spriteBatch.DrawString(fontti, "Kappas et olekaan", new Vector2(254, 390), Color.RoyalBlue);
+                spriteBatch.DrawString(fontti, "kädetön inssi", new Vector2(255, 410), Color.RoyalBlue);
             } 
 
             if (gameover == true && gameRunning == false)

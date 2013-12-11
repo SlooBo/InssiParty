@@ -164,7 +164,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                             currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && juissiOlemassa == true)
                         {
                             piu.Play();
                         }
@@ -177,7 +177,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                            currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && ohjainOlemassa == true)
                         {
                             piu.Play();
                         }
@@ -190,7 +190,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                            currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && alkomahooliOlemassa == true)
                         {
                             piu.Play();
                         }
@@ -204,7 +204,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                           currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && kaukosäädinOlemassa == true)
                         {
                             piu.Play();
                         }
@@ -218,7 +218,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                             currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && äänisäädinOlemassa == true)
                         {
                             piu.Play();
                         }
@@ -231,7 +231,7 @@ namespace InssiParty.Games
                     if (lastMouseState.LeftButton == ButtonState.Released &&
                         currentMouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (SoundLoaded)
+                        if (SoundLoaded && sytkäriOlemassa == true)
                         {
                             piu.Play();
                         }
