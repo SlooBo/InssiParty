@@ -15,10 +15,11 @@ namespace InssiParty
 {
     //TODO:
     // -> "Guide screen" should be fixed (the "läpsytys" animaatio)  (some issues implementing !)
+    // -> Ohje tekstitys left
+
+    //IRRELEVANT:
     // -> Starting invalid games in the arcade mode after gameover  (IRRELEVANT)
-    // -> fix gameoverscreen graphics
     // -> Add possible ingame song
-    // -> Ohje tekstitys
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -48,6 +49,7 @@ namespace InssiParty
         Rectangle koodiRect = new Rectangle(-1502 + 800, 0, 1502, 2985);
         /*  </intro screen variables> */
 
+        private Texture2D fadeTexture;
 
         private const int TRANSITION_TIME = 150;
 
@@ -188,6 +190,8 @@ namespace InssiParty
             }
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            fadeTexture = Content.Load<Texture2D>("alphalayer");
 
             gameover_texture = Content.Load<Texture2D>("end_screen");
 
@@ -392,6 +396,10 @@ namespace InssiParty
 
                 if (transitionTimer < TRANSITION_TIME)
                 {
+                    //#####################################################################################
+                    //################ THE ULTIMATE FUCKING PERKELE TRANSITION SCREEN COMES HERE
+                    //#####################################################################################
+
                     spriteBatch.DrawString(font, currentGame.GuideString, new Vector2(300, 280), Color.Red);
                 }
             }
