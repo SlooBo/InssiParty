@@ -19,7 +19,7 @@ namespace InssiParty.Games
         private int i, k, a, alpha, fadeinc, win;
 
         //äänet
-        SoundEffect lapsy,murahdus, musa, raakasy;
+        SoundEffect lapsy, murahdus, musa, raakasy;
         SoundEffectInstance musaInstance;
 
         //Tekstuurit
@@ -29,7 +29,7 @@ namespace InssiParty.Games
         //parit rectanglet
         Rectangle objectRect = new Rectangle(0, 0, 100, 800);   //törmättävä rectangle
         Rectangle cursorRect = new Rectangle(0, 0, 100, 100);   //hiiren rectangle
-        Rectangle tekstiRect = new Rectangle(0,0,554,136);
+        Rectangle tekstiRect = new Rectangle(0, 0, 554, 136);
         Rectangle background = new Rectangle(0, 0, 800, 600);
 
         //kontentin loadaus
@@ -70,17 +70,22 @@ namespace InssiParty.Games
             alpha = 1;
             a = 0;
             fadeinc = 10;
-           
+
             //sijainteja
             objectRect.Y = 0;
             tekstiRect.Y = 200;
             tekstiRect.X = 1000;
-            
+
             musaInstance.Play();
             backgroundTexture = jari1;
-            
+
+            //mouse starting point
+            Mouse.SetPosition(700, 300);
+
+            k = 1;
+
         }
-        
+
         //pelin loppu
         public override void Stop()
         {
@@ -99,8 +104,12 @@ namespace InssiParty.Games
             a++;
             Console.WriteLine(a);
 
+            /*
+             
             tekstiRect.X -= 10;
 
+             FADE POISTETTU 
+            
             //Fade
 
             alpha += fadeinc;
@@ -118,7 +127,7 @@ namespace InssiParty.Games
                 Mouse.SetPosition(700, 300);
                 k = 1;
             }
-            
+            */
             if (objectRect.Intersects(cursorRect) && k == 1)
             {
                 objectRect.X = 0;
@@ -169,7 +178,7 @@ namespace InssiParty.Games
             if (value == 100)
             {
                 win = 1;
-                raakasy.Play(1,0,0);
+                raakasy.Play(1, 0, 0);
                 value = 101;
                 backgroundTexture = jari4;
                 k = 0;
@@ -179,11 +188,11 @@ namespace InssiParty.Games
                     new Vector2(0.5f, -0.5f),     //min nopeus x/y
                     new Vector2(2, -2),           //max nopeus x/y
                     50, 500, 100);                // min/max live, amount
-            }   
-            else if (a == 100 && value == 101) 
-                {
-                    CloseGame(true);
-                }
+            }
+            else if (a == 100 && value == 101)
+            {
+                CloseGame(true);
+            }
 
             if (a == 1100 && win == 0)
             {
@@ -192,9 +201,9 @@ namespace InssiParty.Games
                 a = 0;
             }
             else if (a == 100 && value == 102)
-                {
-                    CloseGame(false);
-                }
+            {
+                CloseGame(false);
+            }
 
         }
 
@@ -203,8 +212,8 @@ namespace InssiParty.Games
         {
             spriteBatch.Draw(backgroundTexture, background, Color.White);
             spriteBatch.Draw(cursorTexture, cursorPos, Color.White);
-            spriteBatch.Draw(Fade, background, new Color(255,255,255,(byte)MathHelper.Clamp(alpha,0,255)));
-            spriteBatch.Draw(teksti,tekstiRect, Color.White);
+            spriteBatch.Draw(Fade, background, new Color(255, 255, 255, (byte)MathHelper.Clamp(alpha, 0, 255)));
+            spriteBatch.Draw(teksti, tekstiRect, Color.White);
         }
 
     }

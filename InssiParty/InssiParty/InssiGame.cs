@@ -242,6 +242,7 @@ namespace InssiParty
 
             //Mahdollisesti valmistuu
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Markus Tolvanen!");
+            addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", false, "Jouni Friman");
 
             //Pelit jotka eivät tule valmistumaan
             addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
@@ -250,7 +251,7 @@ namespace InssiParty
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
 
             //### Games to be implemented outside the game system:
-            //addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", false, "Jouni Friman");
+           
 
 
             /*
