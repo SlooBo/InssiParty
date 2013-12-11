@@ -60,6 +60,11 @@ namespace InssiParty.Games
         bool win;
         bool gameRunning;
 
+        //animaatio
+        int animation_frame_countInssi; // animaation kehysten määrä
+        float animation_timerInssi = 0.0f;
+        Texture2D insinööritaputtaa;
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             taustakuva = Content.Load<Texture2D>("taustaanimaatio"); // ladataan taustakuva
@@ -67,6 +72,7 @@ namespace InssiParty.Games
             fontti = Content.Load<SpriteFont>("DefaultFont"); // ladataan fontti
             gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover animaatio
             winwinAnimaatio = Content.Load<Texture2D>("winwin");
+            insinööritaputtaa = Content.Load<Texture2D>("insinööritaputus");
 
             try
             {
@@ -275,10 +281,18 @@ namespace InssiParty.Games
             {
                 animation_timer += 0.08f;
                 gameanimation_frame = 3;
+                animation_frame_countInssi = 2;
+
+                animation_timerInssi += 0.15f;
+                
+                int currentFrame1 = (int)(animation_timerInssi % animation_frame_countInssi);
 
                 spriteBatch.Draw(winwinAnimaatio, new Vector2(100, 200), new Rectangle(winwinAnimaatio.Width / gameanimation_frame * currentFrame, 0, winwinAnimaatio.Width / gameanimation_frame, winwinAnimaatio.Height),
                 Color.White, 0.0f, new Vector2(0, 0), 2.0f, SpriteEffects.None, 0.0F);
-            }
+
+                spriteBatch.Draw(insinööritaputtaa, new Vector2(500, 400), new Rectangle(insinööritaputtaa.Width / animation_frame_countInssi * currentFrame1, 0, insinööritaputtaa.Width / animation_frame_countInssi, insinööritaputtaa.Height),
+                 Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0F);
+            } 
 
             if (gameover == true && gameRunning == false)
             {
