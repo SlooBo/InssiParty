@@ -239,7 +239,7 @@ namespace InssiParty
             addGame(new FeedGame(), "Ruokkimis-peli", "Löydä syötävää tai kuole!", true, "Hannu Salmi");
             addGame(new Pallo(), "Pallo peli", "Käytä A:ta ja D:tä napataksesi pallon", true, "Marko Sydänmaa");
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", true, "Jari Tuomainen");
-            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Toni Sarvela!");
+            addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", true, "Toni Sarvela!");
 
             //Pitäisi valmistua
             addGame(new inssihorjuu(), "Auta inssi insinööritähden luokse", "Auta huojuva Inssi tähden luokse osumatta seiniin tai jokeen.", false, "Miika 'Toopala' Saastamoinen");
