@@ -26,37 +26,41 @@ namespace InssiParty.Games
     class inssihorjuu : GameBase
     {
         //Muuttujat
-        private int health=0;
+        private int death = 0;
         private int forward = 0;
         private int inssi_movement;
         private Rectangle collisionRect;
         private Rectangle windowBounds;
-        private Rectangle background = new Rectangle(0,0,800,600);
+        private Rectangle background = new Rectangle(0, 0, 800, 600);
         Random random;
         //Tekstuurit
         private Texture2D inssi;
         private Texture2D map;
+        private Texture2D inssiDeath;
         //Äänet
         private SoundEffectInstance drunkenBabbleInstance;
         private SoundEffect drunkenBabble;
+        private SoundEffect scream;
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             inssi = Content.Load<Texture2D>("inssi");
             map = Content.Load<Texture2D>("horjuu_map");
-            windowBounds = new Rectangle(0,0,800,600);
+            inssiDeath = Content.Load<Texture2D>("inssi_water");
+            windowBounds = new Rectangle(0, 0, 800, 600);
 
             random = new Random();
 
             drunkenBabble = Content.Load<SoundEffect>("Känniölinää");
+            scream = Content.Load<SoundEffect>("WilhelmScream");
             drunkenBabbleInstance = drunkenBabble.CreateInstance();
         }
         public override void Start()
         {
             forward = 0;
             inssi_movement = 250;
-            health = 500;
+            death = 0;
 
         }
         public override void Stop()
@@ -97,7 +101,7 @@ namespace InssiParty.Games
             for (int i = 0; i < random.Next(10, 15); i++)
             {
                 i++;
-                inssi_movement += random.Next(1,2);
+                inssi_movement += random.Next(1, 2);
             }
             for (int b = 0; b < random.Next(10, 15); b++)
             {
@@ -113,9 +117,9 @@ namespace InssiParty.Games
             {
                 inssi_movement = 0;
             }
-            if (forward > windowBounds.Width)
+            if (forward > windowBounds.Width - inssi.Bounds.Width)
             {
-                forward = windowBounds.Width;
+                forward = windowBounds.Width - inssi.Bounds.Width;
             }
             if (inssi_movement > windowBounds.Height - inssi.Bounds.Height)
             {
@@ -123,9 +127,9 @@ namespace InssiParty.Games
             }
 
             //Esteet
-                                                        //X,Y,WIDHT,HEIGTH
+            //X,Y,WIDHT,HEIGTH
             //puuaita horisontaali
-            if (collisionRect.Intersects(new Rectangle(0,180,233,58)))
+            if (collisionRect.Intersects(new Rectangle(0, 180, 233, 58)))
             {
                 CloseGame(false);
                 drunkenBabbleInstance.Stop();
@@ -145,7 +149,15 @@ namespace InssiParty.Games
             //joki
             if (collisionRect.Intersects(new Rectangle(401, 110, 116, 490)))
             {
-                CloseGame(false);
+                death++;
+                if (death == 1)
+                {
+                    scream.Play(1, 0, 0);
+                }
+                if (death == 30)
+                {
+                    CloseGame(false);
+                }
                 drunkenBabbleInstance.Stop();
             }
             //kiviaita horisontaali
@@ -172,7 +184,14 @@ namespace InssiParty.Games
         {
 
             spriteBatch.Draw(map, background, new Color(255, 255, 255));
-            spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
+            if (death < 1)
+            {
+                spriteBatch.Draw(inssi, new Vector2(forward, inssi_movement), Color.White);
+            }
+            if (death >= 1)
+            {
+                spriteBatch.Draw(inssiDeath, new Vector2(400, 300), Color.White);
+            }
         }
     }
 
