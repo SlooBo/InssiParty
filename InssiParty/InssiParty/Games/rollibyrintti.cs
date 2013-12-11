@@ -21,18 +21,21 @@ namespace InssiParty.Games
     {
         SpriteBatch spriteBatch;
 
-        private float liikeNopeus = 3;
-        private bool powerUpNosto = false;
-        private bool powerDown1Nosto = false;
-        private bool powerDown2Nosto = false;
-        private bool powerMixNosto = false;
+        private float liikeNopeus;
+        private int tutorialAika;
+        private int tutorialKokonaisaika;
+        private bool powerUpNosto;
+        private bool powerDown1Nosto;
+        private bool powerMix2Nosto;
+        private bool powerMixNosto;
 
-        //tekstuurit
+        //TEKSTUURIT
+
         private Texture2D backgroundTexture;
         private Texture2D pelaaja;
         private Texture2D powerUp;
         private Texture2D powerDown1;
-        private Texture2D powerDown2;
+        private Texture2D powerMix2;
         private Texture2D powerMix;
 
         private Texture2D pystySeina1;
@@ -57,11 +60,12 @@ namespace InssiParty.Games
 
         private Texture2D maali;
 
-        //vektorit
+        //VEKTORIT
+
         private Vector2 pelaajaLiike;
         private Vector2 powerUpPaikka;
         private Vector2 powerDown1Paikka;
-        private Vector2 powerDown2Paikka;
+        private Vector2 powerMix2Paikka;
         private Vector2 powerMixPaikka;
 
         private Vector2 pystySeina1Paikka;
@@ -86,12 +90,13 @@ namespace InssiParty.Games
 
         private Vector2 maaliPaikka;
 
-        //rectanglet
+        //RECTANGLET
+
         private Rectangle backgroundRect;
         private Rectangle pelaajaRajat;
         private Rectangle powerUpRajat;
         private Rectangle powerDown1Rajat;
-        private Rectangle powerDown2Rajat;
+        private Rectangle powerMix2Rajat;
         private Rectangle powerMixRajat;
 
         private Rectangle pystySeina1Rajat;
@@ -125,17 +130,18 @@ namespace InssiParty.Games
         {
             //Tiedoston pitäisi olla InssiPartyContent projektin alla solution explorerissa.
 
-            //Tekstuurien lataaminen
+            //TEKSTUURIEN LATAUS
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            backgroundTexture = Content.Load<Texture2D>("rolliBackground");
-            pelaaja = Content.Load<Texture2D>("rolliPelaaja");
-            powerUp = Content.Load<Texture2D>("rolliPowerup");
-            powerDown1 = Content.Load<Texture2D>("rolliPowerdown");
-            powerDown2 = Content.Load<Texture2D>("rolliPowerdown");
-            powerMix = Content.Load<Texture2D>("rolliPowermix");
+            backgroundTexture = Content.Load<Texture2D>("rolliBackground"); //rolliBackground
+            pelaaja = Content.Load<Texture2D>("rolliPelaaja"); //rolliPelaaja
+            powerUp = Content.Load<Texture2D>("rolliPowerup"); //rolliPoweup
+            powerDown1 = Content.Load<Texture2D>("rolliPowerdown"); //rolliPowerdown
+            powerMix2 = Content.Load<Texture2D>("rolliPowerdown"); //rolliPOwerdown
+            powerMix = Content.Load<Texture2D>("rolliPowermix"); //rolliPwermix
 
-            pystySeina1 = Content.Load<Texture2D>("rolliPystyseina");
+            pystySeina1 = Content.Load<Texture2D>("rolliPystyseina"); //rolliPystyseina
             pystySeina2 = Content.Load<Texture2D>("rolliPystyseina");
             pystySeina3 = Content.Load<Texture2D>("rolliPystyseina");
             pystySeina4 = Content.Load<Texture2D>("rolliPystyseina");
@@ -150,119 +156,102 @@ namespace InssiParty.Games
             pystySeina13 = Content.Load<Texture2D>("rolliPystyseina");
             pystySeina14 = Content.Load<Texture2D>("rolliPystyseina");
 
-            vaakaSeina1 = Content.Load<Texture2D>("rolliVaakaseina");
+            vaakaSeina1 = Content.Load<Texture2D>("rolliVaakaseina"); // rolliVaakaseina
             vaakaSeina2 = Content.Load<Texture2D>("rolliVaakaseina");
             vaakaSeina3 = Content.Load<Texture2D>("rolliVaakaseina");
             vaakaSeina4 = Content.Load<Texture2D>("rolliVaakaseina");
 
-            maali = Content.Load<Texture2D>("rolliMaali");
+            maali = Content.Load<Texture2D>("rolliMaali"); //rolliMaali
 
-            //Powereiden koordinaatit
+            //KOORDINAATIT
 
             pelaajaLiike = new Vector2(10, 10);
-            powerUpPaikka = new Vector2(90, 560);
-            powerDown1Paikka = new Vector2(450, 35);
-            powerDown2Paikka = new Vector2(630, 40);
-            powerMixPaikka = new Vector2(625, 230);
+            powerUpPaikka = new Vector2(10, 560);
+            powerDown1Paikka = new Vector2(330, 35);
+            powerMix2Paikka = new Vector2(450, 550);
+            powerMixPaikka = new Vector2(570, 250);
 
-            pystySeina1Paikka = new Vector2(90, 100);
+            pystySeina1Paikka = new Vector2(90, 0);
             pystySeina2Paikka = new Vector2(90, 300);
             pystySeina3Paikka = new Vector2(90, 420);
-            pystySeina4Paikka = new Vector2(210, 490);
-            pystySeina5Paikka = new Vector2(210, 270);
-            pystySeina6Paikka = new Vector2(210, 170);
+
+            pystySeina4Paikka = new Vector2(210, 450);
+            pystySeina5Paikka = new Vector2(210, 250);
+            pystySeina6Paikka = new Vector2(450, 300);
+
             pystySeina7Paikka = new Vector2(330, 100);
             pystySeina8Paikka = new Vector2(330, 270);
-            pystySeina9Paikka = new Vector2(330, 575);
-            pystySeina10Paikka = new Vector2(450, 200);
-            pystySeina11Paikka = new Vector2(450, 420);
-            pystySeina12Paikka = new Vector2(570, 20);
-            pystySeina13Paikka = new Vector2(570, 310);
+            pystySeina9Paikka = new Vector2(210, 80);
+
+            pystySeina10Paikka = new Vector2(450, 50);
+            pystySeina11Paikka = new Vector2(450, 200);
+
+            pystySeina12Paikka = new Vector2(570, 0);
+            pystySeina13Paikka = new Vector2(570, 300);
             pystySeina14Paikka = new Vector2(570, 500);
 
-            vaakaSeina1Paikka = new Vector2(660, 110);
-            vaakaSeina2Paikka = new Vector2(740, 235);
-            vaakaSeina3Paikka = new Vector2(660, 340);
-            vaakaSeina4Paikka = new Vector2(740, 450);
+            vaakaSeina1Paikka = new Vector2(605, 110);
+           // vaakaSeina2Paikka = new Vector2(740, 235);
+            vaakaSeina3Paikka = new Vector2(605, 340);
+            vaakaSeina4Paikka = new Vector2(700, 450);
 
-            maaliPaikka = new Vector2(740, 530);
+            maaliPaikka = new Vector2(700, 530);
 
 
-            // Rajojen määrittäminen
+            // RAJOJEN MÄÄRITYS
+
             backgroundRect = new Rectangle(0, 0, 800, 600);
 
-            pelaajaRajat = new Rectangle((int)(pelaajaLiike.X - pelaaja.Width / 2),
-                (int)(pelaajaLiike.Y - pelaaja.Height / 2), pelaaja.Width, pelaaja.Height);
+            
+            pelaajaRajat = new Rectangle(10, 10 ,33, 35);
 
-            powerUpRajat = new Rectangle((int)(powerUpPaikka.X - powerUp.Width / 2),
-                (int)(powerUpPaikka.Y - powerUp.Height / 2), powerUp.Width, powerUp.Height);
+            powerUpRajat = new Rectangle(10, 560, 33, 35);
 
-            powerDown1Rajat = new Rectangle((int)(powerDown1Paikka.X - powerDown1.Width / 2),
-                (int)(powerDown1Paikka.Y - powerDown1.Height / 2), powerDown1.Width, powerDown1.Height);
+            powerDown1Rajat = new Rectangle(330, 35, 33, 35);
 
-            powerDown2Rajat = new Rectangle((int)(powerDown2Paikka.X - powerDown2.Width / 2),
-                (int)(powerDown2Paikka.Y - powerDown2.Height / 2), powerDown2.Width, powerDown2.Height);
+            powerMix2Rajat = new Rectangle(450, 550, 33, 35);
 
-            powerMixRajat = new Rectangle((int)(powerMixPaikka.X - powerMix.Width / 2),
-                (int)(powerMixPaikka.Y - powerMix.Height / 2), powerMix.Width, powerMix.Height);
-
-            pystySeina1Rajat = new Rectangle((int)(pystySeina1Paikka.X - pystySeina1.Width / 2),
-                (int)(pystySeina1Paikka.Y - pystySeina1.Height / 2), pystySeina1.Width, pystySeina1.Height);
-
-            pystySeina2Rajat = new Rectangle((int)(pystySeina2Paikka.X - pystySeina2.Width / 2),
-                (int)(pystySeina2Paikka.Y - pystySeina2.Height / 2), pystySeina2.Width, pystySeina2.Height);
-
-            pystySeina3Rajat = new Rectangle((int)(pystySeina3Paikka.X - pystySeina3.Width / 2),
-                (int)(pystySeina3Paikka.Y - pystySeina3.Height / 2), pystySeina3.Width, pystySeina3.Height);
-
-            pystySeina4Rajat = new Rectangle((int)(pystySeina4Paikka.X - pystySeina4.Width / 2),
-                (int)(pystySeina4Paikka.Y - pystySeina4.Height / 2), pystySeina4.Width, pystySeina4.Height);
-
-            pystySeina5Rajat = new Rectangle((int)(pystySeina5Paikka.X - pystySeina5.Width / 2),
-                (int)(pystySeina5Paikka.Y - pystySeina5.Height / 2), pystySeina5.Width, pystySeina5.Height);
-
-            pystySeina6Rajat = new Rectangle((int)(pystySeina6Paikka.X - pystySeina6.Width / 2),
-                (int)(pystySeina6Paikka.Y - pystySeina6.Height / 2), pystySeina6.Width, pystySeina6.Height);
-
-            pystySeina7Rajat = new Rectangle((int)(pystySeina7Paikka.X - pystySeina7.Width / 2),
-                (int)(pystySeina7Paikka.Y - pystySeina7.Height / 2), pystySeina7.Width, pystySeina7.Height);
-
-            pystySeina8Rajat = new Rectangle((int)(pystySeina8Paikka.X - pystySeina8.Width / 2),
-                (int)(pystySeina8Paikka.Y - pystySeina8.Height / 2), pystySeina8.Width, pystySeina8.Height);
-
-            pystySeina9Rajat = new Rectangle((int)(pystySeina9Paikka.X - pystySeina9.Width / 2),
-                (int)(pystySeina9Paikka.Y - pystySeina9.Height / 2), pystySeina9.Width, pystySeina9.Height);
-
-            pystySeina10Rajat = new Rectangle((int)(pystySeina10Paikka.X - pystySeina10.Width / 2),
-                (int)(pystySeina10Paikka.Y - pystySeina10.Height / 2), pystySeina10.Width, pystySeina10.Height);
-
-            pystySeina11Rajat = new Rectangle((int)(pystySeina11Paikka.X - pystySeina11.Width / 2),
-                (int)(pystySeina11Paikka.Y - pystySeina11.Height / 2), pystySeina11.Width, pystySeina11.Height);
-
-            pystySeina12Rajat = new Rectangle((int)(pystySeina12Paikka.X - pystySeina12.Width / 2),
-                (int)(pystySeina12Paikka.Y - pystySeina12.Height / 2), pystySeina12.Width, pystySeina12.Height);
-
-            pystySeina13Rajat = new Rectangle((int)(pystySeina13Paikka.X - pystySeina13.Width / 2),
-                (int)(pystySeina13Paikka.Y - pystySeina13.Height / 2), pystySeina13.Width, pystySeina13.Height);
-
-            pystySeina14Rajat = new Rectangle((int)(pystySeina14Paikka.X - pystySeina14.Width / 2),
-                (int)(pystySeina14Paikka.Y - pystySeina14.Height / 2), pystySeina14.Width, pystySeina14.Height);
+            powerMixRajat = new Rectangle(570, 250, 33, 35);
 
 
-            vaakaSeina1Rajat = new Rectangle((int)(vaakaSeina1Paikka.X - vaakaSeina1.Width / 2),
-                (int)(vaakaSeina1Paikka.Y - vaakaSeina1.Height / 2), vaakaSeina1.Width, vaakaSeina1.Height);
+            pystySeina1Rajat = new Rectangle(90, 0, 44, 215);
 
-            vaakaSeina2Rajat = new Rectangle((int)(vaakaSeina2Paikka.X - vaakaSeina2.Width / 2),
-                (int)(vaakaSeina2Paikka.Y - vaakaSeina2.Height / 2), vaakaSeina2.Width, vaakaSeina2.Height);
+            pystySeina2Rajat = new Rectangle(90, 300, 44, 215);
 
-            vaakaSeina3Rajat = new Rectangle((int)(vaakaSeina3Paikka.X - vaakaSeina3.Width / 2),
-                (int)(vaakaSeina3Paikka.Y - vaakaSeina3.Height / 2), vaakaSeina3.Width, vaakaSeina3.Height);
+            pystySeina3Rajat = new Rectangle(90, 420, 44, 215);
 
-            vaakaSeina4Rajat = new Rectangle((int)(vaakaSeina4Paikka.X - vaakaSeina4.Width / 2),
-                (int)(vaakaSeina4Paikka.Y - vaakaSeina4.Height / 2), vaakaSeina4.Width, vaakaSeina4.Height);
+            pystySeina4Rajat = new Rectangle(210, 450, 44, 215);
 
-            maaliRajat = new Rectangle((int)(maaliPaikka.X - maali.Width / 2),
-                (int)(maaliPaikka.Y - maali.Height / 2), maali.Width, maali.Height);
+            pystySeina5Rajat = new Rectangle(210, 250, 44, 215);
+
+            pystySeina6Rajat = new Rectangle(450, 300, 44, 215);
+
+            pystySeina7Rajat = new Rectangle(330, 100, 44, 215);
+
+            pystySeina8Rajat = new Rectangle(330, 270, 44, 215);
+
+            pystySeina9Rajat = new Rectangle(210, 80, 44, 215);
+
+            pystySeina10Rajat = new Rectangle(450, 50, 44, 215);
+
+            pystySeina11Rajat = new Rectangle(450, 200, 44, 215);
+
+            pystySeina12Rajat = new Rectangle(570, 0, 44, 215);
+
+            pystySeina13Rajat = new Rectangle(570, 300, 44, 215);
+
+            pystySeina14Rajat = new Rectangle(570, 500, 44, 215);
+
+
+            vaakaSeina1Rajat = new Rectangle(605, 110, 137,46);
+
+            //vaakaSeina2Rajat = new Rectangle(220, 220, 137, 46);
+
+            vaakaSeina3Rajat = new Rectangle(605, 340, 137, 46);
+
+            vaakaSeina4Rajat = new Rectangle(700, 450, 137, 46);
+
+            maaliRajat = new Rectangle(700, 530, 100, 115);
 
 
         }
@@ -275,7 +264,18 @@ namespace InssiParty.Games
         public override void Start()
         {
 
+            //MUUTTUJIEN ARVOT
 
+            liikeNopeus = 3;
+            tutorialAika = 300;
+            tutorialKokonaisaika = 1;
+            powerUpNosto = false;
+            powerDown1Nosto = false;
+            powerMix2Nosto = false;
+            powerMixNosto = false;
+
+            pelaajaRajat.X = 10;
+            pelaajaRajat.Y = 10;
 
         }
 
@@ -297,12 +297,8 @@ namespace InssiParty.Games
          */
         public override void Update(GameTime gameTime)
         {
-            //value--;
-            //if (value < 0)
-            //{
-            //    //sammuta peli, true jos voitto tapahtui, false jos pelaaaja hävisi.
-            //    CloseGame(true);
-            //}
+
+            //INPUT MANAGEMENT
 
             if (powerMixNosto == true)
             {
@@ -330,6 +326,8 @@ namespace InssiParty.Games
                 { pelaajaLiike.X += liikeNopeus; }
             }
 
+            //POWERUPPIEN NOSTO
+
             if (pelaajaRajat.Intersects(powerMixRajat))
             {
                 powerMixNosto = true;
@@ -347,14 +345,22 @@ namespace InssiParty.Games
                 powerDown1Nosto = true;
             }
 
-            if (pelaajaRajat.Intersects(powerDown2Rajat))
+            if (pelaajaRajat.Intersects(powerMix2Rajat))
             {
-                liikeNopeus -= 0.1f;
-                powerDown2Nosto = true;
+                powerMixNosto = true;
+            }
+
+            if (pelaajaRajat.Intersects(backgroundRect))
+            {
+                //ebin pojat, parasta koodia ever
+            }
+            else
+            {
+                CloseGame(true);
             }
 
 
-
+            // SEINIIN TÖRMÄÄMINEN
 
             if (pelaajaRajat.Intersects(maaliRajat))
             {
@@ -433,11 +439,33 @@ namespace InssiParty.Games
                 CloseGame(false);
             }
 
+            if (pelaajaRajat.Intersects(vaakaSeina1Rajat))
+            {
+                Console.WriteLine("Osui 15.");
+                CloseGame(false);
+            }
+            if (pelaajaRajat.Intersects(vaakaSeina3Rajat))
+            {
+                Console.WriteLine("Osui 16.");
+                CloseGame(false);
+            }
+            if (pelaajaRajat.Intersects(vaakaSeina4Rajat))
+            {
+                Console.WriteLine("Osui 17.");
+                CloseGame(false);
+            }
 
 
+            //RECTANGLEN PÄIVITYS PELAAJAN LIIKKUMISESSA
 
             pelaajaRajat.X = (int)pelaajaLiike.X;
             pelaajaRajat.Y = (int)pelaajaLiike.Y;
+
+            //TUTORIALIN NÄYTTÖAIKA
+
+            tutorialKokonaisaika = tutorialKokonaisaika - tutorialAika;
+
+
 
             // powerUpRajat.X = (int)powerUpPaikka.X;
             // powerUpRajat.Y = (int)powerUpPaikka.Y;
@@ -473,13 +501,14 @@ namespace InssiParty.Games
             spriteBatch.Draw(pystySeina14, pystySeina14Paikka, Color.White);
 
             spriteBatch.Draw(vaakaSeina1, vaakaSeina1Paikka, Color.White);
-            spriteBatch.Draw(vaakaSeina2, vaakaSeina2Paikka, Color.White);
+           // spriteBatch.Draw(vaakaSeina2, vaakaSeina2Paikka, Color.White);
             spriteBatch.Draw(vaakaSeina3, vaakaSeina3Paikka, Color.White);
             spriteBatch.Draw(vaakaSeina4, vaakaSeina4Paikka, Color.White);
 
             spriteBatch.Draw(maali, maaliPaikka, Color.White);
 
 
+            //POWERUPPIEN PIIRTÄMINEN NOSTAMISEN JÄLKEEN
 
             if (powerUpNosto == false)
             {
@@ -491,9 +520,9 @@ namespace InssiParty.Games
                 spriteBatch.Draw(powerDown1, powerDown1Paikka, Color.White);
             }
 
-            if (powerDown2Nosto == false)
+            if (powerMix2Nosto == false)
             {
-                spriteBatch.Draw(powerDown2, powerDown2Paikka, Color.White);
+                spriteBatch.Draw(powerMix2, powerMix2Paikka, Color.White);
             }
 
             if (powerMixNosto == false)
@@ -501,7 +530,12 @@ namespace InssiParty.Games
                 spriteBatch.Draw(powerMix, powerMixPaikka, Color.White);
             }
 
+            //TUTORIALIN PIIRTO
 
+            //if (tutorialKokonaisaika > 0)
+            //{
+            //    spriteBatch.Draw();
+            //}
 
 
 
