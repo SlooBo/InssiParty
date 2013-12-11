@@ -23,11 +23,9 @@ namespace InssiParty.Games
     class Olut : GameBase
     {
         //Esitellään muuttujat
-        int nappi;
         private int value;
         private int fail_counter;
         private int success_counter;
-        Random random;
 
 
         KeyboardState oldState;
@@ -72,8 +70,6 @@ namespace InssiParty.Games
             oldState = Keyboard.GetState();
 
             Console.WriteLine("Starting hello world");
-
-            random = new Random();
             
             fail_counter=0;
 
@@ -101,7 +97,6 @@ namespace InssiParty.Games
                 
                 if (success_counter <6)
                 {
-                    success_counter = 0;
                     gameRunning = true;
                     gameover = false;
 
@@ -206,6 +201,8 @@ namespace InssiParty.Games
 
                 CloseGame(false);
             }
+
+
             if (value == 0 && win == true && gameover == false)
             {
                 CloseGame(true);
