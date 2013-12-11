@@ -79,6 +79,13 @@ namespace InssiParty.Games
         float animation_timer = 0.0f; //animaation ajastus
         int animation_frame_count = 2; // animaation kehysten määrä
 
+        //vihainen naama
+        Texture2D murrNaama;
+        Vector2 murrNopeus;
+        Vector2 murrPosition;
+        int murrMaxY;
+        float animaatioTimer = 0.0f;
+
         public override void Load(ContentManager Content, GraphicsDevice device)
         {
             //ladataan kissakuvia :3
@@ -105,6 +112,9 @@ namespace InssiParty.Games
 
             //z
             Zkirjain = Content.Load<Texture2D>("kirjaimet");
+
+            //vihainen naama
+            murrNaama = Content.Load<Texture2D>("murr");
 
             try
             {
@@ -149,6 +159,11 @@ namespace InssiParty.Games
             Znopeus = new Vector2(-20f, 50f);
             Zposition = new Vector2(600, 300);
             ZmaxY = 300;
+
+            //vihainen naama
+            murrNopeus = new Vector2(20f, 50f);
+            murrPosition = new Vector2(200, 500);
+            murrMaxY = 500;
         }
 
         public override void Stop()
@@ -179,6 +194,14 @@ namespace InssiParty.Games
                 Zposition.X = 600;
                 Zposition.Y = ZmaxY;
 
+            }
+
+            murrPosition += murrNopeus * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (murrPosition.Y >= murrMaxY)
+            {
+                murrNopeus *= -1;
+                murrPosition.X = 200;
+                murrPosition.Y = murrMaxY;
             }
 
             //hiiren määrityksiä yhdelle klikkaukselle
@@ -312,8 +335,13 @@ namespace InssiParty.Games
             }
             if (gameOver == true && voitto == false)
             {
+                animaatioTimer += 0.05f;
+                int currentFrame1 = (int)(animaatioTimer % animation_frame_count);
+
                 spriteBatch.Draw(kissaGameOver, taustakissa, Color.White);
                 spriteBatch.DrawString(fontti, "Suututit kissan >:(. Hävisit pelin!", new Vector2(400, 200), Color.Aquamarine);
+                spriteBatch.Draw(murrNaama, murrPosition, new Rectangle(murrNaama.Width / animation_frame_count * currentFrame1, 0, murrNaama.Width / animation_frame_count, murrNaama.Height),
+                    Color.White, 0f, new Vector2(0, 0), 2.0f, SpriteEffects.None, 0.0f);
             }
             spriteBatch.DrawString(fontti, "Silityksia: " + silityskerrat.ToString() + "Virheelliset: " + silitysvirhe.ToString(),
                 new Vector2(10, 10), Color.Turquoise);
