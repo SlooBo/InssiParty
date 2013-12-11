@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace InssiParty.Games
 {
@@ -19,11 +20,17 @@ namespace InssiParty.Games
         private Texture2D Kori;
         private Texture2D Palkki;
 
-        private int value = 0;
-        private int nopeus;
 
+        private int op;
+        private bool osui;
+        private int nopeus;
+        private int value = 0;
         Rectangle kori = new Rectangle(330, 520, 100, 75);
         Rectangle ballo = new Rectangle(350, -90, 45, 45);
+        Rectangle palkki = new Rectangle(0, 150, 800, 300);
+
+        SoundEffect seina;
+        SoundEffect nappaus;
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -32,6 +39,9 @@ namespace InssiParty.Games
             Kori = Content.Load<Texture2D>("Kori");
             Palkki = Content.Load<Texture2D>("Palkki");
 
+            seina = Content.Load<SoundEffect>("Pallon pomppu");
+            nappaus = Content.Load<SoundEffect>("Pallo Korii");
+
         }
 
         public override void Start()
@@ -39,8 +49,13 @@ namespace InssiParty.Games
             Console.WriteLine("Start Game");
             //alustus
             Random random = new Random();
-            nopeus = random.Next(-10, 10);
-            
+            nopeus = random.Next(-9, 9);
+            osui = false;
+            op = 0;
+
+            kori = new Rectangle(330, 520, 100, 75);
+            ballo = new Rectangle(350, -90, 45, 45);
+
 
         }
 
@@ -51,9 +66,8 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
-            
-            ballo.Y += 1;
-            if(nopeus > 0)
+            ballo.Y = ballo.Y + 2;
+            if (nopeus > 0)
             {
                 if (value == 0)
                 {
@@ -69,10 +83,12 @@ namespace InssiParty.Games
                 if (ballo.X < 0)
                 {
                     value = 0;
+                    seina.Play();
                 }
                 if (ballo.X > 755)
                 {
                     value = 1;
+                    seina.Play();
                 }
             }
 
@@ -91,44 +107,49 @@ namespace InssiParty.Games
                 if (ballo.X > 755)
                 {
                     value = 0;
+                    seina.Play();
                 }
-                
+
                 if (ballo.X < 0)
                 {
                     value = 1;
+                    seina.Play();
                 }
 
-                
+
             }
-            
-            /*if()
-            {
-                ballo*/
-            
-            
+
+
             if (ballo.Y > 500)
             {
-                bool osui=false;
+
 
                 //CloseGame(false);
-                if (ballo.X+23 > kori.X)
+                if (ballo.X + 23 > kori.X)
                 {
-                    if (ballo.X+23 < kori.X+kori.Width)
+                    if (ballo.X + 23 < kori.X + kori.Width)
                     {
                         osui = true;
+                        nappaus.Play();
                     }
 
                 }
-                if (osui = true)
+                if (osui == true)
                 {
-                    CloseGame(true);
+                    ballo.Y = -90;
+                    Rectangle palkki = new Rectangle(0, 250, 800, 300);
+                    osui = false;
+                    op = op + 1;
                 }
                 else
                 {
-
+                    CloseGame(false);
                 }
             }
-
+            if (op > 1)
+            {
+                CloseGame(true);
+            }
             if (kori.X < 0)
             {
                 kori.X = 0;
@@ -148,8 +169,12 @@ namespace InssiParty.Games
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.Beige);
-            spriteBatch.Draw(Kori, kori, Color.Beige);
             spriteBatch.Draw(pallo, ballo, Color.Beige);
+            spriteBatch.Draw(Kori, kori, Color.Beige);
+            if (op == 1)
+            {
+                spriteBatch.Draw(Palkki, palkki, Color.Beige);
+            }
         }
 
     }
