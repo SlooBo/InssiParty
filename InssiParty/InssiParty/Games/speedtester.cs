@@ -64,6 +64,7 @@ namespace InssiParty.Games
         int animation_frame_countInssi; // animaation kehysten määrä
         float animation_timerInssi = 0.0f;
         Texture2D insinööritaputtaa;
+        Texture2D puhekuplanen;
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
@@ -73,6 +74,7 @@ namespace InssiParty.Games
             gameOveranimaatio = Content.Load<Texture2D>("gameover"); //ladataan gameover animaatio
             winwinAnimaatio = Content.Load<Texture2D>("winwin");
             insinööritaputtaa = Content.Load<Texture2D>("insinööritaputus");
+            puhekuplanen = Content.Load<Texture2D>("puhekupla");
 
             try
             {
@@ -292,6 +294,10 @@ namespace InssiParty.Games
 
                 spriteBatch.Draw(insinööritaputtaa, new Vector2(500, 400), new Rectangle(insinööritaputtaa.Width / animation_frame_countInssi * currentFrame1, 0, insinööritaputtaa.Width / animation_frame_countInssi, insinööritaputtaa.Height),
                  Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0.0F);
+
+                spriteBatch.Draw(puhekuplanen, new Vector2(245, 370), Color.White);
+                spriteBatch.DrawString(fontti, "Kappas et olekaan", new Vector2(255, 390), Color.SteelBlue);
+                spriteBatch.DrawString(fontti, "kädetön insinööri", new Vector2(255, 410), Color.SteelBlue);
             } 
 
             if (gameover == true && gameRunning == false)
