@@ -15,8 +15,7 @@ namespace InssiParty
 {
     //TODO:
     // -> "Guide screen" should be fixed (the "läpsytys" animaatio)  (some issues implementing !)
-    // -> Starting invalid games in the arcade mode after gameover
-    // -> Icon on startup.
+    // -> Starting invalid games in the arcade mode after gameover  (IRRELEVANT)
     // -> fix gameoverscreen graphics
     // -> Add possible ingame song
     // -> Ohje tekstitys
@@ -96,6 +95,9 @@ namespace InssiParty
 
         private List<GameBase> playableGames;
         private List<GameBase> gamesPlayed;
+
+        //Gameover stuff
+        Texture2D gameover_texture;
 
         //Transition stuff
         //variaabelit
@@ -186,6 +188,8 @@ namespace InssiParty
             }
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            gameover_texture = Content.Load<Texture2D>("end_screen");
 
             // Global resources
             font = Content.Load<SpriteFont>("DefaultFont");
@@ -534,7 +538,9 @@ namespace InssiParty
 
         private void GameOverDraw()
         {
-            spriteBatch.DrawString(font, "Points: " + points, new Vector2(50, 50), Color.Red);
+            spriteBatch.Draw(gameover_texture, new Vector2(0, 0), Color.Pink);
+            spriteBatch.DrawString(font, "Points: " + points, new Vector2(350, 450), Color.Black);
+            spriteBatch.DrawString(font, "Press space to continue", new Vector2(280, 490), Color.Black);
         }
 
         private void MenuUpdate()
