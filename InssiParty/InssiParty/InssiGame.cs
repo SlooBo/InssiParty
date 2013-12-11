@@ -14,9 +14,10 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
-    // -> "Guide screen" should be fixed (the "läpsytys" animaatio)
+    // -> "Guide screen" should be fixed (the "läpsytys" animaatio)  (some issues implementing !)
     // -> Game over screen with point counter
     // -> Starting invalid games in the arcade mode after gameover
+    // -> Icon on startup.
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -25,7 +26,7 @@ namespace InssiParty
          * Main menu has selection if story,arcade and exit
          * Gamelist is before the arcade mode.
          */
-        private enum MenuState { IntroScreen, MainMenu, GameList, TransitionMode }
+        private enum MenuState { IntroScreen, MainMenu, GameList, TransitionMode, GameOver }
 
         //Yes, this is getting really ugly, but the project just doesn't have enough time to do it on a proper scale.
 
@@ -363,6 +364,9 @@ namespace InssiParty
                     case MenuState.TransitionMode:
                         TransitionUpdate();
                         break;
+                    case MenuState.GameOver:
+                        GameOverUpdate();
+                        break;
                 }
 
             }
@@ -400,6 +404,9 @@ namespace InssiParty
                         break;
                     case MenuState.TransitionMode:
                         TransitionModeDraw();
+                        break;
+                    case MenuState.GameOver:
+                        GameOverDraw();
                         break;
                 }
 
@@ -511,6 +518,20 @@ namespace InssiParty
             spriteBatch.Draw(koodiTexture, koodiRect, Color.White);
             spriteBatch.Draw(logoTexture, logoRect, Color.White);
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect, Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.None, 0);
+        }
+
+        private void GameOverUpdate()
+        {
+            if (InputManager.IsKeyPressed(Keys.Space))
+            {
+                menuState = MenuState.MainMenu;
+                MenuReset();
+            }
+        }
+
+        private void GameOverDraw()
+        {
+            spriteBatch.DrawString(font, "Points: " + points, new Vector2(50, 50), Color.Red);
         }
 
         private void MenuUpdate()
@@ -709,7 +730,7 @@ namespace InssiParty
 
         public void StopStory()
         {
-            menuState = MenuState.IntroScreen;
+            menuState = MenuState.GameOver;
             gamesPlayed.Clear();
             gameActive = false;
             Console.WriteLine("[StoryManager] Story stop forced.");
