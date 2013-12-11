@@ -19,6 +19,7 @@ namespace InssiParty
     // -> Icon on startup.
     // -> fix gameoverscreen graphics
     // -> Add possible ingame song
+    // -> Ohje tekstitys
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
