@@ -14,8 +14,6 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
-    // -> "Guide screen" should be fixed (the "läpsytys" animaatio)  (some issues implementing !)
-    // -> Ohje tekstitys left
 
     //IRRELEVANT:
     // -> Starting invalid games in the arcade mode after gameover  (IRRELEVANT)
