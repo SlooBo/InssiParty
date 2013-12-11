@@ -23,7 +23,6 @@ namespace InssiParty.Games
      */
     class Promo : GameBase
     {
-        SpriteBatch spritebatch;
 
         //variablesit
         private int value;
@@ -34,12 +33,16 @@ namespace InssiParty.Games
         private Random random = new Random();
         private float timer;
         private float end_timer;
+        private double bar_timer;
         private bool gameRunning;
+        private bool win;
 
         //musa ja äänet
 
         private Song promo_musa;
         private SoundEffect hitSound;
+        private SoundEffect laugh;
+        private SoundEffect applause;
 
         //Tekstuurit
 
@@ -47,29 +50,37 @@ namespace InssiParty.Games
         private Texture2D atj_tex;
         private Texture2D win_tex;
         private Texture2D lose_tex;
+        private Texture2D bg_tex;
+        private Texture2D timer_bar;
 
         //rectangle
         private Rectangle inssi_alue;
         private Rectangle background;
+        private Rectangle timer_rec;
     
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            spritebatch = new SpriteBatch(GraphicsDevice);
             inssi_tex = Content.Load<Texture2D>("inssi2");
             atj_tex = Content.Load<Texture2D>("atj");
             win_tex = Content.Load<Texture2D>("promo_voitto");
             lose_tex = Content.Load<Texture2D>("promo_häviö");
+            bg_tex = Content.Load<Texture2D>("promo_bg");
+            timer_bar = Content.Load<Texture2D>("timer_bar");
             promo_musa = Content.Load<Song>("promo_music");
             hitSound = Content.Load<SoundEffect>("promo_hit");
+            applause = Content.Load<SoundEffect>("promo_clap");
+            laugh = Content.Load<SoundEffect>("promo_laugh");
         }
+
 
         public override void Start()
         {
             Console.WriteLine("Starting Väistä ATJ-Promoja");
             MediaPlayer.Play(promo_musa);
             gameRunning = true;
+            win = false;
 
-            value = 1500;
+            value = 1600;
 
             //inssin liikkeiden vektoreita
             inssi_kohta = new Vector2(400 - inssi_tex.Width /2 , 300 - inssi_tex.Height / 2);
@@ -80,6 +91,7 @@ namespace InssiParty.Games
             inssi_alue = new Rectangle((int)(inssi_kohta.X - inssi_tex.Width / 2),
                 (int)(inssi_kohta.Y - inssi_tex.Height / 2), inssi_tex.Width, inssi_tex.Height);
             background = new Rectangle(0, 0, 800, 600);
+            timer_rec = new Rectangle(0, 590, 800, 10);
 
             //muiden muutujien alustus
             randY = random.Next(100, 500);     
@@ -87,6 +99,7 @@ namespace InssiParty.Games
             health = 3;
             timer = 0;
             end_timer = 0;
+            bar_timer = 0;
         }
 
         public override void Stop()
@@ -98,9 +111,14 @@ namespace InssiParty.Games
 
         public override void Update(GameTime gameTime)
         {
-
             value--;
+            bar_timer += 1;
 
+            if (bar_timer >= 2)
+            {
+                bar_timer = 0;
+                timer_rec.Width--;
+            }
             //liikkumistoiminnot
             inssi_vauhti = Vector2.Zero;
 
@@ -136,13 +154,13 @@ namespace InssiParty.Games
             {
                 inssi_kohta.Y = 0;
             }
-            if (inssi_kohta.X > 800 - inssi_tex.Width / 2)
+            if (inssi_kohta.X > 800 - inssi_tex.Width)
             {
-                inssi_kohta.X = 800 - inssi_tex.Width / 2;
+                inssi_kohta.X = 800 - inssi_tex.Width;
             }
-            if (inssi_kohta.Y > 600 - inssi_tex.Height / 2)
+            if (inssi_kohta.Y > 600 - inssi_tex.Height)
             {
-                inssi_kohta.Y = 600 - inssi_tex.Height / 2;
+                inssi_kohta.Y = 600 - inssi_tex.Height;
             }
 
 
@@ -198,11 +216,13 @@ namespace InssiParty.Games
             }
             //lopettaa pelin jos inssin hp menee nollaan
             if (health <= 0)
-            {         
+            {
                 gameRunning = false;
                 value++;
                 end_timer++;
                 ATJs = null;
+                if (end_timer == 1)
+                    laugh.Play();
 
                 if (end_timer >= 150)
                 {
@@ -214,9 +234,11 @@ namespace InssiParty.Games
             if (value <= 0)
             {
                 gameRunning = false;
-                value++;
                 end_timer++;
                 ATJs = null;
+                win = true;
+                if (end_timer == 1)
+                    applause.Play();
 
                 if (end_timer >= 150)
                 {
@@ -229,18 +251,20 @@ namespace InssiParty.Games
         {
             if (gameRunning == true)
             {
+                spriteBatch.Draw(bg_tex, background, Color.White);
+                spriteBatch.Draw(timer_bar, timer_rec, Color.White);
+                spriteBatch.Draw(inssi_tex, inssi_kohta, Color.White);
                 foreach (ATJ ATJ in ATJs)
                 {
                     ATJ.Draw(spriteBatch);
-                }
-                spriteBatch.Draw(inssi_tex, inssi_kohta, Color.White);
+                }  
             }
 
             if (health <= 0)
             {
                 spriteBatch.Draw(lose_tex, background, Color.White);
             }
-            if (value <= 0)
+            if (win == true)
             {
                 spriteBatch.Draw(win_tex, background, Color.White);
             }

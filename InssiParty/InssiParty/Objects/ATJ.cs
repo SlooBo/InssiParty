@@ -42,7 +42,7 @@ namespace InssiParty.Games
 
             atj_alue = new Rectangle((int)kohta.X, (int)kohta.Y, tekstuuri.Width, tekstuuri.Height);
             
-            if (kohta.X < 100 - tekstuuri.Width)
+            if (kohta.X < 0 - tekstuuri.Width)
                 Visible = false;
         }
 
