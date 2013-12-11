@@ -14,11 +14,9 @@ using InssiParty.Engine;
 namespace InssiParty
 {
     //TODO:
-    // -> transition screens
-    // -> Better menu screen
-    // -> Point / Life counters for the gameplay.
-    // -> CENTER THE GUIDE TEXT AND APPLY THE ANIMATION AND STUFF
-    // -> HelloWorld starts for no good reason when closing a game!
+    // -> "Guide screen" should be fixed (the "läpsytys" animaatio)
+    // -> Game over screen with point counter
+    // -> Starting invalid games in the arcade mode after gameover
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
