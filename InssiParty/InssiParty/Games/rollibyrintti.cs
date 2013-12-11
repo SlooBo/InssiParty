@@ -25,6 +25,7 @@ namespace InssiParty.Games
         private int tutorialAika;
         private int tutorialKokonaisaika;
         private bool powerUpNosto;
+        private bool powerUpNosto2;
         private bool powerDown1Nosto;
         private bool powerMix2Nosto;
         private bool powerMixNosto;
@@ -34,6 +35,7 @@ namespace InssiParty.Games
         private Texture2D backgroundTexture;
         private Texture2D pelaaja;
         private Texture2D powerUp;
+        private Texture2D powerUp2;
         private Texture2D powerDown1;
         private Texture2D powerMix2;
         private Texture2D powerMix;
@@ -64,6 +66,7 @@ namespace InssiParty.Games
 
         private Vector2 pelaajaLiike;
         private Vector2 powerUpPaikka;
+        private Vector2 powerUpPaikka2;
         private Vector2 powerDown1Paikka;
         private Vector2 powerMix2Paikka;
         private Vector2 powerMixPaikka;
@@ -95,6 +98,7 @@ namespace InssiParty.Games
         private Rectangle backgroundRect;
         private Rectangle pelaajaRajat;
         private Rectangle powerUpRajat;
+        private Rectangle powerUpRajat2;
         private Rectangle powerDown1Rajat;
         private Rectangle powerMix2Rajat;
         private Rectangle powerMixRajat;
@@ -137,8 +141,9 @@ namespace InssiParty.Games
             backgroundTexture = Content.Load<Texture2D>("rolliBackground"); //rolliBackground
             pelaaja = Content.Load<Texture2D>("rolliPelaaja"); //rolliPelaaja
             powerUp = Content.Load<Texture2D>("rolliPowerup"); //rolliPoweup
+            powerUp2 = Content.Load<Texture2D>("rolliPowerup");
             powerDown1 = Content.Load<Texture2D>("rolliPowerdown"); //rolliPowerdown
-            powerMix2 = Content.Load<Texture2D>("rolliPowerdown"); //rolliPOwerdown
+            powerMix2 = Content.Load<Texture2D>("rolliPowerMix"); //rolliPOwerdown
             powerMix = Content.Load<Texture2D>("rolliPowermix"); //rolliPwermix
 
             pystySeina1 = Content.Load<Texture2D>("rolliPystyseina"); //rolliPystyseina
@@ -167,6 +172,7 @@ namespace InssiParty.Games
 
             pelaajaLiike = new Vector2(10, 10);
             powerUpPaikka = new Vector2(10, 560);
+            powerUpPaikka2 = new Vector2(640, 25);
             powerDown1Paikka = new Vector2(330, 35);
             powerMix2Paikka = new Vector2(450, 550);
             powerMixPaikka = new Vector2(570, 250);
@@ -206,6 +212,8 @@ namespace InssiParty.Games
             pelaajaRajat = new Rectangle(10, 10 ,33, 35);
 
             powerUpRajat = new Rectangle(10, 560, 33, 35);
+
+            powerUpRajat2 = new Rectangle(640, 25, 33, 35);
 
             powerDown1Rajat = new Rectangle(330, 35, 33, 35);
 
@@ -273,6 +281,7 @@ namespace InssiParty.Games
             powerDown1Nosto = false;
             powerMix2Nosto = false;
             powerMixNosto = false;
+            powerUpNosto2 = false;
 
             pelaajaRajat.X = 10;
             pelaajaRajat.Y = 10;
@@ -331,6 +340,12 @@ namespace InssiParty.Games
             if (pelaajaRajat.Intersects(powerMixRajat))
             {
                 powerMixNosto = true;
+            }
+
+            if (pelaajaRajat.Intersects(powerUpRajat2))
+            {
+                liikeNopeus += 0.1f;
+                powerUpNosto = true;
             }
 
             if (pelaajaRajat.Intersects(powerUpRajat))
@@ -528,6 +543,11 @@ namespace InssiParty.Games
             if (powerMixNosto == false)
             {
                 spriteBatch.Draw(powerMix, powerMixPaikka, Color.White);
+            }
+
+            if(powerUpNosto2 == false)
+            {
+                spriteBatch.Draw(powerUp2, powerUpPaikka2, Color.White);
             }
 
             //TUTORIALIN PIIRTO
