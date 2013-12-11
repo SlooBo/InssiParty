@@ -34,21 +34,27 @@ namespace InssiParty.Games
         private Rectangle windowBounds;
         private Rectangle background = new Rectangle(0, 0, 800, 600);
         Random random;
+        private Rectangle healthBar;
         //Tekstuurit
         private Texture2D inssi;
         private Texture2D map;
         private Texture2D inssiDeath;
+        private Texture2D barTexture;
+        private Texture2D hp;
         //Äänet
         private SoundEffectInstance drunkenBabbleInstance;
         private SoundEffect drunkenBabble;
         private SoundEffect scream;
         //Törmäysruudut
+                                                        //X,Y,Width,Height
         private Rectangle woodHorisontal = new Rectangle(0, 180, 233, 58);
-        private Rectangle woodVertical = new Rectangle(233, 180, 62, 197);
+        private Rectangle woodVertical = new Rectangle(233, 180, 31, 197);
+        private Rectangle woodVertical2 = new Rectangle(264, 180, 31, 197);
         private Rectangle bridgeFence = new Rectangle(386, 84, 220, 21);
         private Rectangle river = new Rectangle(401, 110, 116, 490);
-        private Rectangle brickHorisontal = new Rectangle(614, 256, 186, 50);
-        private Rectangle brickVertical = new Rectangle(614, 256, 50, 245);
+        private Rectangle brickHorisontal = new Rectangle(660, 256, 186, 50);
+        private Rectangle brickVertical = new Rectangle(614, 256, 25, 245);
+        private Rectangle brickVertical2 = new Rectangle(639, 256, 25, 245);
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -56,6 +62,12 @@ namespace InssiParty.Games
             inssi = Content.Load<Texture2D>("inssi");
             map = Content.Load<Texture2D>("horjuu_map");
             inssiDeath = Content.Load<Texture2D>("inssi_water");
+            healthBar = new Rectangle(0, 580, 800, 20);
+            hp = Content.Load<Texture2D>("hp");
+
+            barTexture = new Texture2D(GraphicsDevice, 1, 1);
+            barTexture.SetData(new Color[] { Color.Purple });
+            
             windowBounds = new Rectangle(0, 0, 800, 600);
 
             random = new Random();
@@ -69,7 +81,7 @@ namespace InssiParty.Games
             forward = 0;
             inssi_movement = 250;
             death = 0;
-            health = 100;
+            health = 99;
 
         }
         public override void Stop()
@@ -79,7 +91,11 @@ namespace InssiParty.Games
         public override void Update(GameTime gameTime)
         {
             //liikkuminen ja randomhuojunta
+
             collisionRect = new Rectangle(forward, inssi_movement, 32, 64);
+
+            healthBar.Width = health;
+
             KeyboardState keyboard = Keyboard.GetState();
             if (forward == 10)
             {
@@ -88,35 +104,35 @@ namespace InssiParty.Games
 
             if (keyboard.IsKeyDown(Keys.W))
             {
-                inssi_movement = inssi_movement - 4;
+                inssi_movement = inssi_movement - 2;
             }
             if (keyboard.IsKeyDown(Keys.S))
             {
-                inssi_movement = inssi_movement + 4;
+                inssi_movement = inssi_movement + 2;
             }
             if (keyboard.IsKeyDown(Keys.D))
             {
-                forward += 4;
+                forward += 2;
             }
             if (keyboard.IsKeyDown(Keys.A))
             {
-                forward -= 4;
+                forward -= 2;
             }
-            //if (random.Next(1, 10) == 3)
-            //{
-            //    forward -= 5;
-            //}
+            if (random.Next(1, 10) == 3)
+            {
+                forward -= 5;
+            }
 
-            //for (int i = 0; i < random.Next(10, 15); i++)
-            //{
-            //    i++;
-            //    inssi_movement += random.Next(1, 2);
-            //}
-            //for (int b = 0; b < random.Next(10, 15); b++)
-            //{
-            //    b++;
-            //    inssi_movement -= random.Next(1, 2);
-            //}
+            for (int i = 0; i < random.Next(10, 15); i++)
+            {
+                i++;
+                inssi_movement += random.Next(1, 3);
+            }
+            for (int b = 0; b < random.Next(10, 15); b++)
+            {
+                b++;
+                inssi_movement -= random.Next(1, 3);
+            }
 
             if (forward < 0)
             {
@@ -145,7 +161,7 @@ namespace InssiParty.Games
                     inssi_movement = woodHorisontal.Bottom - inssi.Bounds.Top;
                 }
 
-                health--;
+                health -= 3;
                 if (health == 0)
                 {
                     CloseGame(false);
@@ -159,11 +175,20 @@ namespace InssiParty.Games
                 {
                     forward = woodVertical.Left - inssi.Bounds.Right;
                 }
-                if (forward > woodVertical.Right)
+                health -= 3;
+                if (health == 0)
                 {
-                    forward = woodVertical.Right + inssi.Bounds.Left;
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
                 }
-                health--;
+            }
+            if (collisionRect.Intersects(woodVertical2))
+            {
+                if (forward > woodVertical2.Y)
+                {
+                    forward = woodVertical.Right + inssi.Bounds.Right;
+                }
+                health -= 3;
                 if (health == 0)
                 {
                     CloseGame(false);
@@ -173,7 +198,7 @@ namespace InssiParty.Games
             //sillankaide
             if (collisionRect.Intersects(bridgeFence))
             {
-                health--;
+                health -= 3;
                 if (inssi_movement > bridgeFence.Height)
                 {
                     inssi_movement = bridgeFence.Top - inssi.Bounds.Bottom;
@@ -201,17 +226,12 @@ namespace InssiParty.Games
             //kiviaita horisontaali
             if (collisionRect.Intersects(brickHorisontal))
             {
-                health--;
-                if (health == 0)
+                health -= 3;
+                if (inssi_movement > brickHorisontal.Height)
                 {
-                    CloseGame(false);
-                    drunkenBabbleInstance.Stop();
+                    inssi_movement = brickHorisontal.Top - inssi.Bounds.Bottom;
                 }
-            }
-            //kiviaita vertikaali
-            if (collisionRect.Intersects(brickVertical))
-            {
-                health--;
+
                 if (health == 0)
                 {
                     CloseGame(false);
@@ -219,8 +239,35 @@ namespace InssiParty.Games
                 }
             }
 
+            //kiviaita vertikaali
+            if (collisionRect.Intersects(brickVertical))
+            {
+                if (forward > brickVertical.Y)
+                {
+                    forward = brickVertical.Left - inssi.Bounds.Right;
+                }
+                health -= 3;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
+            }
+            if (collisionRect.Intersects(brickVertical2))
+            {
+                if (forward > brickVertical2.Y)
+                {
+                    forward = brickVertical2.Right + inssi.Bounds.Right;
+                }
+                health -= 3;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
+            }
             //insinööritähti
-            if (collisionRect.Intersects(new Rectangle(754, 310, 46, 90)))
+            if (collisionRect.Intersects(new Rectangle(754, 310, 150, 90)))
             {
                 CloseGame(true);
                 drunkenBabbleInstance.Stop();
@@ -238,8 +285,8 @@ namespace InssiParty.Games
             {
                 spriteBatch.Draw(inssiDeath, new Vector2(400, 300), Color.White);
             }
-            Console.WriteLine(inssi_movement);
-            Console.WriteLine(forward);
+            spriteBatch.Draw(barTexture, healthBar, Color.Purple);
+            spriteBatch.Draw(hp, new Vector2(0, 535), Color.White);
         }
     }
 
