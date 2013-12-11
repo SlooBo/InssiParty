@@ -15,9 +15,10 @@ namespace InssiParty
 {
     //TODO:
     // -> "Guide screen" should be fixed (the "läpsytys" animaatio)  (some issues implementing !)
-    // -> Game over screen with point counter
     // -> Starting invalid games in the arcade mode after gameover
     // -> Icon on startup.
+    // -> fix gameoverscreen graphics
+    // -> Add possible ingame song
 
     public class InssiGame : Microsoft.Xna.Framework.Game
     {
@@ -234,7 +235,6 @@ namespace InssiParty
 
 
             //Pitäisi valmistua
-            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", false, "Creator missing!");
             addGame(new inssihorjuu(), "Auta inssi insinööritähden luokse", "Auta huojuva Inssi tähden luokse osumatta seiniin tai jokeen.", false, "Miika 'Toopala' Saastamoinen");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", false, "Toni Sarvela!");
@@ -244,6 +244,7 @@ namespace InssiParty
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Markus Tolvanen!");
 
             //Pelit jotka eivät tule valmistumaan
+            addGame(new ParticleExample(), "Particle Example", "Partikkeli esimerkki partikkelijärjestelmälle.", false, "Lauri Mäkinen");   //DEBUG: Set as true for debugging purposes! Should be false on the final release!
             addGame(new Kysymys(), "Random kysymyksiä", "Vastaa Kysymyksiin (K/E)", false, "Creator missing!");
             addGame(new Koodirage(), "Koodi Rage", "Päivitä ohje InssiGame.cs!", false, "Creator missing!");
             addGame(new DontShootJorma(), "Don't shoot Jorma!", "Elä ammu jormaa!", false, "Lauri Mäkinen");
