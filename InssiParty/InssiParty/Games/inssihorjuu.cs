@@ -26,6 +26,7 @@ namespace InssiParty.Games
     class inssihorjuu : GameBase
     {
         //Muuttujat
+        private int health = 0;
         private int death = 0;
         private int forward = 0;
         private int inssi_movement;
@@ -41,6 +42,13 @@ namespace InssiParty.Games
         private SoundEffectInstance drunkenBabbleInstance;
         private SoundEffect drunkenBabble;
         private SoundEffect scream;
+        //Törmäysruudut
+        private Rectangle woodHorisontal = new Rectangle(0, 180, 233, 58);
+        private Rectangle woodVertical = new Rectangle(233, 180, 62, 197);
+        private Rectangle bridgeFence = new Rectangle(386, 84, 220, 21);
+        private Rectangle river = new Rectangle(401, 110, 116, 490);
+        private Rectangle brickHorisontal = new Rectangle(614, 256, 186, 50);
+        private Rectangle brickVertical = new Rectangle(614, 256, 50, 245);
 
 
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
@@ -61,6 +69,7 @@ namespace InssiParty.Games
             forward = 0;
             inssi_movement = 250;
             death = 0;
+            health = 100;
 
         }
         public override void Stop()
@@ -79,35 +88,35 @@ namespace InssiParty.Games
 
             if (keyboard.IsKeyDown(Keys.W))
             {
-                inssi_movement = inssi_movement - 2;
+                inssi_movement = inssi_movement - 4;
             }
             if (keyboard.IsKeyDown(Keys.S))
             {
-                inssi_movement = inssi_movement + 2;
+                inssi_movement = inssi_movement + 4;
             }
             if (keyboard.IsKeyDown(Keys.D))
             {
-                forward += 2;
+                forward += 4;
             }
             if (keyboard.IsKeyDown(Keys.A))
             {
-                forward -= random.Next(3, 5);
+                forward -= 4;
             }
-            if (random.Next(1, 10) == 3)
-            {
-                forward -= 5;
-            }
+            //if (random.Next(1, 10) == 3)
+            //{
+            //    forward -= 5;
+            //}
 
-            for (int i = 0; i < random.Next(10, 15); i++)
-            {
-                i++;
-                inssi_movement += random.Next(1, 2);
-            }
-            for (int b = 0; b < random.Next(10, 15); b++)
-            {
-                b++;
-                inssi_movement -= random.Next(1, 2);
-            }
+            //for (int i = 0; i < random.Next(10, 15); i++)
+            //{
+            //    i++;
+            //    inssi_movement += random.Next(1, 2);
+            //}
+            //for (int b = 0; b < random.Next(10, 15); b++)
+            //{
+            //    b++;
+            //    inssi_movement -= random.Next(1, 2);
+            //}
 
             if (forward < 0)
             {
@@ -129,25 +138,54 @@ namespace InssiParty.Games
             //Esteet
             //X,Y,WIDHT,HEIGTH
             //puuaita horisontaali
-            if (collisionRect.Intersects(new Rectangle(0, 180, 233, 58)))
+            if (collisionRect.Intersects(woodHorisontal))
             {
-                CloseGame(false);
-                drunkenBabbleInstance.Stop();
+                if (inssi_movement > woodHorisontal.Height)
+                {
+                    inssi_movement = woodHorisontal.Bottom - inssi.Bounds.Top;
+                }
+
+                health--;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
             }
             //puuaita vertikaali
-            if (collisionRect.Intersects(new Rectangle(233, 180, 62, 197)))
+            if (collisionRect.Intersects(woodVertical))
             {
-                CloseGame(false);
-                drunkenBabbleInstance.Stop();
+                if (forward > woodVertical.Y)
+                {
+                    forward = woodVertical.Left - inssi.Bounds.Right;
+                }
+                if (forward > woodVertical.Right)
+                {
+                    forward = woodVertical.Right + inssi.Bounds.Left;
+                }
+                health--;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
             }
             //sillankaide
-            if (collisionRect.Intersects(new Rectangle(386, 84, 220, 21)))
+            if (collisionRect.Intersects(bridgeFence))
             {
-                CloseGame(false);
-                drunkenBabbleInstance.Stop();
+                health--;
+                if (inssi_movement > bridgeFence.Height)
+                {
+                    inssi_movement = bridgeFence.Top - inssi.Bounds.Bottom;
+                }
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
             }
             //joki
-            if (collisionRect.Intersects(new Rectangle(401, 110, 116, 490)))
+            if (collisionRect.Intersects(river))
             {
                 death++;
                 if (death == 1)
@@ -161,16 +199,24 @@ namespace InssiParty.Games
                 drunkenBabbleInstance.Stop();
             }
             //kiviaita horisontaali
-            if (collisionRect.Intersects(new Rectangle(614, 256, 186, 50)))
+            if (collisionRect.Intersects(brickHorisontal))
             {
-                CloseGame(false);
-                drunkenBabbleInstance.Stop();
+                health--;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
             }
             //kiviaita vertikaali
-            if (collisionRect.Intersects(new Rectangle(614, 256, 50, 245)))
+            if (collisionRect.Intersects(brickVertical))
             {
-                CloseGame(false);
-                drunkenBabbleInstance.Stop();
+                health--;
+                if (health == 0)
+                {
+                    CloseGame(false);
+                    drunkenBabbleInstance.Stop();
+                }
             }
 
             //insinööritähti
@@ -192,6 +238,8 @@ namespace InssiParty.Games
             {
                 spriteBatch.Draw(inssiDeath, new Vector2(400, 300), Color.White);
             }
+            Console.WriteLine(inssi_movement);
+            Console.WriteLine(forward);
         }
     }
 
