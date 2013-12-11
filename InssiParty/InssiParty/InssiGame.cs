@@ -233,7 +233,7 @@ namespace InssiParty
             /* ############ */
 
             //Valmiit pelit
-            addGame(new SpotLanguage(), "Spot the real coding language", "Tunnista ohjelmointi-kielie, skripti-kielistä.", true, "Lauri Mäkinen");
+            addGame(new SpotLanguage(), "Spot the real coding language", "Tunnista ohjelmointi kieli. (scriptejä ei tueta)", true, "Lauri Mäkinen");
             addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Miika 'Toopala' Saastamoinen");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Ammu Nyan Cat hiiren vasemmalla!", true, "Taneli Vallo");
             addGame(new Siivoa(), "Siivoa insinöörin kämppä", "klikkaile hiirellä tavarat pois", true, "Annika Veteli");
@@ -400,7 +400,8 @@ namespace InssiParty
                     //################ THE ULTIMATE FUCKING PERKELE TRANSITION SCREEN COMES HERE
                     //#####################################################################################
 
-                    spriteBatch.DrawString(font, currentGame.GuideString, new Vector2(300, 280), Color.Red);
+                    spriteBatch.Draw(fadeTexture, background, new Color(255, 255, 255, (byte)MathHelper.Clamp(200, 0, 255)));
+                    spriteBatch.DrawString(font, currentGame.GuideString, new Vector2(20, 20), Color.Green);
                 }
             }
             else
