@@ -232,7 +232,7 @@ namespace InssiParty
 
             //Valmiit pelit
             addGame(new SpotLanguage(), "Spot the real coding language", "Tunnista ohjelmointi kieli. (scriptejä ei tueta)", true, "Lauri Mäkinen");
-            addGame(new tentti(), "Auta inssiä tentissä", "Päivitä ohje InssiGame.cs!", true, "Miika 'Toopala' Saastamoinen");
+            addGame(new tentti(), "Auta inssiä tentissä", "Auta inssiä tentissä hakkaamalla\n vimmatusti välilyöntiä", true, "Miika 'Toopala' Saastamoinen");
             addGame(new Shooty(), "Shoot the Nyan-cat!", "Ammu Nyan Cat hiiren vasemmalla!", true, "Taneli Vallo");
             addGame(new Siivoa(), "Siivoa insinöörin kämppä", "klikkaile hiirellä tavarat pois", true, "Annika Veteli");
             addGame(new speedtester(), "Speedtester", "Näppäimet A, S, K JA L", true, "Annika Veteli");
@@ -243,8 +243,8 @@ namespace InssiParty
             addGame(new Lampunvaihto(), "Lampun Vaihto", "Auta insinööriä vaihtamaan vessan lamppu.", true, "Jari Tuomainen");
             addGame(new Promo(), "Väistä ATJ-Promoja", "Väistä ATJ promotointia tarpeeksi kauan!", true, "Toni Sarvela!");
             addGame(new rollibyrintti(), "Rallittele Röllibyrintissä", "Hurvaa kännissä, mutta varo törmäilemästä seiniin!", true, "Jouni Friman");
-            addGame(new inssihorjuu(), "Auta inssi insinööritähden luokse", "Auta huojuva Inssi tähden luokse osumatta seiniin tai jokeen.", true, "Miika 'Toopala' Saastamoinen");
-
+            addGame(new inssihorjuu(), "Auta inssi insinööritähden luokse", "Auta huojuva Inssi tähden luokse osumatta seiniin\n tai jokeen käyttämällä W,A,S,D.", false, "Miika 'Toopala' Saastamoinen");
+           
             //Mahdollisesti valmistuu
             addGame(new Olut(), "Avaa Oluttölkki", "Näkeehän sen nimestä", false, "Markus Tolvanen!");
 
