@@ -77,6 +77,7 @@ namespace InssiParty
         private SoundEffect introThemeMusic;
         private SoundEffectInstance introThemeMusicInstance;
         private SoundEffect MENU_SoundEffect;
+        private SoundEffect gameoverSound;
 
         //Menu soundeffect check
         private bool MENU_SoundCheck;
@@ -175,6 +176,8 @@ namespace InssiParty
                 introThemeMusic = Content.Load<SoundEffect>("InssiPartyOpenTheme");
                 TRANSITION_Music = Content.Load<SoundEffect>("transitio_musa");
                 MENU_SoundEffect = Content.Load<SoundEffect>("plop");
+                gameoverSound = Content.Load<SoundEffect>("gameoverSound");
+                
                 soundsLoaded = true;
 
                 //DEBUG: Music disabled for debugging 
@@ -747,6 +750,7 @@ namespace InssiParty
             gamesPlayed.Clear();
             gameActive = false;
             Console.WriteLine("[StoryManager] Story stop forced.");
+            gameoverSound.Play();
         }
 
         public void StartStory()
