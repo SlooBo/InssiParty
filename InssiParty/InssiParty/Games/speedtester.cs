@@ -14,7 +14,7 @@ namespace InssiParty.Games
     /**
      * Speedtester
      * 
-     * Painele A, D, K ja L -näppäimiä syttyvien "valojen" mukaisesti. Jos painat huti, häviät pelin. 
+     * Painele A, S, K ja L -näppäimiä syttyvien "valojen" mukaisesti. Jos painat huti, häviät pelin. 
      * Jos taas selviät tietyn ajan, olet voittaja.
      * 
      * By: Annika Veteli
@@ -66,6 +66,12 @@ namespace InssiParty.Games
         Texture2D insinööritaputtaa;
         Texture2D puhekuplanen;
 
+        //helpotuskirjaimet
+        Texture2D kirjaina;
+        Texture2D kirjains;
+        Texture2D kirjaink;
+        Texture2D kirjainl;
+
         public override void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             taustakuva = Content.Load<Texture2D>("taustaanimaatio"); // ladataan taustakuva
@@ -75,6 +81,10 @@ namespace InssiParty.Games
             winwinAnimaatio = Content.Load<Texture2D>("winwin");
             insinööritaputtaa = Content.Load<Texture2D>("insinööritaputus");
             puhekuplanen = Content.Load<Texture2D>("puhekupla");
+            kirjaina = Content.Load<Texture2D>("akirjain");
+            kirjains = Content.Load<Texture2D>("skirjain");
+            kirjaink = Content.Load<Texture2D>("kkirjain");
+            kirjainl = Content.Load<Texture2D>("lkirjain");
 
             try
             {
@@ -275,6 +285,10 @@ namespace InssiParty.Games
                     }
    
                     spriteBatch.Draw(haaleanappikuva, new Rectangle(i * 140, 200, 140, 160), button3 * savy);
+                    spriteBatch.Draw(kirjaina, new Vector2(160, 220), Color.White);
+                    spriteBatch.Draw(kirjains, new Vector2(300, 220), Color.White);
+                    spriteBatch.Draw(kirjaink, new Vector2(440, 220), Color.White);
+                    spriteBatch.Draw(kirjainl, new Vector2(590, 220), Color.White);
                 }
             }
             spriteBatch.DrawString(fontti, "Pisteet: " + pisteet.ToString(), new Vector2(40, 20), Color.White);
