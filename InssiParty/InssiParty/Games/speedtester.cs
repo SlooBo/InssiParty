@@ -46,6 +46,8 @@ namespace InssiParty.Games
         //äänet
         private bool soundLoaded;
         SoundEffect Gameover;
+        SoundEffect taustaääni;
+        SoundEffectInstance ääni;
 
         //ruutu
         public static Vector2 ruudunKoko =  new Vector2(800, 600);
@@ -89,6 +91,8 @@ namespace InssiParty.Games
             try
             {
                 Gameover = Content.Load<SoundEffect>("naurumies"); //ladataan gameover ääni
+                taustaääni = Content.Load<SoundEffect>("speedtestermusic");
+                ääni = taustaääni.CreateInstance();
                 soundLoaded = true;
             }
             catch (Exception eek)
@@ -110,12 +114,21 @@ namespace InssiParty.Games
             gameRunning = true;
             pisteet = 0;
 
+            if (soundLoaded)
+            {
+                ääni.Play();
+            }
+
             value = 500;
         }
 
         public override void Stop()
         {
             //Console.WriteLine("Closing hello world");
+            if (soundLoaded)
+            {
+                ääni.Stop();
+            }
         }
 
         public override void Update(GameTime gameTime)
