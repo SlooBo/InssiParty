@@ -223,7 +223,7 @@ namespace InssiParty.Games
                     if (soundLoaded)
                     {
                         muru.Pause();
-                        murukehrays.Play();
+                        murukehrays.Play(1.0f, 1f, 0);
                     }
                     silityskerrat++; // lisätään yksi piste silityskertoihin
                 }
